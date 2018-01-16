@@ -1,4 +1,4 @@
-package com.example.iem.ames.model;
+package com.example.iem.ames.model.element;
 
 /**
  * Created by Jo' on 16/01/2018.

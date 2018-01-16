@@ -1,8 +1,13 @@
 package com.example.iem.ames.model.event;
 
+import com.example.iem.ames.model.element.Image;
+
+import java.util.ArrayList;
+
 /**
- * Created by iem on 16/01/2018.
+ * Created by Jo' on 16/01/2018.
  */
 
-public class EventImage {
+public class EventImage extends AMESEvent {
+    private ArrayList<Image> images;
 }
