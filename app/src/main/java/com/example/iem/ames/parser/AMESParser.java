@@ -1,8 +1,10 @@
 package com.example.iem.ames.parser;
 
+import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.iem.ames.AMESApplication;
 import com.example.iem.ames.R;
 import com.example.iem.ames.model.AMESSequence;
 import com.example.iem.ames.model.event.AMESEvent;
@@ -32,15 +34,15 @@ public class AMESParser {
             DELAY = "Duration";
 
 
-    public void AMESParser(Context context, AMESSequence amesSequence){
-
+    public void CreateSequenceFromFile(int idFile){
+        Context context = AMESApplication.application().getAMESManager().getContextView();
+        AMESSequence amesSequence = new AMESSequence();
         XmlPullParserFactory pullParserFactory;
 
         try {
             pullParserFactory = XmlPullParserFactory.newInstance();
             XmlPullParser parser = pullParserFactory.newPullParser();
-            // TODO changer nom du fichier (parametre du parser)
-            InputStream in_s = context.getResources().openRawResource(R.raw.testsequence);
+            InputStream in_s = context.getResources().openRawResource(idFile);
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(in_s, null);
 
@@ -136,9 +138,10 @@ public class AMESParser {
                 }
                 amesSequence.addEvent(event);
             }
-    }catch (Exception e){
+            AMESApplication.application().getAMESManager().getCurrentGame().addSequence(amesSequence);
+            }catch (Exception e){
+
+        }
 
     }
-
-}
 }
