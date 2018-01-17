@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         TextView loadTextView = initTextView();
         AMESGame currentGame=AMESApplication.application().getAMESManager().getCurrentGame();
-
+        AMESApplication.application().getAMESManager().setContextView(this.getApplicationContext());
         if(isEligibleforAMES(loadTextView)){
             Log.d("Test", "Ok");
             loadSequenceFile();
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }else {
             displayMessage = "Sorry, AMES needs a front camera to run, please restart the application with a good device";
-            response = false;
+            //response = false;
         }
 
         loadingTextLabel.setText(displayMessage);
