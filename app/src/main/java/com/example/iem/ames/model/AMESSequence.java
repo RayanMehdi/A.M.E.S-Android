@@ -13,4 +13,58 @@ public class AMESSequence {
     private  int nextEventIndex;
     private String backgroundSound;
     private AMESGame associatedGame;
+
+    public AMESSequence(AMESGame associatedGame) {
+        this.events = new ArrayList<AMESEvent>();
+        this.associatedGame = associatedGame;
+    }
+
+    public ArrayList<AMESEvent> getEvents() {
+        return events;
+    }
+
+    public void setEvents(ArrayList<AMESEvent> events) {
+        for (AMESEvent amesEvent: events) {
+            this.events.add(amesEvent);
+        }
+    }
+
+    public void addEvent(AMESEvent event) {
+        this.events.add(event);
+    }
+
+    public int getNextEventIndex() {
+        return nextEventIndex;
+    }
+
+    public void setNextEventIndex(int nextEventIndex) {
+        this.nextEventIndex = nextEventIndex;
+    }
+
+    public String getBackgroundSound() {
+        return backgroundSound;
+    }
+
+    public void setBackgroundSound(String backgroundSound) {
+        this.backgroundSound = backgroundSound;
+    }
+
+    public AMESGame getAssociatedGame() {
+        return associatedGame;
+    }
+
+    public void setAssociatedGame(AMESGame associatedGame) {
+        this.associatedGame = associatedGame;
+    }
+
+    public String toString(){
+        String res = "[\n";
+        for (AMESEvent amesEvent: this.events) {
+            res += "{\n  Name : " + amesEvent.getName() + "\n"
+                + "  Type : " + amesEvent.getType() + "\n"
+                + "  Delay : " + amesEvent.getDelay() + "\n},\n";
+        }
+        res += "]";
+        return res;
+    }
 }

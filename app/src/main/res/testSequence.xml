@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>Name</key>
+		<string>Son intro</string>
+		<key>Type</key>
+		<string>son</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Sound file</key>
+			<string>Ames_musique_intro.mp3</string>
+		</dict>
+		<key>Duration</key>
+		<real>0.1</real>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Image mail</string>
+		<key>Type</key>
+		<string>image</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Image file</key>
+			<string>mail.png</string>
+			<key>Position X</key>
+			<real>0.5</real>
+			<key>Position Y</key>
+			<real>0.5</real>
+		</dict>
+		<key>Duration</key>
+		<integer>5</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>camera on</string>
+		<key>Type</key>
+		<string>camera</string>
+		<key>Parameters</key>
+		<dict>
+			<key>On or off</key>
+			<true/>
+			<key>Overlay layer name</key>
+			<string>Bruit</string>
+			<key>Rear or front</key>
+			<true/>
+			<key>Scale factor X</key>
+			<integer>1</integer>
+			<key>Scale factor Y</key>
+			<integer>1</integer>
+		</dict>
+		<key>Duration</key>
+		<integer>5</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Intro text 7</string>
+		<key>Type</key>
+		<string>animated text</string>
+		<key>Parameters</key>
+		<dict>
+			<key>x location</key>
+			<integer>0</integer>
+			<key>y location</key>
+			<integer>0</integer>
+			<key>height</key>
+			<real>0.4</real>
+			<key>width</key>
+			<real>0.9</real>
+			<key>displayed text</key>
+			<string>Test du casque : inseres-le.</string>
+			<key>text speed</key>
+			<real>0.025</real>
+		</dict>
+		<key>Duration</key>
+		<integer>7</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Animation scanner</string>
+		<key>Type</key>
+		<string>animation</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Number of images</key>
+			<integer>95</integer>
+			<key>Screen fit</key>
+			<true/>
+			<key>Filename for images</key>
+			<string>scanPiece</string>
+			<key>Animation location X</key>
+			<real>0.5</real>
+			<key>Animation location Y</key>
+			<real>0.5</real>
+			<key>Number of repeats</key>
+			<integer>1</integer>
+			<key>Animation duration</key>
+			<integer>5</integer>
+			<key>Scale X</key>
+			<integer>1</integer>
+			<key>Scale Y</key>
+			<integer>1</integer>
+		</dict>
+		<key>Duration</key>
+		<integer>8</integer>
+	</dict>
+</array>
+</plist>

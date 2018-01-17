@@ -10,4 +10,9 @@ import java.util.ArrayList;
 
 public class EventImage extends AMESEvent {
     private ArrayList<Image> images;
+
+    public EventImage(String name, String type, double delay, ArrayList<Image> images) {
+        super(name, type, delay);
+        this.images = images;
+    }
 }
