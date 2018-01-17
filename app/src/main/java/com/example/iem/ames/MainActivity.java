@@ -34,39 +34,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        View decorView = getWindow().getDecorView();
-        // Hide the status bar.
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
-        // Remember that you should never show the action bar if the
-        // status bar is hidden, so hide that too if necessary.
-        ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null){
-            actionBar.hide();
-        }
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
-        int height = size.y;
-
-        setContentView(R.layout.activity_main);
-        RelativeLayout cl = findViewById(R.id.layout);
-
+        TextView loadTextView = initTextView();
         AMESGame currentGame=AMESApplication.application().getAMESManager().getCurrentGame();
 
-        TextView tv = new TextView(this);
-        tv.setHeight(height);
-        tv.setWidth(width);
-        tv.setTextSize(20);
-        tv.setText(R.string.loadingTextLabel);
-        tv.setTextColor(getResources().getColor(R.color.white));
-        tv.setGravity(Gravity.CENTER);
-        cl.addView(tv);
-
-        if(isEligibleforAMES(tv)){
+        if(isEligibleforAMES(loadTextView)){
             Log.d("Test", "Ok");
             loadSequenceFile();
             //TODO Method currentGame.run();
@@ -102,8 +74,7 @@ public class MainActivity extends AppCompatActivity {
             response = false;
         }
 
-        //loadingTextLabel.setText(displayMessage);
-        //TODO changer le label  avec le displayMessage
+        loadingTextLabel.setText(displayMessage);
         return response;
     }
 
@@ -116,11 +87,43 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadSequenceFile(){
         AMESParser parser = AMESApplication.application().getAMESManager().getParser();
-        parser.CreateSequenceFromFile(R.raw.firstsequence);
+        //parser.CreateSequenceFromFile(R.raw.firstsequence);
         //parser.CreateSequenceFromFile(R.raw.secondsequence);
         //parser.CreateSequenceFromFile(R.raw.thirdsequence);
         //parser.CreateSequenceFromFile(R.raw.fourthsequence);
-       // parser.CreateSequenceFromFile(R.raw.testsequence);
+        parser.CreateSequenceFromFile(R.raw.testsequence);
+    }
+
+    private TextView initTextView(){
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        View decorView = getWindow().getDecorView();
+        // Hide the status bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+        // Remember that you should never show the action bar if the
+        // status bar is hidden, so hide that too if necessary.
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null){
+            actionBar.hide();
+        }
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+
+        setContentView(R.layout.activity_main);
+        RelativeLayout cl = findViewById(R.id.layout);
+        TextView loadTextView = new TextView(this);
+        loadTextView.setHeight(height);
+        loadTextView.setWidth(width);
+        loadTextView.setTextSize(20);
+        loadTextView.setText(R.string.loadingTextLabel);
+        loadTextView.setTextColor(getResources().getColor(R.color.white));
+        loadTextView.setGravity(Gravity.CENTER);
+        cl.addView(loadTextView);
+
+        return loadTextView;
     }
 
 }

@@ -138,6 +138,7 @@ public class AMESParser {
                 }
                 amesSequence.addEvent(event);
             }
+            Log.d("TEST", amesSequence.toString());
             AMESApplication.application().getAMESManager().getCurrentGame().addSequence(amesSequence);
             }catch (Exception e){
 
