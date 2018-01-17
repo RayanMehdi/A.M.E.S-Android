@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.iem.ames.model.AMESGame;
+import com.example.iem.ames.parser.AMESParser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        AMESApplication.application().getAMESManager().setContextView(this.getApplicationContext());
 
         AMESGame currentGame=AMESApplication.application().getAMESManager().getCurrentGame();
         //loadingTextLabel = (TextView) findViewById(R.id.loadingTextLabel);
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(isEligibleforAMES(loadingTextLabel)){
             Log.d("Test", "Ok");
-            //TODO method currentGame.loadFile()
+            loadSequenceFile();
             //TODO Method currentGame.run();
         }
 
@@ -87,6 +89,15 @@ public class MainActivity extends AppCompatActivity {
                 = (ConnectivityManager) getSystemService(this.getApplicationContext().CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    private void loadSequenceFile(){
+        AMESParser parser = AMESApplication.application().getAMESManager().getParser();
+        parser.CreateSequenceFromFile(R.raw.firstsequence);
+        //parser.CreateSequenceFromFile(R.raw.secondsequence);
+        //parser.CreateSequenceFromFile(R.raw.thirdsequence);
+        //parser.CreateSequenceFromFile(R.raw.fourthsequence);
+       // parser.CreateSequenceFromFile(R.raw.testsequence);
     }
 
 }
