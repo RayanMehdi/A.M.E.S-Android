@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.iem.ames.R;
+import com.example.iem.ames.model.AMESSequence;
+import com.example.iem.ames.model.event.AMESEvent;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -20,16 +22,24 @@ import java.util.Map;
  */
 
 public class AMESParser {
-    final String KEY = "key", STRING = "string", NAME = "Name", TYPE = "Type";
+    final String
+            KEY = "key",
+            STRING = "string",
+            REAL = "real",
+            INTEGER = "integer",
+            NAME = "Name",
+            TYPE = "Type",
+            DELAY = "Duration";
 
 
-    public void AMESParser(Context context){
+    public void AMESParser(Context context, AMESSequence amesSequence){
 
         XmlPullParserFactory pullParserFactory;
 
         try {
             pullParserFactory = XmlPullParserFactory.newInstance();
             XmlPullParser parser = pullParserFactory.newPullParser();
+            // TODO changer nom du fichier (parametre du parser)
             InputStream in_s = context.getResources().openRawResource(R.raw.testsequence);
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(in_s, null);
@@ -41,32 +51,35 @@ public class AMESParser {
 
             String lastTag = null;
             String lastKey = null;
-            while (eventType != XmlPullParser.END_DOCUMENT) {
 
+            while (eventType != XmlPullParser.END_DOCUMENT) {
                 if (eventType == XmlPullParser.START_TAG) {
                     lastTag = parser.getName();
                 }
                 else if (eventType == XmlPullParser.TEXT) {
                     // some text
-                    if (KEY.equalsIgnoreCase(lastTag) && parser.getText().matches(".+[a-z]+.+")) {
+                    if (KEY.equalsIgnoreCase(lastTag) && parser.getText().matches(".*[\\w]+.*")) {
                         // start tracking a new key
                         lastKey = parser.getText();
-                        Log.d("TEST", "KEY : "+lastKey);
+
+                        //Log.d("TEST", "KEY : "+lastKey);
                         if(NAME.equalsIgnoreCase(lastKey)){
                             if(!map.isEmpty()){
                                 listOfEvent.add(map);
                             }
 
-                            Log.d("TEST","new TAG");
                             map = new HashMap<String, ArrayList<String>>();
                         }
                     }
-                    else if (STRING.equalsIgnoreCase(lastTag)) {
+                    else if ((STRING.equalsIgnoreCase(lastTag) ||
+                            REAL.equalsIgnoreCase(lastTag) ||
+                            INTEGER.equalsIgnoreCase(lastTag)
+                    ) && parser.getText().matches(".*[\\w]+.*") ) {
                         // a new string for the last encountered key
                         if (!map.containsKey(lastKey)) {
                             map.put(lastKey, new ArrayList<String>());
                         }
-
+                        //Log.d("TEST", "VALUE : "+parser.getText());
                         map.get(lastKey).add(parser.getText());
                     }
                 }
@@ -78,13 +91,51 @@ public class AMESParser {
                 listOfEvent.add(map);
             }
 
-            Log.d("TEST", listOfEvent.toString());
+            //Log.d("TEST", listOfEvent.toString());
 
 
             for (HashMap<String, ArrayList<String>> hashmap: listOfEvent) {
-                Log.d("TEST",hashmap.get(TYPE).get(0));
-            }
 
+                String amesEventName = hashmap.get(NAME).get(0);
+                String amesEventType = hashmap.get(TYPE).get(0);
+                double amesEventDelay = Double.parseDouble(hashmap.get(DELAY).get(0));
+
+                AMESEvent event = null;
+
+                switch (hashmap.get(TYPE).get(0)){
+                    case "animated text":
+                        event = new AMESEvent(amesEventName, amesEventType, amesEventDelay);
+                        break;
+                    case "animation":
+                        event = new AMESEvent(amesEventName, amesEventType, amesEventDelay);
+                        break;
+                    case "battery level":
+                        break;
+                    case "button":
+                        break;
+                    case "camera":
+                        event = new AMESEvent(amesEventName, amesEventType, amesEventDelay);
+                        break;
+                    case "ghost":
+                        break;
+                    case "flash":
+                        break;
+                    case "image":
+                        event = new AMESEvent(amesEventName, amesEventType, amesEventDelay);
+                        break;
+                    case "micro":
+                        break;
+                    case "son":
+                        event = new AMESEvent(amesEventName, amesEventType, amesEventDelay);
+                        break;
+                    case "text":
+                        break;
+                    default :
+                        event = new AMESEvent(amesEventName, amesEventType, amesEventDelay);
+                        break;
+                }
+                amesSequence.addEvent(event);
+            }
     }catch (Exception e){
 
     }
