@@ -1,5 +1,9 @@
 package com.example.iem.ames.model.element;
 
+import android.content.Context;
+
+import com.example.iem.ames.AMESApplication;
+
 /**
  * Created by Jo' on 16/01/2018.
  */
@@ -9,6 +13,11 @@ public class Button {
     private int nextEventIndex;
     private double x;
     private double y;
+
+    public int getID() {
+        Context context = AMESApplication.application().getAMESManager().getContextView();
+        return context.getResources().getIdentifier(filename, "raw", context.getPackageName());
+    }
 
     public String getFilename() {
         return filename;
