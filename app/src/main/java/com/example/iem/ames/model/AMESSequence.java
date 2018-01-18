@@ -12,11 +12,9 @@ public class AMESSequence {
     private ArrayList<AMESEvent> events;
     private  int nextEventIndex;
     private String backgroundSound;
-    private AMESGame associatedGame;
 
-    public AMESSequence(AMESGame associatedGame) {
+    public AMESSequence() {
         this.events = new ArrayList<AMESEvent>();
-        this.associatedGame = associatedGame;
     }
 
     public ArrayList<AMESEvent> getEvents() {
@@ -47,14 +45,6 @@ public class AMESSequence {
 
     public void setBackgroundSound(String backgroundSound) {
         this.backgroundSound = backgroundSound;
-    }
-
-    public AMESGame getAssociatedGame() {
-        return associatedGame;
-    }
-
-    public void setAssociatedGame(AMESGame associatedGame) {
-        this.associatedGame = associatedGame;
     }
 
     public String toString(){
