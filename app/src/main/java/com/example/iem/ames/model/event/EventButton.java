@@ -31,5 +31,8 @@ public class EventButton extends AMESEvent {
         this.buttons = buttons;
     }
 
+    @Override
+    public void run() {
 
+    }
 }

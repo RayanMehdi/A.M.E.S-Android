@@ -114,10 +114,8 @@ public class AMESParser {
 
                 switch (hashmap.get(TYPE).get(0)){
                     case "animated text":
-                        event = new AMESEvent(amesEventName, amesEventType, amesEventDelay);
                         break;
                     case "animation":
-                        event = new AMESEvent(amesEventName, amesEventType, amesEventDelay);
                         break;
                     case "battery level":
                         break;
@@ -153,24 +151,20 @@ public class AMESParser {
                         //event = new AMESEvent(amesEventName, amesEventType, amesEventDelay);
                         break;
                     case "camera":
-                        event = new AMESEvent(amesEventName, amesEventType, amesEventDelay);
                         break;
                     case "ghost":
                         break;
                     case "flash":
                         break;
                     case "image":
-                        event = new AMESEvent(amesEventName, amesEventType, amesEventDelay);
                         break;
                     case "micro":
                         break;
                     case "son":
-                        event = new AMESEvent(amesEventName, amesEventType, amesEventDelay);
                         break;
                     case "text":
                         break;
                     default :
-                        event = new AMESEvent(amesEventName, amesEventType, amesEventDelay);
                         break;
                 }
                 if(event != null) {

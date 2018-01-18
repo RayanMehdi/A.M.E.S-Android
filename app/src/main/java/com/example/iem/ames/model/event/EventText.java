@@ -13,4 +13,9 @@ public class EventText extends AMESEvent{
         super(name, type, delay);
         this.text = text;
     }
+
+    @Override
+    public void run() {
+
+    }
 }

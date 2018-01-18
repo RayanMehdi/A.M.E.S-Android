@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         AMESGame currentGame=AMESApplication.application().getAMESManager().getCurrentGame();
         AMESApplication.application().getAMESManager().setContextView(this.getApplicationContext());
         if(isEligibleforAMES(loadTextView)){
-            Log.d("Test", "Ok");
+            //Log.d("Test", "Ok");
             loadSequenceFile();
             //TODO Method currentGame.run();
         }

@@ -35,4 +35,17 @@ public class AMESGame {
     public void setCurrentSequenceIndex(int currentSequenceIndex) {
         this.currentSequenceIndex = currentSequenceIndex;
     }
+
+    public void run(){
+        if (currentSequenceIndex < this.sequences.size())
+        {
+            AMESSequence currentSequence = this.sequences.get(currentSequenceIndex);
+
+            if(currentSequence.getClass() == AMESSequence.class)
+            {
+                currentSequence.firstRun();
+                currentSequenceIndex++;
+            }
+        }
+    }
 }
