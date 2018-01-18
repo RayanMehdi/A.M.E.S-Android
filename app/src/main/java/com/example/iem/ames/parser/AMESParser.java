@@ -106,37 +106,40 @@ public class AMESParser {
 
                 switch (hashmap.get(TYPE).get(0)){
                     case "animated text":
-                        event = new AMESEvent(amesEventName, amesEventType, amesEventDelay);
                         break;
                     case "animation":
-                        event = new AMESEvent(amesEventName, amesEventType, amesEventDelay);
                         break;
                     case "battery level":
                         break;
                     case "button":
+                        if(hashmap.containsKey("Number of buttons")) {
+                            int numberButtons = Integer.parseInt(hashmap.get("Number of buttons").get(0));
+                            Log.d("TEST", String.valueOf(numberButtons));
+                            for (int i = 1; i < numberButtons + 1; i++) {
+                                Log.d("TEST", hashmap.get("Image filename for button " + String.valueOf(i)).get(0));
+                            }
+                        }
                         break;
                     case "camera":
-                        event = new AMESEvent(amesEventName, amesEventType, amesEventDelay);
                         break;
                     case "ghost":
                         break;
                     case "flash":
                         break;
                     case "image":
-                        event = new AMESEvent(amesEventName, amesEventType, amesEventDelay);
                         break;
                     case "micro":
                         break;
                     case "son":
-                        event = new AMESEvent(amesEventName, amesEventType, amesEventDelay);
                         break;
                     case "text":
                         break;
                     default :
-                        event = new AMESEvent(amesEventName, amesEventType, amesEventDelay);
                         break;
                 }
-                amesSequence.addEvent(event);
+                if(event != null) {
+                    amesSequence.addEvent(event);
+                }
             }
             Log.d("TEST", amesSequence.toString());
             AMESApplication.application().getAMESManager().getCurrentGame().addSequence(amesSequence);

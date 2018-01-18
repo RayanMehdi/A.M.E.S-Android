@@ -15,4 +15,9 @@ public class EventImage extends AMESEvent {
         super(name, type, delay);
         this.images = images;
     }
+
+    @Override
+    public void run() {
+
+    }
 }

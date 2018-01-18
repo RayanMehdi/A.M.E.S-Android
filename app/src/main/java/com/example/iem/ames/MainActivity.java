@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         AMESGame currentGame=AMESApplication.application().getAMESManager().getCurrentGame();
         AMESApplication.application().getAMESManager().setContextView(this.getApplicationContext());
         if(isEligibleforAMES(loadTextView)){
-            Log.d("Test", "Ok");
+            //Log.d("Test", "Ok");
             loadSequenceFile();
             //TODO Method currentGame.run();
         }
@@ -87,11 +87,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadSequenceFile(){
         AMESParser parser = AMESApplication.application().getAMESManager().getParser();
-        //parser.CreateSequenceFromFile(R.raw.firstsequence);
+        parser.CreateSequenceFromFile(R.raw.firstsequence);
         //parser.CreateSequenceFromFile(R.raw.secondsequence);
         //parser.CreateSequenceFromFile(R.raw.thirdsequence);
         //parser.CreateSequenceFromFile(R.raw.fourthsequence);
-        parser.CreateSequenceFromFile(R.raw.testsequence);
+        //parser.CreateSequenceFromFile(R.raw.testsequence);
     }
 
     private TextView initTextView(){

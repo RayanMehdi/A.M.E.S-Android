@@ -1,10 +1,12 @@
 package com.example.iem.ames.model.event;
 
+import android.util.Log;
+
 /**
  * Created by Jo' on 16/01/2018.
  */
 
-public class AMESEvent {
+public abstract class AMESEvent {
     private String name;
     private String type;
     private double delay;
@@ -35,9 +37,15 @@ public class AMESEvent {
         return delay;
     }
 
+    public long getDelayInMillisecond() {
+        return (long)delay * 1000;
+    }
+
     public void setDelay(double delay) {
         this.delay = delay;
     }
+
+    public abstract void run();
 }
 
 
