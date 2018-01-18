@@ -39,7 +39,8 @@ public class AMESParser {
             IMAGE_FILENAME_FOR_BUTTON = "Image filename for button ",
             NEXT_EVENT_INDEX_BUTTON = "Next event index for button ",
             X_POSITION_FOR_BUTTON = "X position for button ",
-            Y_POSITION_FOR_BUTTON = "Y position for button ";
+            Y_POSITION_FOR_BUTTON = "Y position for button ",
+            SOUND_FILE = "Sound file";
 
 
     public void CreateSequenceFromFile(int idFile){
@@ -162,7 +163,8 @@ public class AMESParser {
                     case "micro":
                         break;
                     case "son":
-                        event = new EventSound(amesEventName, amesEventType, amesEventDelay, )
+                        Log.d("TEST", hashmap.get(SOUND_FILE).get(0));
+                        event = new EventSound(amesEventName, amesEventType, amesEventDelay, hashmap.get(SOUND_FILE).get(0), false);
                         break;
                     case "text":
                         break;

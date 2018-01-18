@@ -8,6 +8,7 @@
 		<key>Type</key>
 		<string>son</string>
 		<key>Parameters</key>
+
 		<dict>
 			<key>Infinite</key>
 			<true/>
