@@ -6,46 +6,66 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Display;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+
+import com.example.iem.ames.manager.AMESManager;
 import com.example.iem.ames.model.AMESGame;
+import com.example.iem.ames.model.element.Image;
+import com.example.iem.ames.model.element.Screen;
 import com.example.iem.ames.parser.AMESParser;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.sql.Array;
-import java.util.Map;
-
-import static javax.xml.xpath.XPathConstants.STRING;
-
 public class MainActivity extends AppCompatActivity {
+
+    private int width, height;
+    private RelativeLayout rl;
+    private AMESManager amesManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        TextView loadTextView = initTextView();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        View decorView = getWindow().getDecorView();
+        // Hide the status bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+        // Remember that you should never show the action bar if the
+        // status bar is hidden, so hide that too if necessary.
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null){
+            actionBar.hide();
+        }
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        width = size.x;
+        height = size.y;
+
+
+        setContentView(R.layout.activity_main);
+        rl = findViewById(R.id.layout);
+        amesManager = AMESApplication.application().getAMESManager();
         AMESGame currentGame=AMESApplication.application().getAMESManager().getCurrentGame();
-        AMESApplication.application().getAMESManager().setContextView(this.getApplicationContext());
-        if(isEligibleforAMES(loadTextView)){
+        amesManager.setContextView(this.getApplicationContext());
+        amesManager.createManager(new Screen(this.rl, height, width));
+        amesManager.getTextManager().displayText(getResources().getString(R.string.loadingTextLabel));
+
+
+        if(isEligibleforAMES()){
             Log.d("Test", "Ok");
+            //amesManager.getImageManager().displayNewImage(new Image("oeil", 0.1, 0.1, true, 3));
+            //amesManager.getImageManager().displayNewImage(new Image("davidgoodenough", 0.5, 0.5, true, 5));
             loadSequenceFile();
             //TODO Method currentGame.run();
         }
-
-
     }
+
     private boolean areCamAvailable(){
         PackageManager pm = getPackageManager();
         boolean frontCam, rearCam;
@@ -57,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private boolean isEligibleforAMES(TextView loadingTextLabel){
+    private boolean isEligibleforAMES(){
         boolean response = true;
         String displayMessage="";
         if(areCamAvailable()){
@@ -74,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             //response = false;
         }
 
-        loadingTextLabel.setText(displayMessage);
+        AMESApplication.application().getAMESManager().getTextManager().displayText(displayMessage);
         return response;
     }
 
@@ -92,38 +112,6 @@ public class MainActivity extends AppCompatActivity {
         //parser.CreateSequenceFromFile(R.raw.thirdsequence);
         //parser.CreateSequenceFromFile(R.raw.fourthsequence);
         parser.CreateSequenceFromFile(R.raw.testsequence);
-    }
-
-    private TextView initTextView(){
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        View decorView = getWindow().getDecorView();
-        // Hide the status bar.
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
-        // Remember that you should never show the action bar if the
-        // status bar is hidden, so hide that too if necessary.
-        ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null){
-            actionBar.hide();
-        }
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
-        int height = size.y;
-
-        setContentView(R.layout.activity_main);
-        RelativeLayout cl = findViewById(R.id.layout);
-        TextView loadTextView = new TextView(this);
-        loadTextView.setHeight(height);
-        loadTextView.setWidth(width);
-        loadTextView.setTextSize(20);
-        loadTextView.setText(R.string.loadingTextLabel);
-        loadTextView.setTextColor(getResources().getColor(R.color.white));
-        loadTextView.setGravity(Gravity.CENTER);
-        cl.addView(loadTextView);
-
-        return loadTextView;
     }
 
 }
