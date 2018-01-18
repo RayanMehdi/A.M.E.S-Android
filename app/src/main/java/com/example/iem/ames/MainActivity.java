@@ -59,8 +59,9 @@ public class MainActivity extends AppCompatActivity {
 
         if(isEligibleforAMES()){
             Log.d("Test", "Ok");
-            //amesManager.getImageManager().displayNewImage(new Image("oeil", 0.1, 0.1, true, 3));
-            //amesManager.getImageManager().displayNewImage(new Image("davidgoodenough", 0.5, 0.5, true, 5));
+            amesManager.getImageManager().displayNewImage(new Image("oeil", 0.1, 0.1, true, 3));
+            amesManager.getImageManager().displayNewImage(new Image("davidgoodenough", 0.5, 0.5, false, 9));
+            amesManager.getSoundManager().playSound();
             loadSequenceFile();
             //TODO Method currentGame.run();
         }

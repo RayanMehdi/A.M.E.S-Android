@@ -10,6 +10,7 @@ import com.example.iem.ames.model.AMESSequence;
 import com.example.iem.ames.model.element.Button;
 import com.example.iem.ames.model.event.AMESEvent;
 import com.example.iem.ames.model.event.EventButton;
+import com.example.iem.ames.model.event.EventSound;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -161,6 +162,7 @@ public class AMESParser {
                     case "micro":
                         break;
                     case "son":
+                        event = new EventSound(amesEventName, amesEventType, amesEventDelay, )
                         break;
                     case "text":
                         break;
