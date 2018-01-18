@@ -7,7 +7,9 @@ import android.util.Log;
 import com.example.iem.ames.AMESApplication;
 import com.example.iem.ames.R;
 import com.example.iem.ames.model.AMESSequence;
+import com.example.iem.ames.model.element.Button;
 import com.example.iem.ames.model.event.AMESEvent;
+import com.example.iem.ames.model.event.EventButton;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -31,7 +33,12 @@ public class AMESParser {
             INTEGER = "integer",
             NAME = "Name",
             TYPE = "Type",
-            DELAY = "Duration";
+            DELAY = "Duration",
+            NUMBER_OF_BUTTONS = "Number of buttons",
+            IMAGE_FILENAME_FOR_BUTTON = "Image filename for button ",
+            NEXT_EVENT_INDEX_BUTTON = "Next event index for button ",
+            X_POSITION_FOR_BUTTON = "X position for button ",
+            Y_POSITION_FOR_BUTTON = "Y position for button ";
 
 
     public void CreateSequenceFromFile(int idFile){
@@ -87,20 +94,21 @@ public class AMESParser {
                 }
 
                 eventType = parser.next();
+
             }
             // For the last event of the sequence
             if(!map.isEmpty()){
                 listOfEvent.add(map);
             }
 
-            //Log.d("TEST", listOfEvent.toString());
+            Log.d("TEST", listOfEvent.toString());
 
 
             for (HashMap<String, ArrayList<String>> hashmap: listOfEvent) {
 
                 String amesEventName = hashmap.get(NAME).get(0);
                 String amesEventType = hashmap.get(TYPE).get(0);
-                double amesEventDelay = Double.parseDouble(hashmap.get(DELAY).get(0));
+                double amesEventDelay = Double.valueOf(hashmap.get(DELAY).get(0));
 
                 AMESEvent event = null;
 
@@ -112,13 +120,35 @@ public class AMESParser {
                     case "battery level":
                         break;
                     case "button":
-                        if(hashmap.containsKey("Number of buttons")) {
-                            int numberButtons = Integer.parseInt(hashmap.get("Number of buttons").get(0));
+                        if(hashmap.containsKey(NUMBER_OF_BUTTONS)) {
+                            int numberButtons =  Integer.parseInt(hashmap.get(NUMBER_OF_BUTTONS).get(0));
+                            ArrayList<Button> buttons = new ArrayList<>();
                             Log.d("TEST", String.valueOf(numberButtons));
-                            for (int i = 1; i < numberButtons + 1; i++) {
-                                Log.d("TEST", hashmap.get("Image filename for button " + String.valueOf(i)).get(0));
+                            for (int i = 0; i < numberButtons; i++) {
+                                Log.d("TEST", hashmap.get(IMAGE_FILENAME_FOR_BUTTON + String.valueOf(i+1)).get(0));
+                                String buttonFilename = hashmap.get(IMAGE_FILENAME_FOR_BUTTON + String.valueOf(i+1)).get(0);
+                                int buttonNextEvent = Integer.valueOf(hashmap.get(NEXT_EVENT_INDEX_BUTTON + String.valueOf(i+1)).get(0));
+                                double buttonX = Double.valueOf(hashmap.get(X_POSITION_FOR_BUTTON + String.valueOf(i+1)).get(0));
+                                double buttonY = Double.valueOf(hashmap.get(Y_POSITION_FOR_BUTTON + String.valueOf(i+1)).get(0));
+                                Button button = new Button(buttonFilename, buttonNextEvent, buttonX, buttonY);
+                                buttons.add(button);
                             }
+                            event = new EventButton(amesEventName,amesEventType,amesEventDelay,buttons);
+                        }else{
+                            event = new EventButton(amesEventName,amesEventType,amesEventDelay);
                         }
+
+                        /*int numberButtons =  Integer.parseInt(hashmap.get(NUMBER_OF_BUTTONS).get(0));
+                        ArrayList<Button> buttons = new ArrayList<>();
+                        for(int i=1; i<numberButtons+2; i++){
+                            String buttonFileName = hashmap.get(IMAGE_FILENAME_FOR_BUTTON).get(i);
+                        }
+                       for(int i =1 ; i < numberButtons + 1;i++){
+                            Log.d("TEST", hashmap.get("Image filename for button "+String.valueOf(i)).get(0));
+
+                        }*/
+
+                        //event = new AMESEvent(amesEventName, amesEventType, amesEventDelay);
                         break;
                     case "camera":
                         break;
@@ -144,7 +174,7 @@ public class AMESParser {
             Log.d("TEST", amesSequence.toString());
             AMESApplication.application().getAMESManager().getCurrentGame().addSequence(amesSequence);
             }catch (Exception e){
-
+                e.printStackTrace();
         }
 
     }
