@@ -17,8 +17,10 @@ import com.example.iem.ames.manager.AMESManager;
 import com.example.iem.ames.model.AMESGame;
 import com.example.iem.ames.model.element.Image;
 import com.example.iem.ames.model.element.Screen;
+import com.example.iem.ames.model.element.Text;
 import com.example.iem.ames.model.event.EventImage;
 import com.example.iem.ames.model.event.EventSound;
+import com.example.iem.ames.model.event.EventText;
 import com.example.iem.ames.parser.AMESParser;
 
 public class MainActivity extends AppCompatActivity {
@@ -56,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         AMESGame currentGame=AMESApplication.application().getAMESManager().getCurrentGame();
         amesManager.setContextView(this.getApplicationContext());
         amesManager.createManager(new Screen(this.rl, height, width));
-        amesManager.getTextManager().displayText(getResources().getString(R.string.loadingTextLabel));
 
 
         if(isEligibleforAMES()){
@@ -68,9 +69,12 @@ public class MainActivity extends AppCompatActivity {
             EventImage test2 = new EventImage("imagetest","image", 0.5, testimg );
             EventImage test3 = new EventImage("imagetest2", "animation", 0.5, testimgGIF);
             EventSound test = new EventSound("test", "son", 0.1, "davidgoodenough_sound.mp3", true);
+            Text text = new Text("", 150.0, 150.0, 500, 500, true, 0.25);
+            EventText eventText = new EventText("test text", "", 15.0, text);
             test.run();
-            test2.run();
+            //test2.run();
             test3.run();
+            //eventText.run();
             loadSequenceFile();
             //TODO Method currentGame.run();
         }
@@ -92,19 +96,19 @@ public class MainActivity extends AppCompatActivity {
         String displayMessage="";
         if(areCamAvailable()){
             if(this.getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)){
-                displayMessage="AMES is ready, press start !";
+                displayMessage = getResources().getString(R.string.AMESready);
             }else
-                displayMessage="Warning, no Torch. Experience will be less enjoying. Press Start";
+                displayMessage = getResources().getString(R.string.torchError);
 
             if(isNetworkAvailable()){
 
             }
         }else {
-            displayMessage = "Sorry, AMES needs a front camera to run, please restart the application with a good device";
+            displayMessage = getResources().getString(R.string.cameraError);
             //response = false;
         }
-
-        AMESApplication.application().getAMESManager().getTextManager().displayText(displayMessage);
+        AMESApplication.application().getAMESManager().getTextManager().displayText(new Text(displayMessage, 0, 0, 0.9,0.4, true, 0.25));
+       // AMESApplication.application().getAMESManager().getTextManager().centerText();
         return response;
     }
 
