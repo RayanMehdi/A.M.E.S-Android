@@ -35,6 +35,8 @@ public class AMESParser {
             NAME = "Name",
             TYPE = "Type",
             DELAY = "Duration",
+            INFINITE = "Infinite",
+            STOP = "Stop",
             NUMBER_OF_BUTTONS = "Number of buttons",
             IMAGE_FILENAME_FOR_BUTTON = "Image filename for button ",
             NEXT_EVENT_INDEX_BUTTON = "Next event index for button ",
@@ -163,8 +165,19 @@ public class AMESParser {
                     case "micro":
                         break;
                     case "son":
-                        Log.d("TEST", hashmap.get(SOUND_FILE).get(0));
-                        event = new EventSound(amesEventName, amesEventType, amesEventDelay, hashmap.get(SOUND_FILE).get(0), false);
+                        if(hashmap.containsKey(STOP)){
+
+                        }
+                        else{
+                            if(hashmap.containsKey(INFINITE)){
+                                event = new EventSound(amesEventName, amesEventType, amesEventDelay, hashmap.get(SOUND_FILE).get(0), true);
+                                Log.d("INFINITO", amesEventName + " is infinite");
+                            }
+                            else{
+                                event = new EventSound(amesEventName, amesEventType, amesEventDelay, hashmap.get(SOUND_FILE).get(0), false);
+                            }
+                        }
+
                         break;
                     case "text":
                         break;

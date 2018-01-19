@@ -17,6 +17,7 @@ import com.example.iem.ames.manager.AMESManager;
 import com.example.iem.ames.model.AMESGame;
 import com.example.iem.ames.model.element.Image;
 import com.example.iem.ames.model.element.Screen;
+import com.example.iem.ames.model.event.EventSound;
 import com.example.iem.ames.parser.AMESParser;
 
 public class MainActivity extends AppCompatActivity {
@@ -61,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Test", "Ok");
             amesManager.getImageManager().displayNewImage(new Image("oeil", 0.1, 0.1, true, 3));
             amesManager.getImageManager().displayNewImage(new Image("davidgoodenough", 0.5, 0.5, false, 9));
-            amesManager.getSoundManager().playSound();
+            EventSound test = new EventSound("test", "son", 0.1, "amesflashreussi.mp3", true);
+            test.run();
             loadSequenceFile();
             //TODO Method currentGame.run();
         }
@@ -114,5 +116,4 @@ public class MainActivity extends AppCompatActivity {
         //parser.CreateSequenceFromFile(R.raw.fourthsequence);
         //parser.CreateSequenceFromFile(R.raw.testsequence);
     }
-
 }

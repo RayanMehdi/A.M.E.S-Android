@@ -26,8 +26,12 @@ public class EventSound extends AMESEvent {
         return context.getResources().getIdentifier(soundName, "raw", context.getPackageName());
     }
 
+    public boolean isInfinite() {
+        return infinite;
+    }
+
     @Override
     public void run() {
-
+        AMESApplication.application().getAMESManager().getSoundManager().playSound(getsoundID(), this.infinite);
     }
 }
