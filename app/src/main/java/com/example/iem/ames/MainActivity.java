@@ -17,6 +17,7 @@ import com.example.iem.ames.manager.AMESManager;
 import com.example.iem.ames.model.AMESGame;
 import com.example.iem.ames.model.element.Image;
 import com.example.iem.ames.model.element.Screen;
+import com.example.iem.ames.model.event.EventImage;
 import com.example.iem.ames.model.event.EventSound;
 import com.example.iem.ames.parser.AMESParser;
 
@@ -60,10 +61,16 @@ public class MainActivity extends AppCompatActivity {
 
         if(isEligibleforAMES()){
             Log.d("Test", "Ok");
-            amesManager.getImageManager().displayNewImage(new Image("oeil", 0.1, 0.1, true, 3));
-            amesManager.getImageManager().displayNewImage(new Image("davidgoodenough", 0.5, 0.5, false, 9));
-            EventSound test = new EventSound("test", "son", 0.1, "amesflashreussi.mp3", true);
+            //amesManager.getImageManager().displayNewImage(new Image("oeil", 0.1, 0.1, true, 3));
+            //amesManager.getImageManager().displayNewImage(new Image("davidgoodenough", 0.5, 0.5, false, 9));
+            Image testimg = new Image("davidgoodenough.png", 0.5, 0.5, false, 1);
+            Image testimgGIF = new Image("oeil", 0.1, 0.1, true, 8);
+            EventImage test2 = new EventImage("imagetest","image", 0.5, testimg );
+            EventImage test3 = new EventImage("imagetest2", "animation", 0.5, testimgGIF);
+            EventSound test = new EventSound("test", "son", 0.1, "davidgoodenough_sound.mp3", true);
             test.run();
+            test2.run();
+            test3.run();
             loadSequenceFile();
             //TODO Method currentGame.run();
         }

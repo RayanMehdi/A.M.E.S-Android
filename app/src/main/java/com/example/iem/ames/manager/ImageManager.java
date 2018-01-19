@@ -47,12 +47,7 @@ public class ImageManager {
 
         // Setting layout params to our RelativeLayout
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(width, height);
-
-        System.out.println("H : " + this.screen.getWidth()*img.getX());
         Double d = this.screen.getWidth()*img.getX() - width/2;
-        System.out.println("H : " + d.toString());
-        System.out.println("W : " + width);
-
         // Setting position of our ImageView
         Double x = this.screen.getWidth()*img.getX() - width/2;
         Double y = this.screen.getHeight()*img.getY() - height/2;
@@ -62,15 +57,18 @@ public class ImageManager {
         // Finally Adding the imageView to RelativeLayout and its position
         this.screen.getRelativeLayout().addView(imageView, layoutParams);
 
-        new CountDownTimer(img.getDuration()*1000, 1000) {
+        if(img.isGIF() && img.getDuration() > 0){
+            new CountDownTimer(img.getDuration()*1000, 1000) {
 
-            public void onTick(long millisUntilFinished) {
-            }
+                public void onTick(long millisUntilFinished) {
+                }
 
-            public void onFinish() {
-                screen.getRelativeLayout().removeView(imageView);
-            }
-        }.start();
+                public void onFinish() {
+                    screen.getRelativeLayout().removeView(imageView);
+                }
+            }.start();
+        }
+
     }
 
 }
