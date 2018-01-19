@@ -15,9 +15,14 @@ import android.widget.RelativeLayout;
 
 import com.example.iem.ames.manager.AMESManager;
 import com.example.iem.ames.model.AMESGame;
+import com.example.iem.ames.model.AMESSequence;
+import com.example.iem.ames.model.element.Button;
 import com.example.iem.ames.model.element.Image;
 import com.example.iem.ames.model.element.Screen;
+import com.example.iem.ames.model.event.EventButton;
 import com.example.iem.ames.parser.AMESParser;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,9 +64,36 @@ public class MainActivity extends AppCompatActivity {
 
         if(isEligibleforAMES()){
             Log.d("Test", "Ok");
-            //amesManager.getImageManager().displayNewButton(new Image("oeil", 0.1, 0.1, true, 3));
-            //amesManager.getImageManager().displayNewButton(new Image("davidgoodenough", 0.5, 0.5, true, 5));
-            loadSequenceFile();
+            //amesManager.getImageManager().displayNewImage(new Image("oeil", 0.1, 0.1, true, 3));
+            //amesManager.getImageManager().displayNewImage(new Image("davidgoodenough", 0.5, 0.5, true, 5));
+
+            EventButton eventButton = new EventButton("david&oeil","button", 0);
+
+            EventButton eventButton2 = new EventButton("david","button", 0);
+            EventButton eventButton3 = new EventButton("oeil","button", 0);
+            ArrayList<Button> buttons = new ArrayList<>();
+            ArrayList<Button> buttons2 = new ArrayList<>();
+            ArrayList<Button> buttons3 = new ArrayList<>();
+
+            buttons.add(new Button("davidgoodenough", 1,0.5, 0.5));
+            buttons.add(new Button("oeil", 2,0.9, 0.9));
+            buttons2.add(new Button("davidgoodenough", 2,0.1, 0.1));
+            buttons3.add(new Button("oeil", 1,0.8, 0.1));
+
+            eventButton.setButtons(buttons);
+            eventButton2.setButtons(buttons2);
+            eventButton3.setButtons(buttons3);
+
+            AMESSequence amesSequence = new AMESSequence();
+            amesSequence.addEvent(eventButton);
+            amesSequence.addEvent(eventButton2);
+            amesSequence.addEvent(eventButton3);
+
+            currentGame.addSequence(amesSequence);
+
+            currentGame.run();
+
+            //loadSequenceFile();
             //TODO Method currentGame.run();
         }
     }

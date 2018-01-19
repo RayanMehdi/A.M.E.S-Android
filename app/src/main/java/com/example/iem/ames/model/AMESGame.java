@@ -12,6 +12,7 @@ public class AMESGame {
 
     public AMESGame() {
         this.sequences = new ArrayList<AMESSequence>();
+        this.currentSequenceIndex = 0;
     }
 
     public ArrayList<AMESSequence> getSequences() {
@@ -26,6 +27,10 @@ public class AMESGame {
 
     public void addSequence(AMESSequence sequence) {
         this.sequences.add(sequence);
+    }
+
+    public AMESSequence getSequence(int index) {
+        return this.sequences.get(index);
     }
 
     public int getCurrentSequenceIndex() {
@@ -43,8 +48,8 @@ public class AMESGame {
 
             if(currentSequence.getClass() == AMESSequence.class)
             {
-                currentSequence.firstRun();
-                currentSequenceIndex++;
+                currentSequence.run();
+//currentSequenceIndex++;
             }
         }
     }

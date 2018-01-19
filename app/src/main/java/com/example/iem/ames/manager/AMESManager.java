@@ -69,4 +69,8 @@ public class AMESManager {
     public ImageManager getImageManager() {
         return imageManager;
     }
+
+    public ButtonManager getButtonManager() {
+        return buttonManager;
+    }
 }

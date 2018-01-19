@@ -12,7 +12,6 @@ public class EventBackgroundSound extends AMESEvent {
 
     @Override
     public void run() {
-
     }
 
     public  void stop(){

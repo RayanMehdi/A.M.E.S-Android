@@ -18,6 +18,5 @@ public class EventImage extends AMESEvent {
 
     @Override
     public void run() {
-
     }
 }
