@@ -73,25 +73,11 @@ public class AMESSequence {
     }
 
     public void run(){
-
             // Run event
+        if(currentIndex < events.size()){
             Log.d("SEQ", String.valueOf(this.currentIndex));
-            events.get(this.currentIndex).run();
-
-
-            if (events.get(this.currentIndex).getDelay() > 0.0) // If event has a finite duration
-            {
-                // wait the delay of the current event
-                new CountDownTimer(events.get(this.currentIndex).getDelayInMillisecond(), 1000) {
-
-                    public void onTick(long millisUntilFinished) {
-
-                    }
-                    public void onFinish() {
-
-                    }
-                }.start();
-            }
+            events.get(currentIndex).run();
+        }
 
     }
 }
