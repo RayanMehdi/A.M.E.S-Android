@@ -1,5 +1,6 @@
 package com.example.iem.ames.model.event;
 
+import com.example.iem.ames.AMESApplication;
 import com.example.iem.ames.model.element.Image;
 
 import java.util.ArrayList;
@@ -9,14 +10,15 @@ import java.util.ArrayList;
  */
 
 public class EventImage extends AMESEvent {
-    private ArrayList<Image> images;
+    private Image image;
 
-    public EventImage(String name, String type, double delay, ArrayList<Image> images) {
+    public EventImage(String name, String type, double delay, Image image) {
         super(name, type, delay);
-        this.images = images;
+        this.image = image;
     }
 
     @Override
     public void run() {
+        AMESApplication.application().getAMESManager().getImageManager().displayNewImage(image);
     }
 }

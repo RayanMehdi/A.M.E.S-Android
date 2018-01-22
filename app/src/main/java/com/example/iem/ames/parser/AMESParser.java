@@ -8,8 +8,11 @@ import com.example.iem.ames.AMESApplication;
 import com.example.iem.ames.R;
 import com.example.iem.ames.model.AMESSequence;
 import com.example.iem.ames.model.element.Button;
+import com.example.iem.ames.model.element.Image;
 import com.example.iem.ames.model.event.AMESEvent;
 import com.example.iem.ames.model.event.EventButton;
+import com.example.iem.ames.model.event.EventImage;
+import com.example.iem.ames.model.event.EventSound;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -34,11 +37,21 @@ public class AMESParser {
             NAME = "Name",
             TYPE = "Type",
             DELAY = "Duration",
+            INFINITE = "Infinite",
+            STOP = "Stop",
             NUMBER_OF_BUTTONS = "Number of buttons",
             IMAGE_FILENAME_FOR_BUTTON = "Image filename for button ",
             NEXT_EVENT_INDEX_BUTTON = "Next event index for button ",
             X_POSITION_FOR_BUTTON = "X position for button ",
-            Y_POSITION_FOR_BUTTON = "Y position for button ";
+            Y_POSITION_FOR_BUTTON = "Y position for button ",
+            X_POSITION ="Position X",
+            REPEAT_NUMBER = "Number of repeats",
+            ANIMATION_DURATION = "Animation duration",
+            ANIMATION_POSITION_X = "Animation location X",
+            ANIMATION_POSITION_Y = "Animation location Y",
+            Y_POSITION ="Position Y",
+            SOUND_FILE = "Sound file",
+            IMAGE_FILE = "Image file";
 
 
     public void CreateSequenceFromFile(int idFile){
@@ -116,6 +129,16 @@ public class AMESParser {
                     case "animated text":
                         break;
                     case "animation":
+                        Image imgAnimation = new Image(hashmap.get(IMAGE_FILE).get(0),
+                                Double.parseDouble(hashmap.get(ANIMATION_POSITION_X).get(0)),
+                                Double.parseDouble(hashmap.get(ANIMATION_POSITION_Y).get(0)),
+                                true,
+                                Integer.parseInt(hashmap.get(REPEAT_NUMBER).get(0))*Integer.parseInt(hashmap.get(ANIMATION_DURATION).get(0)));
+                        event = new EventImage(amesEventName, amesEventType, amesEventDelay, imgAnimation);
+                        break;
+                    case "image":
+                        Image img = new Image(hashmap.get(IMAGE_FILE).get(0), Double.parseDouble(hashmap.get(X_POSITION).get(0)), Double.parseDouble(hashmap.get(Y_POSITION).get(0)), false, 1);
+                        event = new EventImage(amesEventName, amesEventType, amesEventDelay, img);
                         break;
                     case "battery level":
                         break;
@@ -156,11 +179,22 @@ public class AMESParser {
                         break;
                     case "flash":
                         break;
-                    case "image":
-                        break;
                     case "micro":
                         break;
                     case "son":
+                        if(hashmap.containsKey(STOP)){
+
+                        }
+                        else{
+                            if(hashmap.containsKey(INFINITE)){
+                                event = new EventSound(amesEventName, amesEventType, amesEventDelay, hashmap.get(SOUND_FILE).get(0), true);
+                                Log.d("INFINITO", amesEventName + " is infinite");
+                            }
+                            else{
+                                event = new EventSound(amesEventName, amesEventType, amesEventDelay, hashmap.get(SOUND_FILE).get(0), false);
+                            }
+                        }
+
                         break;
                     case "text":
                         break;

@@ -1,5 +1,6 @@
 package com.example.iem.ames.model.event;
 
+import com.example.iem.ames.AMESApplication;
 import com.example.iem.ames.model.element.Text;
 
 /**
@@ -16,6 +17,6 @@ public class EventText extends AMESEvent{
 
     @Override
     public void run() {
-
+        AMESApplication.application().getAMESManager().getTextManager().displayText(text);
     }
 }

@@ -83,6 +83,7 @@ public class ButtonManager {
                     // Set the current index event
                     AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).setCurrentIndex(nextEventIndex);
                     // Run the next event (with the new current index in sequence)
+
                     AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).run();
 
                 }

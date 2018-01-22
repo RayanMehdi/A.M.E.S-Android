@@ -19,6 +19,7 @@ public class AMESManager {
     private Screen screen;
     private ImageManager imageManager;
     private ButtonManager buttonManager;
+    private SoundManager soundManager;
 
     public AMESManager(AMESGame currentGame) {
         this.currentGame = currentGame;
@@ -60,6 +61,7 @@ public class AMESManager {
         this.textManager = new TextManager(this.contextView, this.screen);
         this.imageManager = new ImageManager(this.contextView, this.screen);
         this.buttonManager = new ButtonManager(this.contextView, this.screen);
+        this.soundManager = new SoundManager(this.contextView);
     }
 
     public TextManager getTextManager() {
@@ -72,5 +74,9 @@ public class AMESManager {
 
     public ButtonManager getButtonManager() {
         return buttonManager;
+    }
+
+    public SoundManager getSoundManager() {
+        return soundManager;
     }
 }
