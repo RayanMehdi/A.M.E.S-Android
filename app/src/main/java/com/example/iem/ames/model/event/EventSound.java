@@ -34,4 +34,9 @@ public class EventSound extends AMESEvent {
     public void run() {
         AMESApplication.application().getAMESManager().getSoundManager().playSound(getsoundID(), this.infinite);
     }
+
+    @Override
+    public void stop() {
+        AMESApplication.application().getAMESManager().getSoundManager().stopSounds(getDelayInMillisecond());
+    }
 }

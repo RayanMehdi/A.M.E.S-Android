@@ -38,7 +38,8 @@ public abstract class AMESEvent {
     }
 
     public long getDelayInMillisecond() {
-        return (long)delay * 1000;
+
+        return (long)(delay * 1000);
     }
 
     public void setDelay(double delay) {
@@ -46,6 +47,8 @@ public abstract class AMESEvent {
     }
 
     public abstract void run();
+
+    public abstract void stop();
 }
 
 

@@ -21,4 +21,9 @@ public class EventImage extends AMESEvent {
     public void run() {
         AMESApplication.application().getAMESManager().getImageManager().displayNewImage(image);
     }
+
+    @Override
+    public void stop() {
+
+    }
 }
