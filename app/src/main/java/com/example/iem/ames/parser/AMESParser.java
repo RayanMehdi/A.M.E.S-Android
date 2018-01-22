@@ -11,6 +11,7 @@ import com.example.iem.ames.model.element.Button;
 import com.example.iem.ames.model.element.Image;
 import com.example.iem.ames.model.event.AMESEvent;
 import com.example.iem.ames.model.event.EventButton;
+import com.example.iem.ames.model.event.EventCheckHeadphones;
 import com.example.iem.ames.model.event.EventImage;
 import com.example.iem.ames.model.event.EventSound;
 
@@ -51,7 +52,8 @@ public class AMESParser {
             ANIMATION_POSITION_Y = "Animation location Y",
             Y_POSITION ="Position Y",
             SOUND_FILE = "Sound file",
-            IMAGE_FILE = "Image file";
+            IMAGE_FILE = "Image file",
+            CHECK_HEADPHONES = "check headphones";
 
 
     public void CreateSequenceFromFile(int idFile){
@@ -197,6 +199,9 @@ public class AMESParser {
 
                         break;
                     case "text":
+                        break;
+                    case  "check headphones":
+                        event = new EventCheckHeadphones(amesEventName, amesEventType, amesEventDelay);
                         break;
                     default :
                         break;
