@@ -9,6 +9,7 @@ import com.example.iem.ames.R;
 import com.example.iem.ames.model.AMESSequence;
 import com.example.iem.ames.model.element.Button;
 import com.example.iem.ames.model.element.Image;
+import com.example.iem.ames.model.element.ImageAnimation;
 import com.example.iem.ames.model.event.AMESEvent;
 import com.example.iem.ames.model.event.EventButton;
 import com.example.iem.ames.model.event.EventImage;
@@ -45,6 +46,7 @@ public class AMESParser {
             X_POSITION_FOR_BUTTON = "X position for button ",
             Y_POSITION_FOR_BUTTON = "Y position for button ",
             X_POSITION ="Position X",
+            NUMBER_OF_FILE = "Number of images",
             REPEAT_NUMBER = "Number of repeats",
             ANIMATION_DURATION = "Animation duration",
             ANIMATION_POSITION_X = "Animation location X",
@@ -129,15 +131,17 @@ public class AMESParser {
                     case "animated text":
                         break;
                     case "animation":
-                        Image imgAnimation = new Image(hashmap.get(IMAGE_FILE).get(0),
+                        Image imgAnimation = new ImageAnimation(hashmap.get(IMAGE_FILE).get(0),
                                 Double.parseDouble(hashmap.get(ANIMATION_POSITION_X).get(0)),
                                 Double.parseDouble(hashmap.get(ANIMATION_POSITION_Y).get(0)),
                                 true,
-                                Integer.parseInt(hashmap.get(REPEAT_NUMBER).get(0))*Integer.parseInt(hashmap.get(ANIMATION_DURATION).get(0)));
+                                Integer.parseInt(hashmap.get(NUMBER_OF_FILE).get(0)),
+                                Integer.parseInt(hashmap.get(ANIMATION_DURATION).get(0)),
+                                Integer.parseInt(hashmap.get(REPEAT_NUMBER).get(0)));
                         event = new EventImage(amesEventName, amesEventType, amesEventDelay, imgAnimation);
                         break;
                     case "image":
-                        Image img = new Image(hashmap.get(IMAGE_FILE).get(0), Double.parseDouble(hashmap.get(X_POSITION).get(0)), Double.parseDouble(hashmap.get(Y_POSITION).get(0)), false, 1);
+                        Image img = new Image(hashmap.get(IMAGE_FILE).get(0), Double.parseDouble(hashmap.get(X_POSITION).get(0)), Double.parseDouble(hashmap.get(Y_POSITION).get(0)), false);
                         event = new EventImage(amesEventName, amesEventType, amesEventDelay, img);
                         break;
                     case "battery level":

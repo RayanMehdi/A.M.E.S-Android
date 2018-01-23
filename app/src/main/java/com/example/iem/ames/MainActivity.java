@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import com.example.iem.ames.manager.AMESManager;
 import com.example.iem.ames.model.AMESGame;
 import com.example.iem.ames.model.element.Image;
+import com.example.iem.ames.model.element.ImageAnimation;
 import com.example.iem.ames.model.element.Screen;
 import com.example.iem.ames.model.element.Text;
 import com.example.iem.ames.model.event.EventImage;
@@ -60,22 +61,23 @@ public class MainActivity extends AppCompatActivity {
         amesManager.createManager(new Screen(this.rl, height, width));
 
 
+
         if(isEligibleforAMES()){
             Log.d("Test", "Ok");
             //amesManager.getImageManager().displayNewImage(new Image("oeil", 0.1, 0.1, true, 3));
             //amesManager.getImageManager().displayNewImage(new Image("davidgoodenough", 0.5, 0.5, false, 9));
-            Image testimg = new Image("davidgoodenough.png", 0.5, 0.5, false, 1);
-            Image testimgGIF = new Image("oeil", 0.1, 0.1, true, 8);
-            EventImage test2 = new EventImage("imagetest","image", 0.5, testimg );
+            Image testimg = new Image("davidgoodenough", 0.5, 0.5, false);
+            Image testimgGIF = new ImageAnimation("bed", 0.1, 0.1, true, 5, 15, 1);
+            EventImage test2 = new EventImage("imagetest","imageGIF", 0.5, testimgGIF );
             EventImage test3 = new EventImage("imagetest2", "animation", 0.5, testimgGIF);
             EventSound test = new EventSound("test", "son", 0.1, "davidgoodenough_sound.mp3", true);
             Text text = new Text("", 150.0, 150.0, 500, 500, true, 0.25);
             EventText eventText = new EventText("test text", "", 15.0, text);
-            test.run();
-            //test2.run();
-            test3.run();
+            //test.run();
+            test2.run();
+            //test3.run();
             //eventText.run();
-            loadSequenceFile();
+            //loadSequenceFile();
             //TODO Method currentGame.run();
         }
     }
@@ -107,7 +109,8 @@ public class MainActivity extends AppCompatActivity {
             displayMessage = getResources().getString(R.string.cameraError);
             //response = false;
         }
-        AMESApplication.application().getAMESManager().getTextManager().displayText(new Text(displayMessage, 0, 0, 0.9,0.4, true, 0.25));
+        AMESApplication.application().getAMESManager().getTextManager().displayText(new Text(displayMessage, 0, 0, 0.9,0.4, false, 0.25));
+        //AMESApplication.application().getAMESManager().getTextManager().displayText(new Text(displayMessage, 0, 0, 0.9,0.4, true, 0.25));
        // AMESApplication.application().getAMESManager().getTextManager().centerText();
         return response;
     }

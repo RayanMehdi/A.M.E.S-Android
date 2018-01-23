@@ -9,23 +9,25 @@ import com.example.iem.ames.AMESApplication;
  */
 
 public class Image {
-    private String filename;
-    private double x;
-    private double y;
-    private boolean isGIF;
-    private int duration;
+    protected String filename;
+    protected double x;
+    protected double y;
+    protected boolean isGIF;
 
-    public Image(String filename, double x, double y, boolean isGIF, int duration) {
+    public Image(String filename, double x, double y, boolean isGIF) {
         this.filename = (isGIF) ? filename : filename.substring(0, filename.length()-4);
         this.x = x;
         this.y = y;
         this.isGIF = isGIF;
-        this.duration = duration;
     }
 
     public int getID() {
         Context context = AMESApplication.application().getAMESManager().getContextView();
         return context.getResources().getIdentifier(filename, "raw", context.getPackageName());
+    }
+
+    public String getFilename() {
+        return filename;
     }
 
     public void setFilename(String filename) {
@@ -55,13 +57,5 @@ public class Image {
 
     public void setGIF(boolean GIF) {
         isGIF = GIF;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
     }
 }

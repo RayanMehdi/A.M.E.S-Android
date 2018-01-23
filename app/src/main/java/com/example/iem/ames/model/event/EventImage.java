@@ -2,6 +2,7 @@ package com.example.iem.ames.model.event;
 
 import com.example.iem.ames.AMESApplication;
 import com.example.iem.ames.model.element.Image;
+import com.example.iem.ames.model.element.ImageAnimation;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,11 @@ public class EventImage extends AMESEvent {
 
     @Override
     public void run() {
-        AMESApplication.application().getAMESManager().getImageManager().displayNewImage(image);
+        if(image.isGIF()){
+            AMESApplication.application().getAMESManager().getImageManager().displayAnimation(((ImageAnimation) image));
+        }
+        else{
+            AMESApplication.application().getAMESManager().getImageManager().displayNewImage(image);
+        }
     }
 }
