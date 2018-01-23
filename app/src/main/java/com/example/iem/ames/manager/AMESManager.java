@@ -22,6 +22,7 @@ public class AMESManager {
     private SoundManager soundManager;
     private AccelerometerManager accelerometerManager;
     private CheckHeadphonesManager checkHeadphonesManager;
+    private CheckLightManager checkLightManager;
     private StopManager stopManager;
 
     public AMESManager(AMESGame currentGame) {
@@ -69,6 +70,8 @@ public class AMESManager {
         this.buttonManager = new ButtonManager(this.contextView, this.screen);
         this.soundManager = new SoundManager(this.contextView);
         this.checkHeadphonesManager = new CheckHeadphonesManager(this.contextView);
+        this.checkLightManager = new CheckLightManager(this.contextView);
+
         this.stopManager = new StopManager();
     }
 
@@ -94,5 +97,9 @@ public class AMESManager {
 
     public CheckHeadphonesManager getCheckHeadphonesManager() {
         return checkHeadphonesManager;
+    }
+
+    public CheckLightManager getCheckLightManager() {
+        return checkLightManager;
     }
 }

@@ -22,6 +22,7 @@ import com.example.iem.ames.model.element.ImageAnimation;
 import com.example.iem.ames.model.element.Screen;
 import com.example.iem.ames.model.event.EventButton;
 import com.example.iem.ames.model.element.Text;
+import com.example.iem.ames.model.event.EventCheckLight;
 import com.example.iem.ames.model.event.EventImage;
 import com.example.iem.ames.model.event.EventSound;
 import com.example.iem.ames.model.event.EventStop;
