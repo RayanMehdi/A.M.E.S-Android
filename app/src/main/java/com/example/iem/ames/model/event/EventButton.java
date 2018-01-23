@@ -36,4 +36,9 @@ public class EventButton extends AMESEvent {
         // Diplay buttons
         AMESApplication.application().getAMESManager().getButtonManager().displayNewButton(this);
     }
+
+    @Override
+    public void stop() {
+
+    }
 }

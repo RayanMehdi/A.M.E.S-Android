@@ -18,12 +18,14 @@ import com.example.iem.ames.model.AMESGame;
 import com.example.iem.ames.model.AMESSequence;
 import com.example.iem.ames.model.element.Button;
 import com.example.iem.ames.model.element.Image;
+import com.example.iem.ames.model.element.ImageAnimation;
 import com.example.iem.ames.model.element.Screen;
 import com.example.iem.ames.model.event.EventButton;
 import com.example.iem.ames.model.element.Text;
 import com.example.iem.ames.model.event.EventCheckLight;
 import com.example.iem.ames.model.event.EventImage;
 import com.example.iem.ames.model.event.EventSound;
+import com.example.iem.ames.model.event.EventStop;
 import com.example.iem.ames.model.event.EventText;
 import com.example.iem.ames.parser.AMESParser;
 
@@ -66,54 +68,12 @@ public class MainActivity extends AppCompatActivity {
         amesManager.createManager(new Screen(this.rl, height, width));
 
 
+
         if(isEligibleforAMES()){
             Log.d("Test", "Ok");
-            //amesManager.getImageManager().displayNewImage(new Image("oeil", 0.1, 0.1, true, 3));
-            //amesManager.getImageManager().displayNewImage(new Image("davidgoodenough", 0.5, 0.5, true, 5));
+            test();
 
-            EventButton eventButton = new EventButton("david&oeil","button", 0);
-
-            EventButton eventButton2 = new EventButton("david","button", 0);
-            EventButton eventButton3 = new EventButton("oeil","button", 0);
-
-            EventCheckLight checkLight = new EventCheckLight("test", "check light", 0);
-            ArrayList<Button> buttons = new ArrayList<>();
-            ArrayList<Button> buttons2 = new ArrayList<>();
-            ArrayList<Button> buttons3 = new ArrayList<>();
-
-            buttons.add(new Button("davidgoodenough", 1,0.5, 0.5));
-            buttons.add(new Button("oeil", 2,0.9, 0.9));
-            buttons2.add(new Button("davidgoodenough", 2,0.1, 0.1));
-            buttons3.add(new Button("oeil", 1,0.8, 0.1));
-
-
-
-            eventButton.setButtons(buttons);
-            eventButton2.setButtons(buttons2);
-            eventButton3.setButtons(buttons3);
-
-            AMESSequence amesSequence = new AMESSequence();
-
-            amesSequence.addEvent(eventButton);
-            amesSequence.addEvent(eventButton2);
-            amesSequence.addEvent(eventButton3);
-
-            currentGame.addSequence(amesSequence);
-
-            currentGame.run();
-
-//            Image testimg = new Image("davidgoodenough.png", 0.5, 0.5, false, 1);
-//            Image testimgGIF = new Image("oeil", 0.1, 0.1, true, 8);
-//            EventImage test2 = new EventImage("imagetest","image", 0.5, testimg );
-//            EventImage test3 = new EventImage("imagetest2", "animation", 0.5, testimgGIF);
-//            EventSound test = new EventSound("test", "son", 0.1, "davidgoodenough_sound.mp3", true);
-//            Text text = new Text("", 150.0, 150.0, 500, 500, true, 0.25);
-//            EventText eventText = new EventText("test text", "", 15.0, text);
-//            test.run();
-//            //test2.run();
-//            test3.run();
-//            //eventText.run();
-//            loadSequenceFile();
+//          loadSequenceFile();
             //TODO Method currentGame.run();
         }
     }
@@ -145,8 +105,7 @@ public class MainActivity extends AppCompatActivity {
             displayMessage = getResources().getString(R.string.cameraError);
             //response = false;
         }
-        AMESApplication.application().getAMESManager().getTextManager().displayText(new Text(displayMessage, 0, 0, 0.9,0.4, true, 0.25));
-       // AMESApplication.application().getAMESManager().getTextManager().centerText();
+        //AMESApplication.application().getAMESManager().getTextManager().textNotInSequence(displayMessage);
         return response;
     }
 
@@ -164,5 +123,57 @@ public class MainActivity extends AppCompatActivity {
         //parser.CreateSequenceFromFile(R.raw.thirdsequence);
         //parser.CreateSequenceFromFile(R.raw.fourthsequence);
         //parser.CreateSequenceFromFile(R.raw.testsequence);
+    }
+
+    private void test(){
+        //amesManager.getImageManager().displayNewImage(new Image("oeil", 0.1, 0.1, true, 3));
+        //amesManager.getImageManager().displayNewImage(new Image("davidgoodenough", 0.5, 0.5, true, 5));
+        AMESGame currentGame=AMESApplication.application().getAMESManager().getCurrentGame();
+       EventButton eventButton = new EventButton("david&oeil","button", 0);
+//
+//        EventButton eventButton2 = new EventButton("david","button", 0);
+//        EventButton eventButton3 = new EventButton("oeil","button", 0);
+       ArrayList<Button> buttons = new ArrayList<>();
+//        ArrayList<Button> buttons2 = new ArrayList<>();
+//        ArrayList<Button> buttons3 = new ArrayList<>();
+//
+       buttons.add(new Button("davidgoodenough", 2,0.5, 0.1));
+//        buttons.add(new Button("oeil", 2,0.9, 0.9));
+//        buttons2.add(new Button("davidgoodenough", 2,0.1, 0.1));
+//        buttons3.add(new Button("oeil", 1,0.8, 0.1));
+//
+        eventButton.setButtons(buttons);
+//        eventButton2.setButtons(buttons2);
+//        eventButton3.setButtons(buttons3);
+
+        Text text = new Text("Le saviez vous...", 150.0, 150.0, 500, 500, false, 1.25);
+        Text text2 = new Text("Si vous avez trois chocapics et qu'un cerf venue d'Irlande chevauchant un lièvre vous demande un selfis, alors Zinedine Zidane vous OS avec un solide druide lvl 2 forme phoque", 150.0, 150.0, 500, 500, true, 0.025);
+        EventText eventText = new EventText("test text", "animated text", 0.1, text);
+        EventText eventText2 = new EventText("test text2", "animated text", 10, text2);
+        EventStop eventStop = new EventStop("test text", "animated text", 0.1);
+        AMESSequence amesSequence = new AMESSequence();
+        //amesSequence.addEvent(eventButton);
+//        amesSequence.addEvent(eventButton2);
+//        amesSequence.addEvent(eventButton3);
+        amesSequence.addEvent(eventText);
+        amesSequence.addEvent(eventButton);
+        amesSequence.addEvent(eventStop);
+        amesSequence.addEvent(eventText2);
+
+        currentGame.addSequence(amesSequence);
+
+        currentGame.run();
+
+//            Image testimg = new Image("davidgoodenough.png", 0.5, 0.5, false, 1);
+//            Image testimgGIF = new Image("oeil", 0.1, 0.1, true, 8);
+//            EventImage test2 = new EventImage("imagetest","image", 0.5, testimg );
+//            EventImage test3 = new EventImage("imagetest2", "animation", 0.5, testimgGIF);
+//            EventSound test = new EventSound("test", "son", 0.1, "davidgoodenough_sound.mp3", true);
+//            Text text = new Text("", 150.0, 150.0, 500, 500, true, 0.25);
+//            EventText eventText = new EventText("test text", "", 15.0, text);
+//            test.run();
+//            //test2.run();
+//            test3.run();
+//            //eventText.run();
     }
 }

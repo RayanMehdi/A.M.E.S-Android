@@ -19,4 +19,13 @@ public class EventText extends AMESEvent{
     public void run() {
         AMESApplication.application().getAMESManager().getTextManager().displayText(text);
     }
+
+
+    @Override
+    public void stop() {
+        final int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
+        final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
+        AMESApplication.application().getAMESManager().getTextManager().stop(currentSequenceIndex, currentEventIndex);
+
+    }
 }
