@@ -21,6 +21,7 @@ import com.example.iem.ames.model.element.Image;
 import com.example.iem.ames.model.element.Screen;
 import com.example.iem.ames.model.event.EventButton;
 import com.example.iem.ames.model.element.Text;
+import com.example.iem.ames.model.event.EventCheckLight;
 import com.example.iem.ames.model.event.EventImage;
 import com.example.iem.ames.model.event.EventSound;
 import com.example.iem.ames.model.event.EventText;
@@ -74,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
 
             EventButton eventButton2 = new EventButton("david","button", 0);
             EventButton eventButton3 = new EventButton("oeil","button", 0);
+
+            EventCheckLight checkLight = new EventCheckLight("test", "check light", 0);
             ArrayList<Button> buttons = new ArrayList<>();
             ArrayList<Button> buttons2 = new ArrayList<>();
             ArrayList<Button> buttons3 = new ArrayList<>();
@@ -83,11 +86,14 @@ public class MainActivity extends AppCompatActivity {
             buttons2.add(new Button("davidgoodenough", 2,0.1, 0.1));
             buttons3.add(new Button("oeil", 1,0.8, 0.1));
 
+
+
             eventButton.setButtons(buttons);
             eventButton2.setButtons(buttons2);
             eventButton3.setButtons(buttons3);
 
             AMESSequence amesSequence = new AMESSequence();
+
             amesSequence.addEvent(eventButton);
             amesSequence.addEvent(eventButton2);
             amesSequence.addEvent(eventButton3);

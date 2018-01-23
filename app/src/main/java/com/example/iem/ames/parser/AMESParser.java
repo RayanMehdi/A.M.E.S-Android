@@ -12,6 +12,7 @@ import com.example.iem.ames.model.element.Image;
 import com.example.iem.ames.model.event.AMESEvent;
 import com.example.iem.ames.model.event.EventButton;
 import com.example.iem.ames.model.event.EventCheckHeadphones;
+import com.example.iem.ames.model.event.EventCheckLight;
 import com.example.iem.ames.model.event.EventImage;
 import com.example.iem.ames.model.event.EventSound;
 
@@ -53,7 +54,9 @@ public class AMESParser {
             Y_POSITION ="Position Y",
             SOUND_FILE = "Sound file",
             IMAGE_FILE = "Image file",
-            CHECK_HEADPHONES = "check headphones";
+            CHECK_HEADPHONES = "check headphones",
+            DISPLAY_OFF = "display Off",
+            OFF = "Off";
 
 
     public void CreateSequenceFromFile(int idFile){
@@ -129,14 +132,21 @@ public class AMESParser {
 
                 switch (hashmap.get(TYPE).get(0)){
                     case "animated text":
+                        if(hashmap.containsKey(DISPLAY_OFF)){
+
+                        }else {}
                         break;
                     case "animation":
-                        Image imgAnimation = new Image(hashmap.get(IMAGE_FILE).get(0),
-                                Double.parseDouble(hashmap.get(ANIMATION_POSITION_X).get(0)),
-                                Double.parseDouble(hashmap.get(ANIMATION_POSITION_Y).get(0)),
-                                true,
-                                Integer.parseInt(hashmap.get(REPEAT_NUMBER).get(0))*Integer.parseInt(hashmap.get(ANIMATION_DURATION).get(0)));
-                        event = new EventImage(amesEventName, amesEventType, amesEventDelay, imgAnimation);
+                        if(hashmap.containsKey(OFF)){
+
+                        }else {
+                            Image imgAnimation = new Image(hashmap.get(IMAGE_FILE).get(0),
+                                    Double.parseDouble(hashmap.get(ANIMATION_POSITION_X).get(0)),
+                                    Double.parseDouble(hashmap.get(ANIMATION_POSITION_Y).get(0)),
+                                    true,
+                                    Integer.parseInt(hashmap.get(REPEAT_NUMBER).get(0)) * Integer.parseInt(hashmap.get(ANIMATION_DURATION).get(0)));
+                            event = new EventImage(amesEventName, amesEventType, amesEventDelay, imgAnimation);
+                        }
                         break;
                     case "image":
                         Image img = new Image(hashmap.get(IMAGE_FILE).get(0), Double.parseDouble(hashmap.get(X_POSITION).get(0)), Double.parseDouble(hashmap.get(Y_POSITION).get(0)), false, 1);
@@ -145,24 +155,27 @@ public class AMESParser {
                     case "battery level":
                         break;
                     case "button":
-                        if(hashmap.containsKey(NUMBER_OF_BUTTONS)) {
-                            int numberButtons =  Integer.parseInt(hashmap.get(NUMBER_OF_BUTTONS).get(0));
-                            ArrayList<Button> buttons = new ArrayList<>();
-                            Log.d("TEST", String.valueOf(numberButtons));
-                            for (int i = 0; i < numberButtons; i++) {
-                                Log.d("TEST", hashmap.get(IMAGE_FILENAME_FOR_BUTTON + String.valueOf(i+1)).get(0));
-                                String buttonFilename = hashmap.get(IMAGE_FILENAME_FOR_BUTTON + String.valueOf(i+1)).get(0);
-                                int buttonNextEvent = Integer.valueOf(hashmap.get(NEXT_EVENT_INDEX_BUTTON + String.valueOf(i+1)).get(0));
-                                double buttonX = Double.valueOf(hashmap.get(X_POSITION_FOR_BUTTON + String.valueOf(i+1)).get(0));
-                                double buttonY = Double.valueOf(hashmap.get(Y_POSITION_FOR_BUTTON + String.valueOf(i+1)).get(0));
-                                Button button = new Button(buttonFilename, buttonNextEvent, buttonX, buttonY);
-                                buttons.add(button);
-                            }
-                            event = new EventButton(amesEventName,amesEventType,amesEventDelay,buttons);
-                        }else{
-                            event = new EventButton(amesEventName,amesEventType,amesEventDelay);
-                        }
+                        if(hashmap.containsKey(OFF)){
 
+                        }else {
+                            if (hashmap.containsKey(NUMBER_OF_BUTTONS)) {
+                                int numberButtons = Integer.parseInt(hashmap.get(NUMBER_OF_BUTTONS).get(0));
+                                ArrayList<Button> buttons = new ArrayList<>();
+                                Log.d("TEST", String.valueOf(numberButtons));
+                                for (int i = 0; i < numberButtons; i++) {
+                                    Log.d("TEST", hashmap.get(IMAGE_FILENAME_FOR_BUTTON + String.valueOf(i + 1)).get(0));
+                                    String buttonFilename = hashmap.get(IMAGE_FILENAME_FOR_BUTTON + String.valueOf(i + 1)).get(0);
+                                    int buttonNextEvent = Integer.valueOf(hashmap.get(NEXT_EVENT_INDEX_BUTTON + String.valueOf(i + 1)).get(0));
+                                    double buttonX = Double.valueOf(hashmap.get(X_POSITION_FOR_BUTTON + String.valueOf(i + 1)).get(0));
+                                    double buttonY = Double.valueOf(hashmap.get(Y_POSITION_FOR_BUTTON + String.valueOf(i + 1)).get(0));
+                                    Button button = new Button(buttonFilename, buttonNextEvent, buttonX, buttonY);
+                                    buttons.add(button);
+                                }
+                                event = new EventButton(amesEventName, amesEventType, amesEventDelay, buttons);
+                            } else {
+                                event = new EventButton(amesEventName, amesEventType, amesEventDelay);
+                            }
+                        }
                         /*int numberButtons =  Integer.parseInt(hashmap.get(NUMBER_OF_BUTTONS).get(0));
                         ArrayList<Button> buttons = new ArrayList<>();
                         for(int i=1; i<numberButtons+2; i++){
@@ -199,9 +212,15 @@ public class AMESParser {
 
                         break;
                     case "text":
+                        if(hashmap.containsKey(DISPLAY_OFF)){
+
+                        }else{}
                         break;
                     case  "check headphones":
                         event = new EventCheckHeadphones(amesEventName, amesEventType, amesEventDelay);
+                        break;
+                    case "check light":
+                        event = new EventCheckLight(amesEventName,amesEventType,amesEventDelay);
                         break;
                     default :
                         break;
