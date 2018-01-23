@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         //amesManager.getImageManager().displayNewImage(new Image("oeil", 0.1, 0.1, true, 3));
         //amesManager.getImageManager().displayNewImage(new Image("davidgoodenough", 0.5, 0.5, true, 5));
         AMESGame currentGame=AMESApplication.application().getAMESManager().getCurrentGame();
-       EventButton eventButton = new EventButton("david&oeil","button", 0);
+       EventButton eventButton = new EventButton("Scan_button","button", 0);
 //
 //        EventButton eventButton2 = new EventButton("david","button", 0);
 //        EventButton eventButton3 = new EventButton("oeil","button", 0);

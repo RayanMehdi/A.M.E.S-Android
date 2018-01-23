@@ -73,7 +73,8 @@ public class ButtonManager {
                 @Override
                 public void onClick(View view) {
                     Log.d("TEST", String.valueOf(button.getNextEventIndex()));
-                    removeAllButtons();
+                    if(eventButton.getName() != "Scan_button")
+                        removeAllButtons();
 
                     // Get the next index event
                     nextEventIndex = button.getNextEventIndex();

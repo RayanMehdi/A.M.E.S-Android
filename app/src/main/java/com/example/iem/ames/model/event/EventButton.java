@@ -39,6 +39,6 @@ public class EventButton extends AMESEvent {
 
     @Override
     public void stop() {
-
+        AMESApplication.application().getAMESManager().getButtonManager().removeAllButtons();
     }
 }

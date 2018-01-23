@@ -16,6 +16,7 @@ import com.example.iem.ames.model.event.EventCheckHeadphones;
 import com.example.iem.ames.model.event.EventCheckLight;
 import com.example.iem.ames.model.event.EventImage;
 import com.example.iem.ames.model.event.EventSound;
+import com.example.iem.ames.model.event.EventStop;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -164,7 +165,7 @@ public class AMESParser {
                         break;
                     case "button":
                         if(hashmap.containsKey(OFF)){
-
+                            event = new EventStop(amesEventName,amesEventType,amesEventDelay);
                         }else {
                             if (hashmap.containsKey(NUMBER_OF_BUTTONS)) {
                                 int numberButtons = Integer.parseInt(hashmap.get(NUMBER_OF_BUTTONS).get(0));
