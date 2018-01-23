@@ -28,6 +28,7 @@ public class TextManager {
     private int mIndex;
     private long mDelay = 100;
     private Runnable characterAdder;
+    private boolean isfinished;
 
     public TextManager(Context context, Screen screen) {
         this.context = context;
@@ -36,7 +37,8 @@ public class TextManager {
         mHandler = new Handler();
     }
 
-    public void displayText(Text text){
+    public void displayText(final Text text){
+        isfinished=false;
         textView.setHeight(this.screen.getHeight());
         textView.setWidth(this.screen.getWidth());
         textView.setTextSize(20);
@@ -50,7 +52,20 @@ public class TextManager {
         final int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
         final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
 
-        if(AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getDelayInMillisecond() > 0.0){
+        if(AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getDelay() > 0.0){
+
+            this.screen.getRelativeLayout().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(text.isAnimated()) {
+                        isfinished = true;
+                        screen.getRelativeLayout().setOnClickListener(null);
+                        textView.setText(text.getDisplayedText());
+                    }else {
+
+                    }
+                }
+            });
             new CountDownTimer((AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getDelayInMillisecond()), 1000) {
 
                 public void onTick(long millisUntilFinished) {
@@ -60,26 +75,26 @@ public class TextManager {
                     runNexEvent(currentSequenceIndex, currentEventIndex);
                 }
             }.start();
+
         }else {
             this.screen.getRelativeLayout().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    screen.getRelativeLayout().setOnClickListener(null);
-                    stop(currentSequenceIndex, currentEventIndex);
+                        if(isfinished == false) {
+                           isfinished = true;
+                            textView.setText(text.getDisplayedText());
+                        }else{
+                            screen.getRelativeLayout().setOnClickListener(null);
+                            stop(currentSequenceIndex, currentEventIndex);
+                        }
                 }
             });
         }
     }
 
-    private void displayTextWithDelay(Text text){
+    private void displayTextWithDelay(final Text text){
         final String msg = text.getDisplayedText();
         setCharacterDelay((long) text.getSpeed());
-        this.screen.getRelativeLayout().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                textView.setText(msg);
-            }
-        });
         animateText(text.getDisplayedText());
     }
 
@@ -126,7 +141,7 @@ public class TextManager {
             @Override
             public void run() {
                 if(textView.getText().length() >= msg.length()){
-                    screen.getRelativeLayout().setOnClickListener(null);
+                    isfinished=true;
                 }
                 else{
                     textView.setText(msg.subSequence(0, mIndex++) + "-");
@@ -149,7 +164,7 @@ public class TextManager {
         mDelay = millis*1000;
     }
 
-    private void destroy(){
+    public void destroy(){
         screen.getRelativeLayout().removeView(textView);
     }
 

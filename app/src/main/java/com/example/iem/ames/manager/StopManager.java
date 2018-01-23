@@ -38,7 +38,7 @@ public class StopManager {
 
         }
 
-        new CountDownTimer((long) delay*1000, 1000) {
+        new CountDownTimer((long) (delay*1000), 1000) {
 
             public void onTick(long millisUntilFinished) {
 

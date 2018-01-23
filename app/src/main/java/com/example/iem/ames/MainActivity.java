@@ -147,17 +147,20 @@ public class MainActivity extends AppCompatActivity {
 
         Text text = new Text("Le saviez vous...", 150.0, 150.0, 500, 500, false, 1.25);
         Text text2 = new Text("Si vous avez trois chocapics et qu'un cerf venue d'Irlande chevauchant un lièvre vous demande un selfis, alors Zinedine Zidane vous OS avec un solide druide lvl 2 forme phoque", 150.0, 150.0, 500, 500, true, 0.025);
-        EventText eventText = new EventText("test text", "animated text", 1, text);
-        EventText eventText2 = new EventText("test text2", "animated text", 10, text2);
-        EventStop eventStop = new EventStop("test text", "animated text", 0.1);
+        EventText eventText = new EventText("test text", "animated text", 0.1, text);
+        EventText eventText2 = new EventText("test text2", "animated text", 3, text2);
+        EventStop eventStop = new EventStop("test text", "animated text", 1);
+        ImageAnimation img = new ImageAnimation("bed", 10,10, true,5, 15, 2);
+        EventImage eventImage = new EventImage("test", "test", 5, img);
         AMESSequence amesSequence = new AMESSequence();
         //amesSequence.addEvent(eventButton);
-//        amesSequence.addEvent(eventButton2);
-//        amesSequence.addEvent(eventButton3);
+//       amesSequence.addEvent(eventButton2);
+//       amesSequence.addEvent(eventButton3);
         amesSequence.addEvent(eventText);
         amesSequence.addEvent(eventButton);
         amesSequence.addEvent(eventStop);
         amesSequence.addEvent(eventText2);
+        amesSequence.addEvent(eventImage);
 
         currentGame.addSequence(amesSequence);
 
