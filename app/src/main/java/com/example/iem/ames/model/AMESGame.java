@@ -1,5 +1,7 @@
 package com.example.iem.ames.model;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -12,6 +14,7 @@ public class AMESGame {
 
     public AMESGame() {
         this.sequences = new ArrayList<AMESSequence>();
+        this.currentSequenceIndex = 0;
     }
 
     public ArrayList<AMESSequence> getSequences() {
@@ -28,6 +31,11 @@ public class AMESGame {
         this.sequences.add(sequence);
     }
 
+    public AMESSequence getSequence(int index) {
+        Log.d("DEBUG", String.valueOf(index));
+        return this.sequences.get(index);
+    }
+
     public int getCurrentSequenceIndex() {
         return currentSequenceIndex;
     }
@@ -39,13 +47,7 @@ public class AMESGame {
     public void run(){
         if (currentSequenceIndex < this.sequences.size())
         {
-            AMESSequence currentSequence = this.sequences.get(currentSequenceIndex);
-
-            if(currentSequence.getClass() == AMESSequence.class)
-            {
-                currentSequence.firstRun();
-                currentSequenceIndex++;
-            }
+            sequences.get(currentSequenceIndex).run();
         }
     }
 }

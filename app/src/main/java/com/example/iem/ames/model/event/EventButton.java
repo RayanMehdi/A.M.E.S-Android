@@ -1,5 +1,6 @@
 package com.example.iem.ames.model.event;
 
+import com.example.iem.ames.AMESApplication;
 import com.example.iem.ames.model.element.Button;
 
 import java.util.ArrayList;
@@ -9,7 +10,6 @@ import java.util.ArrayList;
  */
 
 public class EventButton extends AMESEvent {
-
     private ArrayList<Button> buttons;
 
     public EventButton(String name, String type, double delay, ArrayList<Button> buttons) {
@@ -33,6 +33,12 @@ public class EventButton extends AMESEvent {
 
     @Override
     public void run() {
+        // Diplay buttons
+        AMESApplication.application().getAMESManager().getButtonManager().displayNewButton(this);
+    }
+
+    @Override
+    public void stop() {
 
     }
 }

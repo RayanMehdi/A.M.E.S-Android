@@ -18,8 +18,11 @@ public class AMESManager {
     private TextManager textManager;
     private Screen screen;
     private ImageManager imageManager;
+    private ButtonManager buttonManager;
     private SoundManager soundManager;
     private AccelerometerManager accelerometerManager;
+    private CheckHeadphonesManager checkHeadphonesManager;
+    private StopManager stopManager;
 
     public AMESManager(AMESGame currentGame) {
         this.currentGame = currentGame;
@@ -29,7 +32,10 @@ public class AMESManager {
         currentGame = new AMESGame();
         contextView = null;
         parser = new AMESParser();
+    }
 
+    public StopManager getStopManager() {
+        return stopManager;
     }
 
     public AMESGame getCurrentGame(){
@@ -60,8 +66,10 @@ public class AMESManager {
         this.screen = screen;
         this.textManager = new TextManager(this.contextView, this.screen);
         this.imageManager = new ImageManager(this.contextView, this.screen);
+        this.buttonManager = new ButtonManager(this.contextView, this.screen);
         this.soundManager = new SoundManager(this.contextView);
-        this.accelerometerManager = new AccelerometerManager(this.contextView, this.screen);
+        this.checkHeadphonesManager = new CheckHeadphonesManager(this.contextView);
+        this.stopManager = new StopManager();
     }
 
     public TextManager getTextManager() {
@@ -72,11 +80,19 @@ public class AMESManager {
         return imageManager;
     }
 
+    public ButtonManager getButtonManager() {
+        return buttonManager;
+    }
+
     public SoundManager getSoundManager() {
         return soundManager;
     }
 
     public AccelerometerManager getAccelerometerManager() {
         return accelerometerManager;
+    }
+
+    public CheckHeadphonesManager getCheckHeadphonesManager() {
+        return checkHeadphonesManager;
     }
 }

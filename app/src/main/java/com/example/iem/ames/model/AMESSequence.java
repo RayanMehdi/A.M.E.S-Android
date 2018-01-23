@@ -1,12 +1,14 @@
 package com.example.iem.ames.model;
 
+import android.os.CountDownTimer;
+import android.util.Log;
+
 import com.example.iem.ames.AMESApplication;
 import com.example.iem.ames.model.event.AMESEvent;
 import com.example.iem.ames.model.event.EventBackgroundSound;
+import com.example.iem.ames.model.event.EventButton;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Jo' on 16/01/2018.
@@ -14,11 +16,12 @@ import java.util.concurrent.TimeUnit;
 
 public class AMESSequence {
     private ArrayList<AMESEvent> events;
-    private  int nextEventIndex;
     private EventBackgroundSound backgroundSound;
+    private int currentIndex;
 
     public AMESSequence() {
         this.events = new ArrayList<AMESEvent>();
+        this.currentIndex = 0;
     }
 
     public ArrayList<AMESEvent> getEvents() {
@@ -33,14 +36,6 @@ public class AMESSequence {
 
     public void addEvent(AMESEvent event) {
         this.events.add(event);
-    }
-
-    public int getNextEventIndex() {
-        return nextEventIndex;
-    }
-
-    public void setNextEventIndex(int nextEventIndex) {
-        this.nextEventIndex = nextEventIndex;
     }
 
     public EventBackgroundSound getBackgroundSound() {
@@ -62,6 +57,14 @@ public class AMESSequence {
         return res;
     }
 
+    public int getCurrentIndex() {
+        return currentIndex;
+    }
+
+    public void setCurrentIndex(int currentIndex) {
+        this.currentIndex = currentIndex;
+    }
+
     public void firstRun(){
         // When sequence is starting, running background sound
         if(backgroundSound.getClass() == EventBackgroundSound.class)
@@ -70,35 +73,11 @@ public class AMESSequence {
     }
 
     public void run(){
-        // Firing successive events with a timer
-        if(this.nextEventIndex < this.events.size())
-        {
-            AMESEvent currentEvent = this.events.get(this.nextEventIndex);
-            this.nextEventIndex++;
-            currentEvent.run();
-            if (currentEvent.getDelay() > 0.0) // If event has a finite duration
-            {
-                // wait the delay of the current event
-                try
-                {
-                    Thread.sleep(currentEvent.getDelayInMillisecond());
-                }
-                catch(InterruptedException ex)
-                {
-                    Thread.currentThread().interrupt();
-                }
-            }
+            // Run event
+        if(currentIndex < events.size()){
+            Log.d("SEQ", String.valueOf(this.currentIndex));
+            events.get(currentIndex).run();
         }
-        // Stop looping sound her
-        else
-        {
-            this.nextEventIndex = 0; // reseting sequence, in case it has to be played several times.
-            // Modifying the background event to stop sound. Will be called at the end of the sequence
-            if (backgroundSound != null) {
-                backgroundSound.stop();
-            }
-            // Signal the game that sequence is over.
-            AMESApplication.application().getAMESManager().getCurrentGame().run();
-        }
+
     }
 }
