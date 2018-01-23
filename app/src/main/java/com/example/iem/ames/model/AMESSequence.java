@@ -78,6 +78,7 @@ public class AMESSequence {
             Log.d("SEQ", String.valueOf(this.currentIndex));
             events.get(currentIndex).run();
         }
+        else AMESApplication.application().getAMESManager().getCurrentGame().preparNextSequence();
 
     }
 }

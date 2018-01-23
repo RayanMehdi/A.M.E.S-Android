@@ -16,4 +16,9 @@ public class EventCheckLight extends AMESEvent{
     public void run() {
         AMESApplication.application().getAMESManager().getCheckLightManager().checkLight();
     }
+
+    @Override
+    public void stop() {
+
+    }
 }

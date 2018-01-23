@@ -147,10 +147,14 @@ public class MainActivity extends AppCompatActivity {
 //        eventButton3.setButtons(buttons3);
 
         Text text = new Text("Le saviez vous...", 150.0, 150.0, 500, 500, false, 1.25);
+        Text text3 = new Text("Bravo, ça marche bien !", 150.0, 150.0, 500, 500, true, 0.05);
         Text text2 = new Text("Si vous avez trois chocapics et qu'un cerf venue d'Irlande chevauchant un lièvre vous demande un selfis, alors Zinedine Zidane vous OS avec un solide druide lvl 2 forme phoque", 150.0, 150.0, 500, 500, true, 0.025);
         EventText eventText = new EventText("test text", "animated text", 0.1, text);
-        EventText eventText2 = new EventText("test text2", "animated text", 3, text2);
+        EventText eventText2 = new EventText("test text2", "animated text", 5, text2);
+        EventText eventText3 = new EventText("test text3", "animated text", 0, text3);
         EventStop eventStop = new EventStop("test text", "animated text", 1);
+        EventStop eventStop2 = new EventStop("test text", "animated text", 3);
+        EventStop eventStop3 = new EventStop("test", "animation", 3);
         ImageAnimation img = new ImageAnimation("bed", 10,10, true,5, 15, 2);
         EventImage eventImage = new EventImage("test", "test", 5, img);
         AMESSequence amesSequence = new AMESSequence();
@@ -162,6 +166,9 @@ public class MainActivity extends AppCompatActivity {
         amesSequence.addEvent(eventStop);
         amesSequence.addEvent(eventText2);
         amesSequence.addEvent(eventImage);
+        amesSequence.addEvent(eventStop2);
+        amesSequence.addEvent(eventText3);
+        amesSequence.addEvent(eventStop3);
 
         currentGame.addSequence(amesSequence);
 

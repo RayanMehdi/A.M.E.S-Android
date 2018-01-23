@@ -11,10 +11,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
+import com.example.iem.ames.AMESApplication;
 import com.example.iem.ames.R;
 import com.example.iem.ames.model.element.Image;
 import com.example.iem.ames.model.element.ImageAnimation;
 import com.example.iem.ames.model.element.Screen;
+import com.example.iem.ames.model.event.EventImage;
 
 import java.io.InputStream;
 
@@ -26,13 +28,20 @@ public class ImageManager {
     private Context context;
     private Screen screen;
 
+
+
     public ImageManager(Context context, Screen screen) {
         this.context = context;
         this.screen = screen;
+
     }
 
     public void displayNewImage(Image img){
+        final int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
+        final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
         final ImageView imageView = new ImageView(this.context);
+        EventImage temp = (EventImage) AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex);
+        temp.setImageView(imageView);
         imageView.setImageResource(img.getID());
 
         BitmapFactory.Options dimensions = new BitmapFactory.Options();
@@ -52,12 +61,29 @@ public class ImageManager {
 
         // Finally Adding the imageView to RelativeLayout and its position
         this.screen.getRelativeLayout().addView(imageView, layoutParams);
+        long delay = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getDelayInMillisecond();
+
+        if(delay>0.0){
+            new CountDownTimer(delay, 1000) {
+
+                public void onTick(long millisUntilFinished) {
+                }
+
+                public void onFinish() {
+                    runNextEvent(currentSequenceIndex, currentEventIndex);
+                }
+            }.start();
+        }
 
 
     }
 
     public void displayAnimation(final ImageAnimation image){
+        final int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
+        final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
         final ImageView imageAnim = new ImageView(this.context);
+        EventImage temp = (EventImage) AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex);
+        temp.setImageView(imageAnim);
         final AnimationDrawable animation = new AnimationDrawable();
         this.screen.getRelativeLayout().addView(imageAnim);
         animation.setOneShot(false);
@@ -75,6 +101,20 @@ public class ImageManager {
             }
         });
 
+        long delay = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getDelayInMillisecond();
+
+        if(delay>0.0){
+            new CountDownTimer(delay, 1000) {
+
+                public void onTick(long millisUntilFinished) {
+                }
+
+                public void onFinish() {
+                    runNextEvent(currentSequenceIndex, currentEventIndex);
+                }
+            }.start();
+        }
+
         new CountDownTimer(image.getDuration() * image.getNumberOfRepeat() * 1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -84,6 +124,16 @@ public class ImageManager {
                 animation.stop();
             }
         }.start();
+    }
+
+    private void runNextEvent(int currentSequenceIndex, int currentEventIndex){
+        int nexEvent = currentEventIndex+1;
+        AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).setCurrentIndex(nexEvent);
+        AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).run();
+    }
+
+    public void destroyImageView(ImageView imageView){
+        screen.getRelativeLayout().removeView(imageView);
     }
 
 }
