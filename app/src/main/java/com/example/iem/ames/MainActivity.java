@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
 
         Text text = new Text("Le saviez vous...", 150.0, 150.0, 500, 500, false, 1.25);
         Text text2 = new Text("Si vous avez trois chocapics et qu'un cerf venue d'Irlande chevauchant un lièvre vous demande un selfis, alors Zinedine Zidane vous OS avec un solide druide lvl 2 forme phoque", 150.0, 150.0, 500, 500, true, 0.025);
-        EventText eventText = new EventText("test text", "animated text", 0.1, text);
+        EventText eventText = new EventText("test text", "animated text", 1, text);
         EventText eventText2 = new EventText("test text2", "animated text", 10, text2);
         EventStop eventStop = new EventStop("test text", "animated text", 0.1);
         AMESSequence amesSequence = new AMESSequence();

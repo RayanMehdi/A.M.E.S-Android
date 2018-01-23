@@ -16,4 +16,9 @@ public class EventCheckHeadphones extends AMESEvent {
     public void run() {
         AMESApplication.application().getAMESManager().getCheckHeadphonesManager().checkHeadphones();
     }
+
+    @Override
+    public void stop() {
+
+    }
 }
