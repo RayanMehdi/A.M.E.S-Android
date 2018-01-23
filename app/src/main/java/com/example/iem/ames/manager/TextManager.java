@@ -3,7 +3,6 @@ package com.example.iem.ames.manager;
 import android.content.Context;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -72,7 +71,7 @@ public class TextManager {
 
                 }
                 public void onFinish() {
-                    runNexEvent(currentSequenceIndex, currentEventIndex);
+                    runNextEvent(currentSequenceIndex, currentEventIndex);
                 }
             }.start();
 
@@ -149,6 +148,7 @@ public class TextManager {
                         mHandler.postDelayed(characterAdder, mDelay);
                     }
                     else{
+                        isfinished=true;
                         textView.setText(msg);
                     }
                 }
@@ -168,15 +168,15 @@ public class TextManager {
         screen.getRelativeLayout().removeView(textView);
     }
 
-    private void runNexEvent(int currentSequenceIndex, int currentEventIndex){
+    private void runNextEvent(int currentSequenceIndex, int currentEventIndex){
         currentEventIndex = currentEventIndex+1;
         Log.d("INDEX", String.valueOf(currentEventIndex));
-        AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).setCurrentIndex(currentEventIndex++);
+        AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).setCurrentIndex(currentEventIndex);
         AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).run();
     }
 
     public void stop(int currentSequenceIndex, int currentEventIndex){
         try{destroy();}catch (Exception e){}
-        runNexEvent(currentSequenceIndex, currentEventIndex);
+        runNextEvent(currentSequenceIndex, currentEventIndex);
     }
 }
