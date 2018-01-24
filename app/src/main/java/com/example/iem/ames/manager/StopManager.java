@@ -24,19 +24,19 @@ public class StopManager {
         final int currentSequenceIndex=AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
         final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
         int start = currentEventIndex-1;
-        for(int position = start; isfinish==false && position >=0; position-- ){
-            if(events.get(position).getType()== "animated text" && type == "animated text"){
+        for(int position = start; isfinish==false && position >=0; position-- ) {
+            if (events.get(position).getType() == "animated text" && type == "animated text") {
                 events.get(position).stop();
-                isfinish=true;
+                isfinish = true;
 
+            } else {
+                if (events.get(position).getName()==name) {
+                    events.get(position).stop();
+                    isfinish = true;
+                }
             }
-
-            if(events.get(position).getName()==name){
-                events.get(position).stop();
-                isfinish=true;
-            }
-
         }
+
 
         new CountDownTimer((long) (delay*1000), 1000) {
 

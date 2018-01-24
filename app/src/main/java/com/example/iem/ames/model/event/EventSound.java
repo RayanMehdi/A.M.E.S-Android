@@ -16,7 +16,7 @@ public class EventSound extends AMESEvent {
 
     public EventSound(String name, String type, double delay, String soundName, boolean infinite) {
         super(name, type, delay);
-        this.soundName = soundName.substring(0, soundName.length()-4);
+        this.soundName = soundName.substring(0, soundName.length()-4).toLowerCase();
         Log.d("TEST", this.soundName);
         this.infinite=infinite;
         context= AMESApplication.application().getAMESManager().getContextView();

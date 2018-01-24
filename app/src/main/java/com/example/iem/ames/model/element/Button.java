@@ -52,7 +52,7 @@ public class Button {
     }
 
     public Button(String filename, int nextEventIndex, double x, double y) {
-        this.filename = filename;
+        this.filename=filename.substring(0, filename.length()-4).toLowerCase();
         this.nextEventIndex = nextEventIndex;
         this.x = x;
         this.y = y;

@@ -45,6 +45,8 @@ public class TextManager {
         textView.setTextColor(context.getResources().getColor(R.color.white));
         if(text.isAnimated()){
             displayTextWithDelay(text);
+        }else{
+            isfinished=true;
         }
         setPosition(text);
 

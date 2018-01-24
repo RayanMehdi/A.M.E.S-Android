@@ -10,6 +10,7 @@ import com.example.iem.ames.model.AMESSequence;
 import com.example.iem.ames.model.element.Button;
 import com.example.iem.ames.model.element.Image;
 import com.example.iem.ames.model.element.ImageAnimation;
+import com.example.iem.ames.model.element.Text;
 import com.example.iem.ames.model.event.AMESEvent;
 import com.example.iem.ames.model.event.EventButton;
 import com.example.iem.ames.model.event.EventCheckHeadphones;
@@ -17,10 +18,7 @@ import com.example.iem.ames.model.event.EventCheckLight;
 import com.example.iem.ames.model.event.EventImage;
 import com.example.iem.ames.model.event.EventSound;
 import com.example.iem.ames.model.event.EventStop;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
+import com.example.iem.ames.model.event.EventText;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,12 +26,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.keiji.plistparser.PListArray;
+import io.keiji.plistparser.PListDict;
+import io.keiji.plistparser.PListException;
+import io.keiji.plistparser.PListObject;
+import io.keiji.plistparser.PListParser;
+
 /**
  * Created by iem on 16/01/2018.
  */
 
 public class AMESParser {
     final String
+            PARAMETERS = "Parameters",
             KEY = "key",
             STRING = "string",
             REAL = "real",
@@ -57,128 +62,117 @@ public class AMESParser {
             Y_POSITION ="Position Y",
             SOUND_FILE = "Sound file",
             IMAGE_FILE = "Image file",
+            FILENAME_FOR_IMAGES = "Filename for images",
             CHECK_HEADPHONES = "check headphones",
             DISPLAY_OFF = "display Off",
+            DISPLAYED_TEXT= "displayed text",
+            X_LOCATION="x location",
+            Y_LOCATION="y location",
+            HEIGHT="height",
+            WIDTH="width",
+            TEXT_SPEED="text speed",
             OFF = "Off";
 
 
     public void CreateSequenceFromFile(int idFile){
         Context context = AMESApplication.application().getAMESManager().getContextView();
         AMESSequence amesSequence = new AMESSequence();
-        XmlPullParserFactory pullParserFactory;
+        try{
 
-        try {
-            pullParserFactory = XmlPullParserFactory.newInstance();
-            XmlPullParser parser = pullParserFactory.newPullParser();
-            InputStream in_s = context.getResources().openRawResource(idFile);
-            parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-            parser.setInput(in_s, null);
+            InputStream inputStream = context.getResources().openRawResource(R.raw.firstsequence);
 
-            ArrayList<HashMap> listOfEvent = new ArrayList<>();
-            HashMap<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
+            PListArray listOfEvent = null;
 
-            int eventType = parser.getEventType();
+            try {
+                listOfEvent = PListParser.parse(inputStream);
+                //Log.d("TEST",listOfEvent.toString());
 
-            String lastTag = null;
-            String lastKey = null;
-
-            while (eventType != XmlPullParser.END_DOCUMENT) {
-                if (eventType == XmlPullParser.START_TAG) {
-                    lastTag = parser.getName();
-                }
-                else if (eventType == XmlPullParser.TEXT) {
-                    // some text
-                    if (KEY.equalsIgnoreCase(lastTag) && parser.getText().matches(".*[\\w]+.*")) {
-                        // start tracking a new key
-                        lastKey = parser.getText();
-
-                        //Log.d("TEST", "KEY : "+lastKey);
-                        if(NAME.equalsIgnoreCase(lastKey)){
-                            if(!map.isEmpty()){
-                                listOfEvent.add(map);
-                            }
-
-                            map = new HashMap<String, ArrayList<String>>();
-                        }
-                    }
-                    else if ((STRING.equalsIgnoreCase(lastTag) ||
-                            REAL.equalsIgnoreCase(lastTag) ||
-                            INTEGER.equalsIgnoreCase(lastTag)
-                    ) && parser.getText().matches(".*[\\w]+.*") ) {
-                        // a new string for the last encountered key
-                        if (!map.containsKey(lastKey)) {
-                            map.put(lastKey, new ArrayList<String>());
-                        }
-                        //Log.d("TEST", "VALUE : "+parser.getText());
-                        map.get(lastKey).add(parser.getText());
-                    }
-                }
-
-                eventType = parser.next();
-
-            }
-            // For the last event of the sequence
-            if(!map.isEmpty()){
-                listOfEvent.add(map);
+            } catch (PListException e) {
+                e.printStackTrace();
             }
 
-            Log.d("TEST", listOfEvent.toString());
+            //Log.d("TEST", listOfEvent.toString());
+
+            for (int j = 0; j < listOfEvent.size(); j++) {
+                PListDict pListEvent = (PListDict) listOfEvent.get(j);
 
 
-            for (HashMap<String, ArrayList<String>> hashmap: listOfEvent) {
+                PListDict pListEventParameter = null;
 
-                String amesEventName = hashmap.get(NAME).get(0);
-                String amesEventType = hashmap.get(TYPE).get(0);
-                double amesEventDelay = Double.valueOf(hashmap.get(DELAY).get(0));
+
+                if(pListEvent.has(PARAMETERS)){
+                    pListEventParameter = pListEvent.getPListDict(PARAMETERS);
+                }
+
+                String amesEventName = getValueInString(pListEvent,NAME);
+                String amesEventType = getValueInString(pListEvent,TYPE);
+
+
+                double amesEventDelay = Double.parseDouble(getValueInString(pListEvent, DELAY));
 
                 AMESEvent event = null;
 
-                switch (hashmap.get(TYPE).get(0)){
+                switch (getValueInString(pListEvent,TYPE)){
                     case "animated text":
-                        if(hashmap.containsKey(DISPLAY_OFF)){
-                            event = new EventStop(amesEventName, amesEventType, amesEventDelay);
-                        }else {}
-                        break;
-                    case "animation":
-                        if(hashmap.containsKey(OFF)){
+                        if(pListEventParameter.has(DISPLAY_OFF)){
                             event = new EventStop(amesEventName, amesEventType, amesEventDelay);
                         }else {
-                            Image imgAnimation = new ImageAnimation(hashmap.get(IMAGE_FILE).get(0),
-                                                                    Double.parseDouble(hashmap.get(ANIMATION_POSITION_X).get(0)),
-                                                                    Double.parseDouble(hashmap.get(ANIMATION_POSITION_Y).get(0)),
-                                                                    true,
-                                                                    Integer.parseInt(hashmap.get(NUMBER_OF_FILE).get(0)),
-                                                                    Integer.parseInt(hashmap.get(ANIMATION_DURATION).get(0)),
-                                                                    Integer.parseInt(hashmap.get(REPEAT_NUMBER).get(0)));
+
+                            Text text = new Text(getValueInString(pListEventParameter,DISPLAYED_TEXT),
+                                    Double.parseDouble(getValueInString(pListEventParameter, X_LOCATION)),
+                                    Double.parseDouble(getValueInString(pListEventParameter, Y_LOCATION)),
+                                    Double.parseDouble(getValueInString(pListEventParameter, WIDTH)),
+                                    Double.parseDouble(getValueInString(pListEventParameter, HEIGHT)),
+                                    true,
+                                    Double.parseDouble(getValueInString(pListEventParameter, TEXT_SPEED)));
+                            event = new EventText(amesEventName,amesEventType,amesEventDelay, text);
+                        }
+                        break;
+                    case "animation":
+                        Log.d("FFFFFFFF", pListEvent.toString());
+                        if(pListEventParameter.has(OFF)){
+                            event = new EventStop(amesEventName, amesEventType, amesEventDelay);
+                        }else {
+
+                            Image imgAnimation = new ImageAnimation(getValueInString(pListEventParameter,FILENAME_FOR_IMAGES),
+                                            Double.parseDouble(getValueInString(pListEventParameter, ANIMATION_POSITION_X)),
+                                            Double.parseDouble(getValueInString(pListEventParameter, ANIMATION_POSITION_Y)),
+                                            true,
+                                            Integer.parseInt(getValueInString(pListEventParameter, NUMBER_OF_FILE)),
+                                            Integer.parseInt(getValueInString(pListEventParameter, ANIMATION_DURATION)),
+                                            Integer.parseInt(getValueInString(pListEventParameter, REPEAT_NUMBER)));
                             event = new EventImage(amesEventName, amesEventType, amesEventDelay, imgAnimation);
                         }
                        
                         break;
                     case "image":
-                        if(hashmap.containsKey(OFF)){
+                        if(pListEventParameter.has(OFF)){
                             event = new EventStop(amesEventName, amesEventType, amesEventDelay);
                         }
                         else{
-                        Image img = new Image(hashmap.get(IMAGE_FILE).get(0), Double.parseDouble(hashmap.get(X_POSITION).get(0)), Double.parseDouble(hashmap.get(Y_POSITION).get(0)), false);
+                        Image img = new Image(pListEventParameter.getString(IMAGE_FILE),
+                                Double.parseDouble(getValueInString(pListEventParameter, X_POSITION)),
+                                Double.parseDouble(getValueInString(pListEventParameter, Y_POSITION)),
+                                false);
                         event = new EventImage(amesEventName, amesEventType, amesEventDelay, img);
                         }
                         break;
                     case "battery level":
                         break;
                     case "button":
-                        if(hashmap.containsKey(OFF)){
+                        if(pListEventParameter.has(OFF)){
                             event = new EventStop(amesEventName,amesEventType,amesEventDelay);
                         }else {
-                            if (hashmap.containsKey(NUMBER_OF_BUTTONS)) {
-                                int numberButtons = Integer.parseInt(hashmap.get(NUMBER_OF_BUTTONS).get(0));
+                            if (pListEventParameter.has(NUMBER_OF_BUTTONS)) {
+                                int numberButtons = Integer.parseInt(getValueInString(pListEventParameter, NUMBER_OF_BUTTONS));
                                 ArrayList<Button> buttons = new ArrayList<>();
                                 Log.d("TEST", String.valueOf(numberButtons));
                                 for (int i = 0; i < numberButtons; i++) {
-                                    Log.d("TEST", hashmap.get(IMAGE_FILENAME_FOR_BUTTON + String.valueOf(i + 1)).get(0));
-                                    String buttonFilename = hashmap.get(IMAGE_FILENAME_FOR_BUTTON + String.valueOf(i + 1)).get(0);
-                                    int buttonNextEvent = Integer.valueOf(hashmap.get(NEXT_EVENT_INDEX_BUTTON + String.valueOf(i + 1)).get(0));
-                                    double buttonX = Double.valueOf(hashmap.get(X_POSITION_FOR_BUTTON + String.valueOf(i + 1)).get(0));
-                                    double buttonY = Double.valueOf(hashmap.get(Y_POSITION_FOR_BUTTON + String.valueOf(i + 1)).get(0));
+                                    Log.d("TEST", getValueInString(pListEventParameter,IMAGE_FILENAME_FOR_BUTTON + String.valueOf(i + 1)));
+                                    String buttonFilename = getValueInString(pListEventParameter,IMAGE_FILENAME_FOR_BUTTON + String.valueOf(i + 1));
+                                    int buttonNextEvent = Integer.parseInt(getValueInString(pListEventParameter, NEXT_EVENT_INDEX_BUTTON + String.valueOf(i + 1)));
+                                    double buttonX = Double.parseDouble(getValueInString(pListEventParameter, X_POSITION_FOR_BUTTON + String.valueOf(i + 1)));
+                                    double buttonY = Double.parseDouble(getValueInString(pListEventParameter, Y_POSITION_FOR_BUTTON + String.valueOf(i + 1)));
                                     Button button = new Button(buttonFilename, buttonNextEvent, buttonX, buttonY);
                                     buttons.add(button);
                                 }
@@ -187,15 +181,7 @@ public class AMESParser {
                                 event = new EventButton(amesEventName, amesEventType, amesEventDelay);
                             }
                         }
-                        /*int numberButtons =  Integer.parseInt(hashmap.get(NUMBER_OF_BUTTONS).get(0));
-                        ArrayList<Button> buttons = new ArrayList<>();
-                        for(int i=1; i<numberButtons+2; i++){
-                            String buttonFileName = hashmap.get(IMAGE_FILENAME_FOR_BUTTON).get(i);
-                        }
-                       for(int i =1 ; i < numberButtons + 1;i++){
-                            Log.d("TEST", hashmap.get("Image filename for button "+String.valueOf(i)).get(0));
 
-                        }*/
 
                         //event = new AMESEvent(amesEventName, amesEventType, amesEventDelay);
                         break;
@@ -208,22 +194,22 @@ public class AMESParser {
                     case "micro":
                         break;
                     case "son":
-                        if(hashmap.containsKey(STOP)){
+                        if(pListEventParameter.has(STOP)){
 
                         }
                         else{
-                            if(hashmap.containsKey(INFINITE)){
-                                event = new EventSound(amesEventName, amesEventType, amesEventDelay, hashmap.get(SOUND_FILE).get(0), true);
+                            if(pListEventParameter.has(INFINITE)){
+                                event = new EventSound(amesEventName, amesEventType, amesEventDelay, getValueInString(pListEventParameter, SOUND_FILE), true);
                                 Log.d("INFINITO", amesEventName + " is infinite");
                             }
                             else{
-                                event = new EventSound(amesEventName, amesEventType, amesEventDelay, hashmap.get(SOUND_FILE).get(0), false);
+                                event = new EventSound(amesEventName, amesEventType, amesEventDelay, getValueInString(pListEventParameter, SOUND_FILE), false);
                             }
                         }
 
                         break;
                     case "text":
-                        if(hashmap.containsKey(DISPLAY_OFF)){
+                        if(pListEventParameter.has(DISPLAY_OFF)){
 
                         }else{}
                         break;
@@ -239,12 +225,48 @@ public class AMESParser {
                 if(event != null) {
                     amesSequence.addEvent(event);
                 }
+                
             }
             Log.d("TEST", amesSequence.toString());
+            Log.d("TEST", String.valueOf(amesSequence.getEvents().size()));
             AMESApplication.application().getAMESManager().getCurrentGame().addSequence(amesSequence);
             }catch (Exception e){
                 e.printStackTrace();
         }
+    }
 
+    public String getValueInString(PListDict pListDict, String key){
+        String val = null;
+        try{
+            val = String.valueOf(pListDict.getString(key));
+            return val;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try{
+            val = String.valueOf(pListDict.getBool(key));
+            return val;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try{
+            val = String.valueOf(pListDict.getInt(key));
+            return val;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try{
+            val = String.valueOf(pListDict.getReal(key));
+            return val;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try{
+            val = String.valueOf(pListDict.getDate(key));
+            return val;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return val;
     }
 }
