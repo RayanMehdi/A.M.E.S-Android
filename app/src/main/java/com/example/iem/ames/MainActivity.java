@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.EventLog;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.example.iem.ames.model.element.ImageAnimation;
 import com.example.iem.ames.model.element.Screen;
 import com.example.iem.ames.model.event.EventButton;
 import com.example.iem.ames.model.element.Text;
+import com.example.iem.ames.model.event.EventCamera;
 import com.example.iem.ames.model.event.EventCheckLight;
 import com.example.iem.ames.model.event.EventImage;
 import com.example.iem.ames.model.event.EventSound;
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         amesManager = AMESApplication.application().getAMESManager();
         AMESGame currentGame=AMESApplication.application().getAMESManager().getCurrentGame();
         amesManager.setContextView(this.getApplicationContext());
-        amesManager.createManager(new Screen(this.rl, height, width));
+        amesManager.createManager(new Screen(this.rl, height, width), this);
 
 
 
@@ -128,8 +130,10 @@ public class MainActivity extends AppCompatActivity {
     private void test(){
         //amesManager.getImageManager().displayNewImage(new Image("oeil", 0.1, 0.1, true, 3));
         //amesManager.getImageManager().displayNewImage(new Image("davidgoodenough", 0.5, 0.5, true, 5));
+        Image image = new Image("interface_eyescan.png", 0.5, 0.5, false);
         AMESGame currentGame=AMESApplication.application().getAMESManager().getCurrentGame();
-       EventButton eventButton = new EventButton("Scan_button","button", 0);
+       EventButton eventButton = new EventButton("oyguyfthf","button", 0);
+        EventCamera eventCamera = new EventCamera("Camera", "camera", 10, false, 4, 4, image);
 //
 //        EventButton eventButton2 = new EventButton("david","button", 0);
 //        EventButton eventButton3 = new EventButton("oeil","button", 0);
@@ -151,18 +155,22 @@ public class MainActivity extends AppCompatActivity {
         EventText eventText = new EventText("test text", "animated text", 0.1, text);
         EventText eventText2 = new EventText("test text2", "animated text", 3, text2);
         EventStop eventStop = new EventStop("test text", "animated text", 1);
+        EventStop eventStop1 = new EventStop("Camera", "camera", 3);
         ImageAnimation img = new ImageAnimation("bed", 10,10, true,5, 15, 2);
         EventImage eventImage = new EventImage("test", "test", 5, img);
         AMESSequence amesSequence = new AMESSequence();
         //amesSequence.addEvent(eventButton);
 //       amesSequence.addEvent(eventButton2);
 //       amesSequence.addEvent(eventButton3);
+
         amesSequence.addEvent(eventText);
         amesSequence.addEvent(eventButton);
         amesSequence.addEvent(eventStop);
         amesSequence.addEvent(eventText2);
+        amesSequence.addEvent(eventCamera);
         amesSequence.addEvent(eventImage);
 
+        amesSequence.addEvent(eventStop1);
         currentGame.addSequence(amesSequence);
 
         currentGame.run();

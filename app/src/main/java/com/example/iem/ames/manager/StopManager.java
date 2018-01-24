@@ -31,7 +31,7 @@ public class StopManager {
 
             }
 
-            if(events.get(position).getName()==name){
+            if(events.get(position).getName().equals(name)){
                 events.get(position).stop();
                 isfinish=true;
             }
