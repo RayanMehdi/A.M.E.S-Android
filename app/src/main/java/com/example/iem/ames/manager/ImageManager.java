@@ -74,8 +74,6 @@ public class ImageManager {
                 }
             }.start();
         }
-
-
     }
 
     public void displayAnimation(final ImageAnimation image){
