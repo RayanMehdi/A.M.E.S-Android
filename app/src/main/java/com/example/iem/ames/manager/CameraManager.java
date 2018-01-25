@@ -35,8 +35,9 @@ public class CameraManager implements TextureView.SurfaceTextureListener {
     // CAMERA
 
 
-
-
+    public Camera getmCamera() {
+        return mCamera;
+    }
 
     public CameraManager(Activity activity, Screen screen) {
         this.activity = activity;

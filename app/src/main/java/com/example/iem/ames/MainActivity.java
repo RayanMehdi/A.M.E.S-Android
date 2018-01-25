@@ -25,6 +25,7 @@ import com.example.iem.ames.model.event.EventButton;
 import com.example.iem.ames.model.element.Text;
 import com.example.iem.ames.model.event.EventCamera;
 import com.example.iem.ames.model.event.EventCheckLight;
+import com.example.iem.ames.model.event.EventFlash;
 import com.example.iem.ames.model.event.EventImage;
 import com.example.iem.ames.model.event.EventSound;
 import com.example.iem.ames.model.event.EventStop;
@@ -140,10 +141,10 @@ public class MainActivity extends AppCompatActivity {
     private void test(){
         //amesManager.getImageManager().displayNewImage(new Image("oeil", 0.1, 0.1, true, 3));
         //amesManager.getImageManager().displayNewImage(new Image("davidgoodenough", 0.5, 0.5, true, 5));
-        Image image = new Image("interface_eyescan.png", 0.5, 0.5, false);
-        Image image2 = new Image("davidgoodenough.png", 0.1, 0.5, false);
+      //  Image image = new Image("interface_eyescan.png", 0.5, 0.5, false);
+       // Image image2 = new Image("davidgoodenough.png", 0.1, 0.5, false);
         AMESGame currentGame=AMESApplication.application().getAMESManager().getCurrentGame();
-       EventButton eventButton = new EventButton("Zamasalerace","button", 0);
+      /* EventButton eventButton = new EventButton("Zamasalerace","button", 0);
 //
 //        EventButton eventButton2 = new EventButton("david","button", 0);
 //        EventButton eventButton3 = new EventButton("oeil","button", 0);
@@ -182,11 +183,19 @@ public class MainActivity extends AppCompatActivity {
         amesSequence.addEvent(eventText2);
        /* amesSequence.addEvent(eventCamera);
         amesSequence.addEvent(eventStop1);*/
-        amesSequence.addEvent(eventImage);
+        /*amesSequence.addEvent(eventImage);
         amesSequence.addEvent(eventStop2);
         amesSequence.addEvent(eventStop3);
-        amesSequence.addEvent(eventText3);
+        amesSequence.addEvent(eventText3);*/
 
+        AMESSequence amesSequence = new AMESSequence();
+        Image image = new Image("interface_eyescan.png", 0.5, 0.5, false);
+        EventCamera eventCamera = new EventCamera("cam", "camera", 3, true, 1, 1, image);
+        EventFlash eventFlash = new EventFlash("lalala", "flash", 10);
+        amesSequence.addEvent(eventCamera);
+        amesSequence.addEvent(eventFlash);
+        EventStop eventStop = new EventStop("lalala", "flash", 1);
+        amesSequence.addEvent(eventStop);
 
         currentGame.addSequence(amesSequence);
 

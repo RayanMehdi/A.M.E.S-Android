@@ -26,6 +26,7 @@ public class AMESManager {
     private CheckLightManager checkLightManager;
     private StopManager stopManager;
     private CameraManager cameraManager;
+    private FlashManager flashManager;
 
     public AMESManager(AMESGame currentGame) {
         this.currentGame = currentGame;
@@ -36,6 +37,8 @@ public class AMESManager {
         contextView = null;
         parser = new AMESParser();
     }
+
+
 
     public StopManager getStopManager() {
         return stopManager;
@@ -75,6 +78,7 @@ public class AMESManager {
         this.checkLightManager = new CheckLightManager(this.contextView);
         this.cameraManager = new CameraManager(activity, this.screen);
         this.stopManager = new StopManager();
+        this.flashManager = new FlashManager();
     }
 
     public TextManager getTextManager() {
@@ -108,4 +112,10 @@ public class AMESManager {
     public CameraManager getCameraManager() {
         return cameraManager;
     }
+
+    public FlashManager getFlashManager() {
+        return flashManager;
+    }
+
+
 }
