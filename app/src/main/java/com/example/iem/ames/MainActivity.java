@@ -82,10 +82,10 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Test", "Ok");
 
 
-            //test();
+            test();
 
-            loadSequenceFile();
-            AMESApplication.application().getAMESManager().getCurrentGame().run();
+            //loadSequenceFile();
+            //AMESApplication.application().getAMESManager().getCurrentGame().run();
             //TODO Method currentGame.run();
         }
     }
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }else {
             displayMessage = getResources().getString(R.string.cameraError);
-            response = false;
+            //response = false;
         }
 
         //AMESApplication.application().getAMESManager().getTextManager().textNotInSequence(displayMessage);
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
         EventStop eventStop = new EventStop("test text", "animated text", 1);
         EventStop eventStop2 = new EventStop("test text", "animated text", 5);
         EventStop eventStop3 = new EventStop("test", "animation", 5);
-        ImageAnimation img = new ImageAnimation("bed", 10,10, true,5, 15, 2);
+        ImageAnimation img = new ImageAnimation("bed", 10,10, true,5, 15, 2, 1, 0.5, 0.1, 2);
         Image imgCamera = new Image("scanRetine.png", 0.5, 0.5, false);
         Image imgCamera2 = new Image("interface_eyescan.png", 0.2, 0.2, false);
         EventStop eventStop4 = new EventStop("camera", "camera", 3);
@@ -177,24 +177,18 @@ public class MainActivity extends AppCompatActivity {
         EventCamera eventCamera = new EventCamera("camera", "camera", 6,false, imgCamera);
         AMESSequence amesSequence = new AMESSequence();
         //amesSequence.addEvent(eventButton);
-//       amesSequence.addEvent(eventButton2);
-//       amesSequence.addEvent(eventButton3);
-        amesSequence.addEvent(eventCamera);
-        amesSequence.addEvent(eventImage2);
-        amesSequence.addEvent(eventButton);
-        amesSequence.addEvent(eventText2);
-        amesSequence.addEvent(eventStop2);
-        amesSequence.addEvent(eventText);
-
-        amesSequence.addEvent(eventStop);
+        //amesSequence.addEvent(eventButton2);
+        //amesSequence.addEvent(eventButton3);
+        //amesSequence.addEvent(eventText);
+        //amesSequence.addEvent(eventButton);
+        //amesSequence.addEvent(eventStop);
         //amesSequence.addEvent(eventText2);
-
         amesSequence.addEvent(eventImage);
         //amesSequence.addEvent(eventStop2);
         amesSequence.addEvent(eventStop3);
 
-        amesSequence.addEvent(eventText3);
-        amesSequence.addEvent(eventStop4);
+        //amesSequence.addEvent(eventText3);
+        //amesSequence.addEvent(eventStop4);
 
 
         currentGame.addSequence(amesSequence);

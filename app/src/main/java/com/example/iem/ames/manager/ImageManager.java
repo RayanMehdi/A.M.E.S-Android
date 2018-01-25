@@ -4,15 +4,13 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
-import android.util.Log;
+import android.view.ViewPropertyAnimator;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.bumptech.glide.Glide;
 import com.example.iem.ames.AMESApplication;
-import com.example.iem.ames.R;
 import com.example.iem.ames.model.element.Image;
 import com.example.iem.ames.model.element.ImageAnimation;
 import com.example.iem.ames.model.element.Screen;
@@ -86,7 +84,7 @@ public class ImageManager {
     public void displayAnimation(final ImageAnimation image){
         final int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
         final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
-        ImageView imageAnim = new ImageView(this.context);
+        final ImageView imageAnim = new ImageView(this.context);
         final AnimationDrawable animation = new AnimationDrawable();
 
         arrayImage.put(AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getName(),imageAnim);
@@ -103,6 +101,12 @@ public class ImageManager {
         imageAnim.post(new Runnable(){
             @Override
             public void run() {
+                Double translationx = image.getTranslationX()*screen.getWidth();
+                Double translationy = image.getTranslationY()*screen.getHeight();
+                Double translationz = image.getTranslationZ();
+
+                imageAnim.animate().x(translationx.floatValue()).y(translationy.floatValue()).scaleX(translationz.floatValue()).scaleY(translationz.floatValue());
+                imageAnim.animate().setDuration((long) image.getMovementDuration()*1000);
                 animation.start();
             }
         });

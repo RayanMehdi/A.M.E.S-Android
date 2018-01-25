@@ -38,7 +38,7 @@ import io.keiji.plistparser.PListParser;
  */
 
 public class AMESParser {
-    final String
+    final private String
             PARAMETERS = "Parameters",
             KEY = "key",
             STRING = "string",
@@ -75,7 +75,11 @@ public class AMESParser {
             OFF = "Off",
             ON_OR_OFF = "On or off",
             REAR_OR_FRONT = "Rear or front",
-            OVERLAY_IMAGE_FILE = "Overlay image file";
+            OVERLAY_IMAGE_FILE = "Overlay image file",
+            TRANSLATION_X = "Translation X",
+            TRANSLATION_Y = "Translation Y",
+            TRANSLATION_Z = "Translation Z",
+            MOVEMENT_DURATION = "Movement duration";
 
 
     public void CreateSequenceFromFile(int idFile){
@@ -142,9 +146,13 @@ public class AMESParser {
                                             Double.parseDouble(getValueInString(pListEventParameter, ANIMATION_POSITION_X)),
                                             Double.parseDouble(getValueInString(pListEventParameter, ANIMATION_POSITION_Y)),
                                             true,
-                                            Integer.parseInt(getValueInString(pListEventParameter, NUMBER_OF_FILE)),
                                             Integer.parseInt(getValueInString(pListEventParameter, ANIMATION_DURATION)),
-                                            Integer.parseInt(getValueInString(pListEventParameter, REPEAT_NUMBER)));
+                                            Integer.parseInt(getValueInString(pListEventParameter, NUMBER_OF_FILE)),
+                                            Integer.parseInt(getValueInString(pListEventParameter, REPEAT_NUMBER)),
+                                            (pListEventParameter.has(TRANSLATION_X)) ? Double.parseDouble(getValueInString(pListEventParameter, TRANSLATION_X)) : 0.0,
+                                            (pListEventParameter.has(TRANSLATION_Y)) ? Double.parseDouble(getValueInString(pListEventParameter, TRANSLATION_Y)) : 0.0,
+                                            (pListEventParameter.has(TRANSLATION_Z)) ? Double.parseDouble(getValueInString(pListEventParameter, TRANSLATION_Z)) : 0.0,
+                                            (pListEventParameter.has(MOVEMENT_DURATION)) ? Double.parseDouble(getValueInString(pListEventParameter, MOVEMENT_DURATION)) : 0.0);
                             event = new EventImage(amesEventName, amesEventType, amesEventDelay, imgAnimation);
                         }
                        
