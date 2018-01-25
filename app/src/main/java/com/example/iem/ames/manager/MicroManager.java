@@ -10,9 +10,7 @@ import com.example.iem.ames.AMESApplication;
 
 public class MicroManager {
 
-    public MicroManager() {
-        zouloutageDeMicro();
-    }
+
 
     public void zouloutageDeMicro(){
         final int currentSequenceIndex= AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
