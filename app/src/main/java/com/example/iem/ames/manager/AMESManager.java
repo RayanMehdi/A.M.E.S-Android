@@ -1,5 +1,6 @@
 package com.example.iem.ames.manager;
 
+import android.app.Activity;
 import android.content.Context;
 import android.widget.RelativeLayout;
 
@@ -24,6 +25,7 @@ public class AMESManager {
     private CheckHeadphonesManager checkHeadphonesManager;
     private CheckLightManager checkLightManager;
     private StopManager stopManager;
+    private CameraManager cameraManager;
 
     public AMESManager(AMESGame currentGame) {
         this.currentGame = currentGame;
@@ -63,7 +65,7 @@ public class AMESManager {
         return screen;
     }
 
-    public void createManager(Screen screen) {
+    public void createManager(Screen screen, Activity activity) {
         this.screen = screen;
         this.textManager = new TextManager(this.contextView, this.screen);
         this.imageManager = new ImageManager(this.contextView, this.screen);
@@ -71,7 +73,7 @@ public class AMESManager {
         this.soundManager = new SoundManager(this.contextView);
         this.checkHeadphonesManager = new CheckHeadphonesManager(this.contextView);
         this.checkLightManager = new CheckLightManager(this.contextView);
-
+        this.cameraManager = new CameraManager(activity, this.screen);
         this.stopManager = new StopManager();
     }
 
@@ -101,5 +103,9 @@ public class AMESManager {
 
     public CheckLightManager getCheckLightManager() {
         return checkLightManager;
+    }
+
+    public CameraManager getCameraManager() {
+        return cameraManager;
     }
 }

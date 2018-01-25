@@ -16,7 +16,7 @@ public class Button {
 
     public int getID() {
         Context context = AMESApplication.application().getAMESManager().getContextView();
-        return context.getResources().getIdentifier(filename, "raw", context.getPackageName());
+        return context.getResources().getIdentifier(filename, "drawable", context.getPackageName());
     }
 
     public String getFilename() {

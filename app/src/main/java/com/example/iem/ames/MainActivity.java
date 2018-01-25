@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.EventLog;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.example.iem.ames.model.element.ImageAnimation;
 import com.example.iem.ames.model.element.Screen;
 import com.example.iem.ames.model.event.EventButton;
 import com.example.iem.ames.model.element.Text;
+import com.example.iem.ames.model.event.EventCamera;
 import com.example.iem.ames.model.event.EventCheckLight;
 import com.example.iem.ames.model.event.EventImage;
 import com.example.iem.ames.model.event.EventSound;
@@ -74,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         amesManager = AMESApplication.application().getAMESManager();
         AMESGame currentGame = AMESApplication.application().getAMESManager().getCurrentGame();
         amesManager.setContextView(this.getApplicationContext());
-        amesManager.createManager(new Screen(this.rl, height, width));
+        amesManager.createManager(new Screen(this.rl, height, width), this);
 
         if(isEligibleforAMES()){
             Log.d("Test", "Ok");
@@ -83,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             //test();
 
             loadSequenceFile();
-             // AMESApplication.application().getAMESManager().getCurrentGame().run();
+            AMESApplication.application().getAMESManager().getCurrentGame().run();
             //TODO Method currentGame.run();
         }
     }
@@ -113,8 +115,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }else {
             displayMessage = getResources().getString(R.string.cameraError);
-            //response = false;
+            response = false;
         }
+
         //AMESApplication.application().getAMESManager().getTextManager().textNotInSequence(displayMessage);
         return response;
     }
@@ -147,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
 //        ArrayList<Button> buttons2 = new ArrayList<>();
 //        ArrayList<Button> buttons3 = new ArrayList<>();
 //
-       buttons.add(new Button("davidgoodenough.png", 2,0.5, 0.1));
+       buttons.add(new Button("davidgoodenough.png", 3,0.5, 0.1));
 //        buttons.add(new Button("oeil", 2,0.9, 0.9));
 //        buttons2.add(new Button("davidgoodenough", 2,0.1, 0.1));
 //        buttons3.add(new Button("oeil", 1,0.8, 0.1));
@@ -164,21 +167,34 @@ public class MainActivity extends AppCompatActivity {
         EventText eventText3 = new EventText("test text3", "animated text", 0, text3);
         EventStop eventStop = new EventStop("test text", "animated text", 1);
         EventStop eventStop2 = new EventStop("test text", "animated text", 5);
-        EventStop eventStop3 = new EventStop("test", "animation", 3);
+        EventStop eventStop3 = new EventStop("test", "animation", 5);
         ImageAnimation img = new ImageAnimation("bed", 10,10, true,5, 15, 2);
+        Image imgCamera = new Image("scanRetine.png", 0.5, 0.5, false);
+        Image imgCamera2 = new Image("interface_eyescan.png", 0.2, 0.2, false);
+        EventStop eventStop4 = new EventStop("camera", "camera", 3);
         EventImage eventImage = new EventImage("test", "test", 5, img);
+        EventImage eventImage2 = new EventImage("test2", "test", 5, imgCamera2);
+        EventCamera eventCamera = new EventCamera("camera", "camera", 6,false, imgCamera);
         AMESSequence amesSequence = new AMESSequence();
         //amesSequence.addEvent(eventButton);
 //       amesSequence.addEvent(eventButton2);
 //       amesSequence.addEvent(eventButton3);
-        amesSequence.addEvent(eventText);
+        amesSequence.addEvent(eventCamera);
+        amesSequence.addEvent(eventImage2);
         amesSequence.addEvent(eventButton);
-        amesSequence.addEvent(eventStop);
         amesSequence.addEvent(eventText2);
-        amesSequence.addEvent(eventImage);
         amesSequence.addEvent(eventStop2);
+        amesSequence.addEvent(eventText);
+
+        amesSequence.addEvent(eventStop);
+        //amesSequence.addEvent(eventText2);
+
+        amesSequence.addEvent(eventImage);
+        //amesSequence.addEvent(eventStop2);
         amesSequence.addEvent(eventStop3);
+
         amesSequence.addEvent(eventText3);
+        amesSequence.addEvent(eventStop4);
 
 
         currentGame.addSequence(amesSequence);
