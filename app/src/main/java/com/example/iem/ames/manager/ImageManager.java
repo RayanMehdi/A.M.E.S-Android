@@ -11,12 +11,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
+import com.example.iem.ames.AMESApplication;
 import com.example.iem.ames.R;
 import com.example.iem.ames.model.element.Image;
 import com.example.iem.ames.model.element.ImageAnimation;
 import com.example.iem.ames.model.element.Screen;
+import com.example.iem.ames.model.event.EventCamera;
+import com.example.iem.ames.model.event.EventImage;
 
 import java.io.InputStream;
+import java.util.HashMap;
 
 /**
  * Created by iem on 18/01/2018.
@@ -25,14 +29,26 @@ import java.io.InputStream;
 public class ImageManager {
     private Context context;
     private Screen screen;
+    private HashMap<String, ImageView> arrayImage;
+
 
     public ImageManager(Context context, Screen screen) {
         this.context = context;
         this.screen = screen;
+        arrayImage = new HashMap<String, ImageView>();
+
     }
 
     public void displayNewImage(Image img){
+        final int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
+        final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
         final ImageView imageView = new ImageView(this.context);
+        try{
+            arrayImage.put(AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getName(),imageView);
+        }catch (Exception e){
+
+        }
+
         imageView.setImageResource(img.getID());
 
         BitmapFactory.Options dimensions = new BitmapFactory.Options();
@@ -52,13 +68,31 @@ public class ImageManager {
 
         // Finally Adding the imageView to RelativeLayout and its position
         this.screen.getRelativeLayout().addView(imageView, layoutParams);
+        long delay = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getDelayInMillisecond();
+
+        if(delay>0.0){
+            new CountDownTimer(delay, 1000) {
+
+                public void onTick(long millisUntilFinished) {
+                }
+
+                public void onFinish() {
+                    runNextEvent(currentSequenceIndex, currentEventIndex);
+                }
+            }.start();
+        }
 
 
     }
 
     public void displayAnimation(final ImageAnimation image){
-        final ImageView imageAnim = new ImageView(this.context);
+        final int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
+        final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
+        ImageView imageAnim = new ImageView(this.context);
         final AnimationDrawable animation = new AnimationDrawable();
+
+        arrayImage.put(AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getName(),imageAnim);
+
         this.screen.getRelativeLayout().addView(imageAnim);
         animation.setOneShot(false);
 
@@ -75,6 +109,23 @@ public class ImageManager {
             }
         });
 
+        long delay = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getDelayInMillisecond();
+        EventImage temp = (EventImage) AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex);
+        temp.setImageView(imageAnim);
+        if(delay>0.0){
+            new CountDownTimer(delay, 1000) {
+
+                public void onTick(long millisUntilFinished) {
+                }
+
+                public void onFinish() {
+
+                    //screen.getRelativeLayout().removeView(arrayImage.get("test"));
+                    runNextEvent(currentSequenceIndex, currentEventIndex);
+                }
+            }.start();
+        }
+
         new CountDownTimer(image.getDuration() * image.getNumberOfRepeat() * 1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -82,8 +133,24 @@ public class ImageManager {
 
             public void onFinish() {
                 animation.stop();
+
             }
         }.start();
+    }
+
+    private void runNextEvent(int currentSequenceIndex, int currentEventIndex){
+        int nexEvent = currentEventIndex+1;
+        AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).setCurrentIndex(nexEvent);
+        AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).run();
+    }
+
+    public void destroyImageView(ImageView img){
+        //screen.getRelativeLayout().removeView(arrayImage.get(name));
+        //screen.getRelativeLayout().removeView(img);
+
+        arrayImage.get("test").clearAnimation();
+        screen.getRelativeLayout().removeView(arrayImage.get("test"));
+
     }
 
 }

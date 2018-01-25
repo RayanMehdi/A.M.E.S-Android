@@ -136,12 +136,12 @@ public class AMESParser {
                 switch (hashmap.get(TYPE).get(0)){
                     case "animated text":
                         if(hashmap.containsKey(DISPLAY_OFF)){
-
+                            event = new EventStop(amesEventName, amesEventType, amesEventDelay);
                         }else {}
                         break;
                     case "animation":
                         if(hashmap.containsKey(OFF)){
-
+                            event = new EventStop(amesEventName, amesEventType, amesEventDelay);
                         }else {
                             Image imgAnimation = new ImageAnimation(hashmap.get(IMAGE_FILE).get(0),
                                                                     Double.parseDouble(hashmap.get(ANIMATION_POSITION_X).get(0)),
@@ -155,7 +155,9 @@ public class AMESParser {
                        
                         break;
                     case "image":
-                        if(hashmap.containsKey(OFF)){}
+                        if(hashmap.containsKey(OFF)){
+                            event = new EventStop(amesEventName, amesEventType, amesEventDelay);
+                        }
                         else{
                         Image img = new Image(hashmap.get(IMAGE_FILE).get(0), Double.parseDouble(hashmap.get(X_POSITION).get(0)), Double.parseDouble(hashmap.get(Y_POSITION).get(0)), false);
                         event = new EventImage(amesEventName, amesEventType, amesEventDelay, img);

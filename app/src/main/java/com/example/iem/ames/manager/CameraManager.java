@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.util.Size;
 import android.view.Gravity;
 import android.view.TextureView;
@@ -46,7 +47,6 @@ public class CameraManager implements TextureView.SurfaceTextureListener {
 
     public void displayCamera(EventCamera eventCamera, double delay) {
         this.eventCamera = eventCamera;
-        mCamera = eventCamera.getCamera();
         textureView = new TextureView(activity);
         textureView.setSurfaceTextureListener(this);
 
@@ -60,10 +60,10 @@ public class CameraManager implements TextureView.SurfaceTextureListener {
         AMESApplication.application().getAMESManager().getImageManager().displayNewImage(eventCamera.getOverlayImage());
 
 
-        int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
-        int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
+         final int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
+        final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
 
-
+        Log.d("ZAMASEUM", ""+delay);
             // wait the delay of the current event
             new CountDownTimer((long)delay, 1000) {
 
@@ -72,12 +72,13 @@ public class CameraManager implements TextureView.SurfaceTextureListener {
                 }
                 public void onFinish() {
 
+                    int nextEvent = currentEventIndex+1;
+                    AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).setCurrentIndex(nextEvent);
+                    AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).run();
                 }
             }.start();
 
-        currentEventIndex+=1;
-        AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).setCurrentIndex(currentEventIndex);
-        AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).run();
+
 
     }
 
@@ -90,7 +91,7 @@ public class CameraManager implements TextureView.SurfaceTextureListener {
     public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
         mCamera.stopPreview();
         mCamera.release();
-        return true;
+        return false;
     }
 
     @Override
@@ -135,10 +136,14 @@ public class CameraManager implements TextureView.SurfaceTextureListener {
     }
 
     public void destroy(){
-        ViewGroup vg = (ViewGroup)(textureView.getParent());
-        vg.removeView(screen.getRelativeLayout());
+
+
+        ViewGroup vg = (ViewGroup)(screen.getRelativeLayout());
+        vg.removeAllViews();
+        //vg.removeView(screen.getRelativeLayout());
         screen.getRelativeLayout().setBackgroundColor(AMESApplication.application().getAMESManager().getContextView().getResources().getColor(R.color.black));
         activity.setContentView(screen.getRelativeLayout());
+
     }
 
     public void zoom()

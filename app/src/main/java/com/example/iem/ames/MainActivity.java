@@ -131,9 +131,11 @@ public class MainActivity extends AppCompatActivity {
         //amesManager.getImageManager().displayNewImage(new Image("oeil", 0.1, 0.1, true, 3));
         //amesManager.getImageManager().displayNewImage(new Image("davidgoodenough", 0.5, 0.5, true, 5));
         Image image = new Image("interface_eyescan.png", 0.5, 0.5, false);
+        Image image2 = new Image("davidgoodenough.png", 0.1, 0.5, false);
         AMESGame currentGame=AMESApplication.application().getAMESManager().getCurrentGame();
        EventButton eventButton = new EventButton("oyguyfthf","button", 0);
-        EventCamera eventCamera = new EventCamera("Camera", "camera", 10, false, 4, 4, image);
+        EventCamera eventCamera = new EventCamera("Camera", "camera", 3, false, 4, 4, image);
+        EventCamera eventCamera2 = new EventCamera("Camera", "camera", 3, false, 4, 4, image);
 //
 //        EventButton eventButton2 = new EventButton("david","button", 0);
 //        EventButton eventButton3 = new EventButton("oeil","button", 0);
@@ -151,26 +153,39 @@ public class MainActivity extends AppCompatActivity {
 //        eventButton3.setButtons(buttons3);
 
         Text text = new Text("Le saviez vous...", 150.0, 150.0, 500, 500, false, 1.25);
+        Text text3 = new Text("Bravo, ça marche bien !", 150.0, 150.0, 500, 500, true, 0.05);
         Text text2 = new Text("Si vous avez trois chocapics et qu'un cerf venue d'Irlande chevauchant un lièvre vous demande un selfis, alors Zinedine Zidane vous OS avec un solide druide lvl 2 forme phoque", 150.0, 150.0, 500, 500, true, 0.025);
         EventText eventText = new EventText("test text", "animated text", 0.1, text);
-        EventText eventText2 = new EventText("test text2", "animated text", 3, text2);
+        EventText eventText2 = new EventText("test text2", "animated text", 5, text2);
+        EventText eventText3 = new EventText("test text3", "animated text", 0, text3);
         EventStop eventStop = new EventStop("test text", "animated text", 1);
-        EventStop eventStop1 = new EventStop("Camera", "camera", 3);
-        ImageAnimation img = new ImageAnimation("bed", 10,10, true,5, 15, 2);
-        EventImage eventImage = new EventImage("test", "test", 5, img);
+        EventStop eventStop1 = new EventStop("Camera", "camera", 4);
+        EventStop eventStop2 = new EventStop("test text", "animated text", 3);
+        EventStop eventStop3 = new EventStop("test", "animation", 3);
+        ImageAnimation img = new ImageAnimation("bed", 10,10, true,2, 15, 1);
+        EventImage eventImage = new EventImage("test", "animation", 3, img);
         AMESSequence amesSequence = new AMESSequence();
         //amesSequence.addEvent(eventButton);
 //       amesSequence.addEvent(eventButton2);
 //       amesSequence.addEvent(eventButton3);
 
-        amesSequence.addEvent(eventText);
-        amesSequence.addEvent(eventButton);
-        amesSequence.addEvent(eventStop);
-        amesSequence.addEvent(eventText2);
+       // amesSequence.addEvent(eventText);
+        //
+        //amesSequence.addEvent(eventStop);
+        //amesSequence.addEvent(eventText2);
         amesSequence.addEvent(eventCamera);
-        amesSequence.addEvent(eventImage);
-
         amesSequence.addEvent(eventStop1);
+        amesSequence.addEvent(eventImage);
+        amesSequence.addEvent(eventStop3);
+        amesSequence.addEvent(eventCamera2);
+        amesSequence.addEvent(eventButton);
+      //  amesSequence.addEvent(eventImage);
+        //amesSequence.addEvent(eventStop2);
+        //amesSequence.addEvent(eventStop1);
+        //amesSequence.addEvent(eventText3);
+        //
+
+
         currentGame.addSequence(amesSequence);
 
         currentGame.run();
