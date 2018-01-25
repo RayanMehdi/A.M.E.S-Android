@@ -27,16 +27,16 @@ public class StopManager {
         for(int position = start; !isfinish && position >=0; position-- ){
             if(events.get(position).getType().equals("animated text") && type.equals("animated text")){
                 events.get(position).stop();
-                isfinish=true;
+                isfinish = true;
 
+            } else {
+                if (events.get(position).getName()==name) {
+                    events.get(position).stop();
+                    isfinish = true;
+                }
             }
-
-            if(events.get(position).getName().equals(name)){
-                events.get(position).stop();
-                isfinish=true;
-            }
-
         }
+
 
         new CountDownTimer((long) (delay*1000), 1000) {
 

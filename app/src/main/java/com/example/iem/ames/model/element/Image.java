@@ -15,7 +15,7 @@ public class Image {
     protected boolean isGIF;
 
     public Image(String filename, double x, double y, boolean isGIF) {
-        this.filename = (isGIF) ? filename : filename.substring(0, filename.length()-4);
+        this.filename = (isGIF) ? filename : filename.substring(0, filename.length()-4).toLowerCase();
         this.x = x;
         this.y = y;
         this.isGIF = isGIF;
@@ -23,7 +23,7 @@ public class Image {
 
     public int getID() {
         Context context = AMESApplication.application().getAMESManager().getContextView();
-        return context.getResources().getIdentifier(filename, "raw", context.getPackageName());
+        return context.getResources().getIdentifier(filename, "drawable", context.getPackageName());
     }
 
     public String getFilename() {
