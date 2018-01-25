@@ -73,8 +73,7 @@ public class ButtonManager {
                 @Override
                 public void onClick(View view) {
                     Log.d("TEST", String.valueOf(button.getNextEventIndex()));
-                    if(eventButton.getName() != "Scan_button")
-                        removeAllButtons();
+
 
                     // Get the next index event
                     nextEventIndex = button.getNextEventIndex();
@@ -85,6 +84,8 @@ public class ButtonManager {
                     AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).setCurrentIndex(nextEventIndex);
                     // Run the next event (with the new current index in sequence)
 
+                    if(eventButton.getName() != "Scan_button")
+                        removeAllButtons();
                     AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).run();
 
                 }
@@ -105,6 +106,7 @@ public class ButtonManager {
             for (ImageButton imageButton : imageButtons) {
                 this.screen.getRelativeLayout().removeView(imageButton);
             }
+        this.imageButtons.clear();
         }
     }
 

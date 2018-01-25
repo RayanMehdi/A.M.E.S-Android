@@ -24,17 +24,22 @@ public class SoundManager {
         mediaPlayer = MediaPlayer.create(context, soundID);
         mediaPlayer.setLooping(isInfinite);
         mediaPlayer.start();
+       final int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
+       final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
 
-        //TODO Gestion du stop
-        new CountDownTimer(10000, 1000) {
+        new CountDownTimer(AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getDelayInMillisecond(), 1000) {
 
             public void onTick(long millisUntilFinished) {
-            }
 
+            }
             public void onFinish() {
-                mediaPlayer.stop();
+                int nextEvent = currentEventIndex+1;
+                AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).setCurrentIndex(nextEvent);
+                AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).run();
+
             }
         }.start();
+
     }
 
     public void stopSounds(double delay){

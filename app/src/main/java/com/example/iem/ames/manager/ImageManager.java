@@ -16,9 +16,11 @@ import com.example.iem.ames.R;
 import com.example.iem.ames.model.element.Image;
 import com.example.iem.ames.model.element.ImageAnimation;
 import com.example.iem.ames.model.element.Screen;
+import com.example.iem.ames.model.event.EventCamera;
 import com.example.iem.ames.model.event.EventImage;
 
 import java.io.InputStream;
+import java.util.HashMap;
 
 /**
  * Created by iem on 18/01/2018.
@@ -27,12 +29,13 @@ import java.io.InputStream;
 public class ImageManager {
     private Context context;
     private Screen screen;
-
+    private HashMap<String, ImageView> arrayImage;
 
 
     public ImageManager(Context context, Screen screen) {
         this.context = context;
         this.screen = screen;
+        arrayImage = new HashMap<String, ImageView>();
 
     }
 
@@ -40,8 +43,12 @@ public class ImageManager {
         final int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
         final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
         final ImageView imageView = new ImageView(this.context);
-        EventImage temp = (EventImage) AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex);
-        temp.setImageView(imageView);
+        try{
+            arrayImage.put(AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getName(),imageView);
+        }catch (Exception e){
+
+        }
+
         imageView.setImageResource(img.getID());
 
         BitmapFactory.Options dimensions = new BitmapFactory.Options();
@@ -63,7 +70,7 @@ public class ImageManager {
         this.screen.getRelativeLayout().addView(imageView, layoutParams);
         long delay = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getDelayInMillisecond();
 
-        if(delay>0.0){
+        if(delay>0.0 && AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getType().equals("image")){
             new CountDownTimer(delay, 1000) {
 
                 public void onTick(long millisUntilFinished) {
@@ -79,10 +86,11 @@ public class ImageManager {
     public void displayAnimation(final ImageAnimation image){
         final int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
         final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
-        final ImageView imageAnim = new ImageView(this.context);
-        EventImage temp = (EventImage) AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex);
-        temp.setImageView(imageAnim);
+        ImageView imageAnim = new ImageView(this.context);
         final AnimationDrawable animation = new AnimationDrawable();
+
+        arrayImage.put(AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getName(),imageAnim);
+
         this.screen.getRelativeLayout().addView(imageAnim);
         animation.setOneShot(false);
 
@@ -100,7 +108,8 @@ public class ImageManager {
         });
 
         long delay = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getDelayInMillisecond();
-
+        EventImage temp = (EventImage) AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex);
+        temp.setImageView(imageAnim);
         if(delay>0.0){
             new CountDownTimer(delay, 1000) {
 
@@ -108,6 +117,8 @@ public class ImageManager {
                 }
 
                 public void onFinish() {
+
+                    //screen.getRelativeLayout().removeView(arrayImage.get("test"));
                     runNextEvent(currentSequenceIndex, currentEventIndex);
                 }
             }.start();
@@ -120,6 +131,7 @@ public class ImageManager {
 
             public void onFinish() {
                 animation.stop();
+
             }
         }.start();
     }
@@ -130,8 +142,13 @@ public class ImageManager {
         AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).run();
     }
 
-    public void destroyImageView(ImageView imageView){
-        screen.getRelativeLayout().removeView(imageView);
+    public void destroyImageView(String name){
+        //screen.getRelativeLayout().removeView(arrayImage.get(name));
+        //screen.getRelativeLayout().removeView(img);
+
+        arrayImage.get(name).clearAnimation();
+        screen.getRelativeLayout().removeView(arrayImage.get(name));
+
     }
 
 }

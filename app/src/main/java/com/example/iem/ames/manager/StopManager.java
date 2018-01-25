@@ -25,7 +25,7 @@ public class StopManager {
         final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
         int start = currentEventIndex-1;
         for(int position = start; isfinish==false && position >=0; position-- ) {
-            if (events.get(position).getType() == "animated text" && type == "animated text") {
+            if (events.get(position).getType().equals("animated text") && type.equals("animated text")) {
                 events.get(position).stop();
                 isfinish = true;
 

@@ -13,6 +13,7 @@ import com.example.iem.ames.model.element.ImageAnimation;
 import com.example.iem.ames.model.element.Text;
 import com.example.iem.ames.model.event.AMESEvent;
 import com.example.iem.ames.model.event.EventButton;
+import com.example.iem.ames.model.event.EventCamera;
 import com.example.iem.ames.model.event.EventCheckHeadphones;
 import com.example.iem.ames.model.event.EventCheckLight;
 import com.example.iem.ames.model.event.EventImage;
@@ -71,7 +72,10 @@ public class AMESParser {
             HEIGHT="height",
             WIDTH="width",
             TEXT_SPEED="text speed",
-            OFF = "Off";
+            OFF = "Off",
+            ON_OR_OFF = "On or off",
+            REAR_OR_FRONT = "Rear or front",
+            OVERLAY_IMAGE_FILE = "Overlay image file";
 
 
     public void CreateSequenceFromFile(int idFile){
@@ -161,6 +165,7 @@ public class AMESParser {
                         break;
                     case "button":
                         if(pListEventParameter.has(OFF)){
+                            Log.d("itstimetostop",getValueInString(pListEventParameter, OFF));
                             event = new EventStop(amesEventName,amesEventType,amesEventDelay);
                         }else {
                             if (pListEventParameter.has(NUMBER_OF_BUTTONS)) {
@@ -186,6 +191,14 @@ public class AMESParser {
                         //event = new AMESEvent(amesEventName, amesEventType, amesEventDelay);
                         break;
                     case "camera":
+                        if(pListEventParameter.getBool(ON_OR_OFF)){
+                            boolean rear_or_front = pListEventParameter.getBool(REAR_OR_FRONT);
+                            String filename = pListEventParameter.getString(OVERLAY_IMAGE_FILE);
+                            Image image = new Image(filename, 0.5 , 0.5, false);
+                            event = new EventCamera(amesEventName, amesEventType, amesEventDelay, rear_or_front, image);
+                        }else{
+                            event = new EventStop(amesEventName, amesEventType, amesEventDelay);
+                        }
                         break;
                     case "ghost":
                         break;
@@ -241,31 +254,26 @@ public class AMESParser {
             val = String.valueOf(pListDict.getString(key));
             return val;
         }catch (Exception e){
-            e.printStackTrace();
         }
         try{
             val = String.valueOf(pListDict.getBool(key));
             return val;
         }catch (Exception e){
-            e.printStackTrace();
         }
         try{
             val = String.valueOf(pListDict.getInt(key));
             return val;
         }catch (Exception e){
-            e.printStackTrace();
         }
         try{
             val = String.valueOf(pListDict.getReal(key));
             return val;
         }catch (Exception e){
-            e.printStackTrace();
         }
         try{
             val = String.valueOf(pListDict.getDate(key));
             return val;
         }catch (Exception e){
-            e.printStackTrace();
         }
         return val;
     }
