@@ -4,19 +4,15 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
-import android.util.Log;
+import android.view.ViewPropertyAnimator;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.bumptech.glide.Glide;
-import com.example.iem.ames.R;
 import com.example.iem.ames.model.element.Image;
 import com.example.iem.ames.model.element.ImageAnimation;
 import com.example.iem.ames.model.element.Screen;
-
-import java.io.InputStream;
 
 /**
  * Created by iem on 18/01/2018.
@@ -71,6 +67,12 @@ public class ImageManager {
         imageAnim.post(new Runnable(){
             @Override
             public void run() {
+                Double translationx = image.getTranslationX()*screen.getWidth();
+                Double translationy = image.getTranslationY()*screen.getHeight();
+                Double translationz = image.getTranslationZ();
+
+                imageAnim.animate().x(translationx.floatValue()).y(translationy.floatValue()).scaleX(translationz.floatValue()).scaleY(translationz.floatValue());
+                imageAnim.animate().setDuration((long) image.getMovementDuration()*1000);
                 animation.start();
             }
         });

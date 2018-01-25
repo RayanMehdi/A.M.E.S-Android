@@ -32,7 +32,7 @@ import java.util.Map;
  */
 
 public class AMESParser {
-    final String
+    final private String
             KEY = "key",
             STRING = "string",
             REAL = "real",
@@ -53,6 +53,10 @@ public class AMESParser {
             ANIMATION_DURATION = "Animation duration",
             ANIMATION_POSITION_X = "Animation location X",
             ANIMATION_POSITION_Y = "Animation location Y",
+            TRANSLATION_X = "Translation X",
+            TRANSLATION_Y = "Translation Y",
+            TRANSLATION_Z = "Translation Z",
+            MOVEMENT_DURATION = "Movement duration",
             Y_POSITION ="Position Y",
             SOUND_FILE = "Sound file",
             IMAGE_FILE = "Image file",
@@ -148,7 +152,11 @@ public class AMESParser {
                                                                     true,
                                                                     Integer.parseInt(hashmap.get(NUMBER_OF_FILE).get(0)),
                                                                     Integer.parseInt(hashmap.get(ANIMATION_DURATION).get(0)),
-                                                                    Integer.parseInt(hashmap.get(REPEAT_NUMBER).get(0)));
+                                                                    Integer.parseInt(hashmap.get(REPEAT_NUMBER).get(0)),
+                                                                    (hashmap.containsKey(TRANSLATION_X)) ? Double.parseDouble(hashmap.get(TRANSLATION_X).get(0)) : 0.0,
+                                                                    (hashmap.containsKey(TRANSLATION_Y)) ? Double.parseDouble(hashmap.get(TRANSLATION_Y).get(0)) : 0.0,
+                                                                    (hashmap.containsKey(TRANSLATION_Z)) ? Double.parseDouble(hashmap.get(TRANSLATION_Z).get(0)) : 0.0,
+                                                                    (hashmap.containsKey(MOVEMENT_DURATION)) ? Double.parseDouble(hashmap.get(MOVEMENT_DURATION).get(0)) : 0.0);
                             event = new EventImage(amesEventName, amesEventType, amesEventDelay, imgAnimation);
                         }
                        

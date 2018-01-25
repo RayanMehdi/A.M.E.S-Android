@@ -13,13 +13,17 @@ public class ImageAnimation extends Image{
     private int duration;
     private int numberOfFile;
     private int numberOfRepeat;
+    private double translationX,translationY, translationZ, movementDuration;
 
-    public ImageAnimation(String filename, double x, double y, boolean isGIF, int duration, int numberOfFile, int numberOfRepeat) {
+    public ImageAnimation(String filename, double x, double y, boolean isGIF, int duration, int numberOfFile, int numberOfRepeat, double translationX, double translationY, double translationZ, double movementDuration) {
         super(filename, x, y, isGIF);
         this.duration = duration;
         this.numberOfFile = numberOfFile;
         this.numberOfRepeat = numberOfRepeat;
-
+        this.translationX = translationX;
+        this.translationY = translationY;
+        this.translationZ = translationZ;
+        this.movementDuration = movementDuration;
     }
 
     @Override
@@ -38,5 +42,21 @@ public class ImageAnimation extends Image{
 
     public int getNumberOfRepeat() {
         return numberOfRepeat;
+    }
+
+    public double getTranslationX() {
+        return translationX;
+    }
+
+    public double getTranslationY() {
+        return translationY;
+    }
+
+    public double getTranslationZ() {
+        return translationZ;
+    }
+
+    public double getMovementDuration() {
+        return movementDuration;
     }
 }

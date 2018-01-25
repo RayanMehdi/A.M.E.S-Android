@@ -151,16 +151,16 @@ public class MainActivity extends AppCompatActivity {
         EventText eventText = new EventText("test text", "animated text", 0.1, text);
         EventText eventText2 = new EventText("test text2", "animated text", 3, text2);
         EventStop eventStop = new EventStop("test text", "animated text", 1);
-        ImageAnimation img = new ImageAnimation("bed", 10,10, true,5, 15, 2);
+        ImageAnimation img = new ImageAnimation("bed", 10,10, true,5, 15, 2, 0, 0.5, 1.5, 5);
         EventImage eventImage = new EventImage("test", "test", 5, img);
         AMESSequence amesSequence = new AMESSequence();
         //amesSequence.addEvent(eventButton);
-//       amesSequence.addEvent(eventButton2);
-//       amesSequence.addEvent(eventButton3);
-        amesSequence.addEvent(eventText);
-        amesSequence.addEvent(eventButton);
-        amesSequence.addEvent(eventStop);
-        amesSequence.addEvent(eventText2);
+        //amesSequence.addEvent(eventButton2);
+        //amesSequence.addEvent(eventButton3);
+        //amesSequence.addEvent(eventText);
+        //amesSequence.addEvent(eventButton);
+        //amesSequence.addEvent(eventStop);
+        //amesSequence.addEvent(eventText2);
         amesSequence.addEvent(eventImage);
 
         currentGame.addSequence(amesSequence);
