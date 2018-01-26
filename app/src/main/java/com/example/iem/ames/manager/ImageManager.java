@@ -3,6 +3,7 @@ package com.example.iem.ames.manager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -60,14 +61,24 @@ public class ImageManager {
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(width, height);
 
         // Setting position of our ImageView
-        Double x = (img.getScaleX() != 1) ? this.screen.getWidth()*img.getX() - width/2 : 0;
-        Double y = (img.getScaleY() != 1) ? this.screen.getHeight()*img.getY() - height/2 : 0;
-        Double scaleX = (img.getScaleX() != 0) ? this.screen.getHeight()*img.getScaleX() : height;
-        Double scaleY = (img.getScaleY() != 0) ? this.screen.getWidth()*img.getScaleY() : width;
+        Double x = (img.getX() != 0) ? this.screen.getWidth()*img.getX() - width/2 : 0;
+        Double y = (img.getY() != 0) ? this.screen.getHeight()*img.getY() - height/2 : 0;
+if(img.getX() == 0.5 && img.getY() == 0.5) {
+    x = 0.0;
+    y = 0.0;
+}
+        Double scaleX = (img.getScaleX() != 1) ? this.screen.getHeight()*img.getScaleX() : height;
+        Double scaleY = (img.getScaleY() != 1) ? this.screen.getWidth()*img.getScaleY() : width;
+        if(img.getScaleX() == 1 && img.getScaleY() == 1) {
+            x = Double.valueOf(this.screen.getWidth());
+            y = Double.valueOf(this.screen.getHeight());
+        }
         layoutParams.leftMargin = x.intValue();
         layoutParams.topMargin = this.screen.getHeight() - y.intValue();
         layoutParams.width = scaleX.intValue();
         layoutParams.height = scaleY.intValue();
+
+        imageView.setBackgroundColor(Color.GREEN);
 
         // Finally Adding the imageView to RelativeLayout and its position
         this.screen.getRelativeLayout().addView(imageView, layoutParams);

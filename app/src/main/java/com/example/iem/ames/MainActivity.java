@@ -86,11 +86,9 @@ Log.d("MainActivity","OnCreate");
 
 
 
-        //test();
+//        test();
 
         loadSequenceFile();
-
-
         if(isEligibleforAMES()) {
             AMESApplication.application().getAMESManager().getCurrentGame().run();
         }
@@ -196,13 +194,18 @@ Log.d("MainActivity","OnCreate");
         //amesSequence.addEvent(eventButton);
         //amesSequence.addEvent(eventStop);
         //amesSequence.addEvent(eventText2);
-        amesSequence.addEvent(eventImage2);
+//        amesSequence.addEvent(eventImage2);
         //amesSequence.addEvent(eventStop2);
-        amesSequence.addEvent(eventStop3);
+//        amesSequence.addEvent(eventStop3);
 
         //amesSequence.addEvent(eventText3);
         //amesSequence.addEvent(eventStop4);
 
+        Image img3 = new Image("imageboot.png", 0.5, 0.5, false, 0.25, 0.25);
+        EventImage eventImage3 = new EventImage("test", "image", 5, img3);
+
+        amesSequence.addEvent(eventImage3);
+        amesSequence.addEvent(eventButton);
 
         currentGame.addSequence(amesSequence);
 

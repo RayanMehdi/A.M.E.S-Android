@@ -81,9 +81,9 @@
 			<key>Animation duration</key>
 			<integer>16</integer>
 			<key>Scale X</key>
-			<integer>1</integer>
+			<real>1</real>
 			<key>Scale Y</key>
-			<integer>1</integer>
+			<real>1</real>
 		</dict>
 		<key>Duration</key>
 		<integer>5</integer>
