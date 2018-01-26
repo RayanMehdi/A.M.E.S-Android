@@ -1,11 +1,14 @@
 package com.example.iem.ames;
 
+import android.Manifest;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.EventLog;
@@ -13,6 +16,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.iem.ames.manager.AMESManager;
 import com.example.iem.ames.model.AMESGame;
@@ -48,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout rl;
     private AMESManager amesManager;
 
+    static int CAMERA_PERMISSION_REQUEST = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,15 +88,19 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Test", "Ok");
 
 
-            test();
+            //test();
 
-            //loadSequenceFile();
-            //AMESApplication.application().getAMESManager().getCurrentGame().run();
+            loadSequenceFile();
+            AMESApplication.application().getAMESManager().getCurrentGame().run();
             //TODO Method currentGame.run();
         }
     }
 
     private boolean areCamAvailable(){
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED){
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 100);
+
+        }
         PackageManager pm = getPackageManager();
         boolean frontCam, rearCam;
         frontCam = pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT);
@@ -206,5 +216,32 @@ public class MainActivity extends AppCompatActivity {
 //            //test2.run();
 //            test3.run();
 //            //eventText.run();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 100: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    Toast.makeText(getApplicationContext(), "Permission granted", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(getApplicationContext(), "Permission denied", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 }
