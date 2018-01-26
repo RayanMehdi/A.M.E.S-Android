@@ -86,6 +86,7 @@ Log.d("MainActivity","OnCreate");
 
 
 
+<<<<<<< HEAD
         //test();
 
         loadSequenceFile();
@@ -93,6 +94,13 @@ Log.d("MainActivity","OnCreate");
 
         if(isEligibleforAMES()) {
             AMESApplication.application().getAMESManager().getCurrentGame().run();
+=======
+            //test();
+
+            loadSequenceFile();
+            AMESApplication.application().getAMESManager().getCurrentGame().run();
+            //TODO Method currentGame.run();
+>>>>>>> 7fce721817e95e74439d9483afa18d985aa152c6
         }
     }
 

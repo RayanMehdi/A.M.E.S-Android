@@ -13,6 +13,7 @@ public class Button {
     private int nextEventIndex;
     private double x;
     private double y;
+    private double scaleX, scaleY;
 
     public int getID() {
         Context context = AMESApplication.application().getAMESManager().getContextView();
@@ -51,10 +52,20 @@ public class Button {
         this.y = y;
     }
 
-    public Button(String filename, int nextEventIndex, double x, double y) {
+    public Button(String filename, int nextEventIndex, double x, double y, double scaleX, double scaleY) {
         this.filename=filename.substring(0, filename.length()-4).toLowerCase();
         this.nextEventIndex = nextEventIndex;
         this.x = x;
         this.y = y;
+        this.scaleX = scaleX;
+        this.scaleY = scaleY;
+    }
+
+    public double getScaleX() {
+        return scaleX;
+    }
+
+    public double getScaleY() {
+        return scaleY;
     }
 }
