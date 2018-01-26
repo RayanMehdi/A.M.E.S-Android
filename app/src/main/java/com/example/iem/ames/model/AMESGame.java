@@ -49,6 +49,7 @@ public class AMESGame {
     }
 
     public void preparNextSequence(){
+
         Screen screen = AMESApplication.application().getAMESManager().getScreen();
         screen.getRelativeLayout().removeAllViews();
         screen.getRelativeLayout().setBackgroundColor(AMESApplication.application().getAMESManager().getContextView().getResources().getColor(R.color.black));

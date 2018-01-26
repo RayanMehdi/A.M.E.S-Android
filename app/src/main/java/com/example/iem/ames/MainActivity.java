@@ -83,11 +83,10 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Test", "Ok");
 
 
-            test();
+            //test();
 
-            //loadSequenceFile();
-             // AMESApplication.application().getAMESManager().getCurrentGame().run();
-            //TODO Method currentGame.run();
+            loadSequenceFile();
+            AMESApplication.application().getAMESManager().getCurrentGame().run();
         }
     }
 
@@ -118,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
             displayMessage = getResources().getString(R.string.cameraError);
             //response = false;
         }
+
         //AMESApplication.application().getAMESManager().getTextManager().textNotInSequence(displayMessage);
         return response;
     }
@@ -131,8 +131,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadSequenceFile(){
         AMESParser parser = AMESApplication.application().getAMESManager().getParser();
-        parser.CreateSequenceFromFile(R.raw.firstsequence);
-        //parser.CreateSequenceFromFile(R.raw.secondsequence);
+        //parser.CreateSequenceFromFile(R.raw.firstsequence);
+        parser.CreateSequenceFromFile(R.raw.secondsequence);
         //parser.CreateSequenceFromFile(R.raw.thirdsequence);
         //parser.CreateSequenceFromFile(R.raw.fourthsequence);
         //parser.CreateSequenceFromFile(R.raw.testsequence);
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         //amesManager.getImageManager().displayNewImage(new Image("davidgoodenough", 0.5, 0.5, true, 5));
       //  Image image = new Image("interface_eyescan.png", 0.5, 0.5, false);
        // Image image2 = new Image("davidgoodenough.png", 0.1, 0.5, false);
-        AMESGame currentGame=AMESApplication.application().getAMESManager().getCurrentGame();
+        //AMESGame currentGame=AMESApplication.application().getAMESManager().getCurrentGame();
       /* EventButton eventButton = new EventButton("Zamasalerace","button", 0);
 //
 //        EventButton eventButton2 = new EventButton("david","button", 0);
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
 //        ArrayList<Button> buttons2 = new ArrayList<>();
 //        ArrayList<Button> buttons3 = new ArrayList<>();
 //
-       buttons.add(new Button("davidgoodenough.png", 2,0.5, 0.1));
+       buttons.add(new Button("davidgoodenough.png", 3,0.5, 0.1));
 //        buttons.add(new Button("oeil", 2,0.9, 0.9));
 //        buttons2.add(new Button("davidgoodenough", 2,0.1, 0.1));
 //        buttons3.add(new Button("oeil", 1,0.8, 0.1));
@@ -169,33 +169,29 @@ public class MainActivity extends AppCompatActivity {
         EventText eventText3 = new EventText("test text3", "animated text", 0, text3);
         EventStop eventStop = new EventStop("test text", "animated text", 1);
         EventStop eventStop2 = new EventStop("test text", "animated text", 5);
-        EventStop eventStop3 = new EventStop("test", "animation", 3);
-        ImageAnimation img = new ImageAnimation("bed", 10,10, true,2, 15, 1);
-        EventImage eventImage = new EventImage("test", "animation", 3, img);
+        EventStop eventStop3 = new EventStop("test", "animation", 5);
+        ImageAnimation img = new ImageAnimation("bed", 10,10, true,5, 15, 2, 1, 0.5, 0.1, 2);
+        Image imgCamera = new Image("scanRetine.png", 0.5, 0.5, false);
+        Image imgCamera2 = new Image("interface_eyescan.png", 0.2, 0.2, false);
+        EventStop eventStop4 = new EventStop("camera", "camera", 3);
+        EventImage eventImage = new EventImage("test", "test", 5, img);
+        EventImage eventImage2 = new EventImage("test2", "test", 5, imgCamera2);
+        EventCamera eventCamera = new EventCamera("camera", "camera", 6,false, imgCamera);
         AMESSequence amesSequence = new AMESSequence();
         //amesSequence.addEvent(eventButton);
-//       amesSequence.addEvent(eventButton2);
-//       amesSequence.addEvent(eventButton3);
-
-       // amesSequence.addEvent(eventText);
-        //
+        //amesSequence.addEvent(eventButton2);
+        //amesSequence.addEvent(eventButton3);
+        //amesSequence.addEvent(eventText);
+        //amesSequence.addEvent(eventButton);
         //amesSequence.addEvent(eventStop);
-        amesSequence.addEvent(eventText2);
-       /* amesSequence.addEvent(eventCamera);
-        amesSequence.addEvent(eventStop1);*/
-        /*amesSequence.addEvent(eventImage);
-        amesSequence.addEvent(eventStop2);
+        //amesSequence.addEvent(eventText2);
+        amesSequence.addEvent(eventImage);
+        //amesSequence.addEvent(eventStop2);
         amesSequence.addEvent(eventStop3);
-        amesSequence.addEvent(eventText3);*/
 
-        AMESSequence amesSequence = new AMESSequence();
-        Image image = new Image("interface_eyescan.png", 0.5, 0.5, false);
-        EventCamera eventCamera = new EventCamera("cam", "camera", 3, true, 1, 1, image);
-        EventFlash eventFlash = new EventFlash("lalala", "flash", 10);
-        amesSequence.addEvent(eventCamera);
-        amesSequence.addEvent(eventFlash);
-        EventStop eventStop = new EventStop("lalala", "flash", 1);
-        amesSequence.addEvent(eventStop);
+        //amesSequence.addEvent(eventText3);
+        //amesSequence.addEvent(eventStop4);
+
 
         currentGame.addSequence(amesSequence);
 
@@ -211,6 +207,6 @@ public class MainActivity extends AppCompatActivity {
 //            test.run();
 //            //test2.run();
 //            test3.run();
-//            //eventText.run();
+//            //eventText.run();*/
     }
 }

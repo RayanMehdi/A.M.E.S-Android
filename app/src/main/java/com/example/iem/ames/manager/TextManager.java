@@ -37,10 +37,11 @@ public class TextManager {
     }
 
     public void displayText(final Text text){
+        try{destroy();}catch (Exception e){}
         isfinished=false;
         textView.setHeight(this.screen.getHeight());
         textView.setWidth(this.screen.getWidth());
-        textView.setTextSize(20);
+        textView.setTextSize(15);
         textView.setText(text.getDisplayedText());
         textView.setTextColor(context.getResources().getColor(R.color.white));
         if(text.isAnimated()){
@@ -103,35 +104,15 @@ public class TextManager {
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(screen.getWidth(),screen.getHeight());
         layoutParams.leftMargin = (int) text.getX();
         layoutParams.topMargin = (int) text.getY();
-        centerText();
+        centerTextVertical();
         screen.getRelativeLayout().addView(textView, layoutParams);
     }
 
-    public void centerText(){
-        this.textView.setGravity(Gravity.CENTER);
+    public void centerTextVertical
+            (){
+        this.textView.setGravity(Gravity.CENTER_VERTICAL);
     }
 
-    public void textNotInSequence(String message){
-        textView.setHeight(this.screen.getHeight());
-        textView.setWidth(this.screen.getWidth());
-        textView.setTextSize(20);
-        textView.setText(message);
-        Log.d("TEST", message);
-        textView.setTextColor(context.getResources().getColor(R.color.white));
-        centerText();
-        screen.getRelativeLayout().addView(textView);
-
-        new CountDownTimer(3000, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-
-            }
-            public void onFinish() {
-
-                destroy();
-            }
-        }.start();
-    }
     public void removeTextView(){
         this.screen.getRelativeLayout().removeView(this.textView);
     }

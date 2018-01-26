@@ -3,6 +3,7 @@ package com.example.iem.ames.manager;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
+import android.util.Log;
 
 import com.example.iem.ames.AMESApplication;
 import com.example.iem.ames.R;
@@ -21,28 +22,35 @@ public class SoundManager {
     }
 
     public void playSound(int soundID, boolean isInfinite){
+        final int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
+        final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
+        Log.d("AAAAAA", ""+ currentEventIndex);
         mediaPlayer = MediaPlayer.create(context, soundID);
         mediaPlayer.setLooping(isInfinite);
         mediaPlayer.start();
 
-        //TODO Gestion du stop
-        new CountDownTimer(10000, 1000) {
+
+        new CountDownTimer(AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getDelayInMillisecond(), 100) {
 
             public void onTick(long millisUntilFinished) {
-            }
 
+            }
             public void onFinish() {
-                mediaPlayer.stop();
+                int nextEvent = currentEventIndex+1;
+                AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).setCurrentIndex(nextEvent);
+                AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).run();
+
             }
         }.start();
+
     }
 
     public void stopSounds(double delay){
         this.mediaPlayer.stop();
+        this.mediaPlayer.release();
 
-
-        int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
-        int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
+        final int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
+        final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
 
         if (delay > 0.0) // If event has a finite duration
         {
@@ -53,12 +61,12 @@ public class SoundManager {
 
                 }
                 public void onFinish() {
-
+                    int nextEvent = currentEventIndex+1;
+                    AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).setCurrentIndex(nextEvent);
+                    AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).run();
                 }
             }.start();
         }
-        currentEventIndex+=1;
-        AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).setCurrentIndex(currentEventIndex);
-        AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).run();
+
     }
 }

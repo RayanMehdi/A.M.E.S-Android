@@ -15,7 +15,8 @@ public class Image {
     protected boolean isGIF;
 
     public Image(String filename, double x, double y, boolean isGIF) {
-        this.filename = (isGIF) ? filename : filename.substring(0, filename.length()-4).toLowerCase();
+        this.filename = (isGIF) ? filename : filename.substring(0, filename.length()-4);
+        this.filename=this.filename.toLowerCase();
         this.x = x;
         this.y = y;
         this.isGIF = isGIF;

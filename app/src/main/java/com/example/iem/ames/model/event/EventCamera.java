@@ -14,16 +14,13 @@ import java.util.ArrayList;
 
 public class EventCamera extends AMESEvent {
     private boolean rear_front;
-    private double height, width;
     private Image overlayImage;
     private Camera camera;
 
-    public EventCamera(String name, String type, double delay, boolean rear_front, double height, double width, Image overlayImage) {
+    public EventCamera(String name, String type, double delay, boolean rear_front, Image overlayImage) {
         super(name, type, delay);
 
         this.rear_front = rear_front;
-        this.height = height;
-        this.width = width;
         this.overlayImage = overlayImage;
     }
 
@@ -34,22 +31,6 @@ public class EventCamera extends AMESEvent {
 
     public void setRear_front(boolean rear_front) {
         this.rear_front = rear_front;
-    }
-
-    public double getHeight() {
-        return height;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
-    public double getWidth() {
-        return width;
-    }
-
-    public void setWidth(double width) {
-        this.width = width;
     }
 
     public Image getOverlayImage() {

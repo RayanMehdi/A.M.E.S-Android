@@ -13,6 +13,7 @@ import com.example.iem.ames.model.element.ImageAnimation;
 import com.example.iem.ames.model.element.Text;
 import com.example.iem.ames.model.event.AMESEvent;
 import com.example.iem.ames.model.event.EventButton;
+import com.example.iem.ames.model.event.EventCamera;
 import com.example.iem.ames.model.event.EventCheckHeadphones;
 import com.example.iem.ames.model.event.EventCheckLight;
 import com.example.iem.ames.model.event.EventImage;
@@ -37,7 +38,7 @@ import io.keiji.plistparser.PListParser;
  */
 
 public class AMESParser {
-    final String
+    final private String
             PARAMETERS = "Parameters",
             KEY = "key",
             STRING = "string",
@@ -71,7 +72,15 @@ public class AMESParser {
             HEIGHT="height",
             WIDTH="width",
             TEXT_SPEED="text speed",
-            OFF = "Off";
+            OFF = "Off",
+            ON_OR_OFF = "On or off",
+            REAR_OR_FRONT = "Rear or front",
+            OVERLAY_IMAGE_FILE = "Overlay image file",
+            TRANSLATION_X = "Translation X",
+            TRANSLATION_Y = "Translation Y",
+            TRANSLATION_Z = "Translation Z",
+            MOVEMENT_DURATION = "Movement duration",
+            OVERLAY_NAME="Overlay layer name";
 
 
     public void CreateSequenceFromFile(int idFile){
@@ -79,7 +88,7 @@ public class AMESParser {
         AMESSequence amesSequence = new AMESSequence();
         try{
 
-            InputStream inputStream = context.getResources().openRawResource(R.raw.firstsequence);
+            InputStream inputStream = context.getResources().openRawResource(idFile);
 
             PListArray listOfEvent = null;
 
@@ -138,9 +147,13 @@ public class AMESParser {
                                             Double.parseDouble(getValueInString(pListEventParameter, ANIMATION_POSITION_X)),
                                             Double.parseDouble(getValueInString(pListEventParameter, ANIMATION_POSITION_Y)),
                                             true,
+                                            Double.parseDouble(getValueInString(pListEventParameter, ANIMATION_DURATION)),
                                             Integer.parseInt(getValueInString(pListEventParameter, NUMBER_OF_FILE)),
-                                            Integer.parseInt(getValueInString(pListEventParameter, ANIMATION_DURATION)),
-                                            Integer.parseInt(getValueInString(pListEventParameter, REPEAT_NUMBER)));
+                                            Integer.parseInt(getValueInString(pListEventParameter, REPEAT_NUMBER)),
+                                            (pListEventParameter.has(TRANSLATION_X)) ? Double.parseDouble(getValueInString(pListEventParameter, TRANSLATION_X)) : 0.0,
+                                            (pListEventParameter.has(TRANSLATION_Y)) ? Double.parseDouble(getValueInString(pListEventParameter, TRANSLATION_Y)) : 0.0,
+                                            (pListEventParameter.has(TRANSLATION_Z)) ? Double.parseDouble(getValueInString(pListEventParameter, TRANSLATION_Z)) : 0.0,
+                                            (pListEventParameter.has(MOVEMENT_DURATION)) ? Double.parseDouble(getValueInString(pListEventParameter, MOVEMENT_DURATION)) : 0.0);
                             event = new EventImage(amesEventName, amesEventType, amesEventDelay, imgAnimation);
                         }
                        
@@ -161,6 +174,7 @@ public class AMESParser {
                         break;
                     case "button":
                         if(pListEventParameter.has(OFF)){
+                            Log.d("itstimetostop",getValueInString(pListEventParameter, OFF));
                             event = new EventStop(amesEventName,amesEventType,amesEventDelay);
                         }else {
                             if (pListEventParameter.has(NUMBER_OF_BUTTONS)) {
@@ -186,6 +200,21 @@ public class AMESParser {
                         //event = new AMESEvent(amesEventName, amesEventType, amesEventDelay);
                         break;
                     case "camera":
+                        if(pListEventParameter.getBool(ON_OR_OFF)) {
+                            boolean rear_or_front = pListEventParameter.getBool(REAR_OR_FRONT);
+                            String filename = "";
+                            Image image;
+                            if (pListEventParameter.has(OVERLAY_IMAGE_FILE)) {
+                                filename = pListEventParameter.getString(OVERLAY_IMAGE_FILE);
+                                 image = new Image(filename, 0.5, 0.5, false);
+                            } else{
+                                filename = pListEventParameter.getString(OVERLAY_NAME);
+                                image = new ImageAnimation(filename, 0.5, 0.5, true, 20, 27, 100, 0, 0, 0, 0);
+                        }
+                            event = new EventCamera(amesEventName, amesEventType, amesEventDelay, rear_or_front, image);
+                        }else{
+                            event = new EventStop(amesEventName, amesEventType, amesEventDelay);
+                        }
                         break;
                     case "ghost":
                         break;
@@ -196,7 +225,7 @@ public class AMESParser {
                         break;
                     case "son":
                         if(pListEventParameter.has(STOP)){
-
+                            event = new EventStop(amesEventName, amesEventType, amesEventDelay);
                         }
                         else{
                             if(pListEventParameter.has(INFINITE)){
@@ -242,31 +271,26 @@ public class AMESParser {
             val = String.valueOf(pListDict.getString(key));
             return val;
         }catch (Exception e){
-            e.printStackTrace();
         }
         try{
             val = String.valueOf(pListDict.getBool(key));
             return val;
         }catch (Exception e){
-            e.printStackTrace();
         }
         try{
             val = String.valueOf(pListDict.getInt(key));
             return val;
         }catch (Exception e){
-            e.printStackTrace();
         }
         try{
             val = String.valueOf(pListDict.getReal(key));
             return val;
         }catch (Exception e){
-            e.printStackTrace();
         }
         try{
             val = String.valueOf(pListDict.getDate(key));
             return val;
         }catch (Exception e){
-            e.printStackTrace();
         }
         return val;
     }

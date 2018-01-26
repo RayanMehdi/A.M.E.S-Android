@@ -42,6 +42,6 @@ public class EventImage extends AMESEvent {
 
     @Override
     public void stop() {
-        AMESApplication.application().getAMESManager().getImageManager().destroyImageView(imageView);
+        AMESApplication.application().getAMESManager().getImageManager().destroyImageView(this.getName());
     }
 }

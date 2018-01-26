@@ -4,13 +4,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
-import android.util.Log;
+import android.view.ViewPropertyAnimator;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.bumptech.glide.Glide;
 import com.example.iem.ames.AMESApplication;
 import com.example.iem.ames.R;
 import com.example.iem.ames.model.element.Image;
@@ -70,7 +69,7 @@ public class ImageManager {
         this.screen.getRelativeLayout().addView(imageView, layoutParams);
         long delay = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getDelayInMillisecond();
 
-        if(delay>0.0){
+        if(delay>0.0 && AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getType().equals("image")){
             new CountDownTimer(delay, 1000) {
 
                 public void onTick(long millisUntilFinished) {
@@ -81,14 +80,12 @@ public class ImageManager {
                 }
             }.start();
         }
-
-
     }
 
     public void displayAnimation(final ImageAnimation image){
         final int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
         final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
-        ImageView imageAnim = new ImageView(this.context);
+        final ImageView imageAnim = new ImageView(this.context);
         final AnimationDrawable animation = new AnimationDrawable();
 
         arrayImage.put(AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getName(),imageAnim);
@@ -98,13 +95,19 @@ public class ImageManager {
 
 
         for(int i = 0; i < image.getNumberOfFile(); i++){
-            animation.addFrame(this.context.getResources().getDrawable(context.getResources().getIdentifier(image.getFilename() + "_" + i, "drawable", this.context.getPackageName())), image.getDuration()* 1000/image.getNumberOfFile());
+            animation.addFrame(this.context.getResources().getDrawable(context.getResources().getIdentifier(image.getFilename() + "_" + i, "drawable", this.context.getPackageName())), (int) (image.getDuration()* 1000)/image.getNumberOfFile());
         }
         imageAnim.setBackgroundDrawable(animation);
 
         imageAnim.post(new Runnable(){
             @Override
             public void run() {
+                Double translationx = image.getTranslationX()*screen.getWidth();
+                Double translationy = image.getTranslationY()*screen.getHeight();
+                Double translationz = image.getTranslationZ();
+
+                imageAnim.animate().x(translationx.floatValue()).y(translationy.floatValue()).scaleX(translationz.floatValue()).scaleY(translationz.floatValue());
+                imageAnim.animate().setDuration((long) image.getMovementDuration()*1000);
                 animation.start();
             }
         });
@@ -126,7 +129,7 @@ public class ImageManager {
             }.start();
         }
 
-        new CountDownTimer(image.getDuration() * image.getNumberOfRepeat() * 1000, 1000) {
+        new CountDownTimer((int) (image.getDuration() * image.getNumberOfRepeat() * 1000), 1000) {
 
             public void onTick(long millisUntilFinished) {
             }
@@ -144,12 +147,12 @@ public class ImageManager {
         AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).run();
     }
 
-    public void destroyImageView(ImageView img){
+    public void destroyImageView(String name){
         //screen.getRelativeLayout().removeView(arrayImage.get(name));
         //screen.getRelativeLayout().removeView(img);
 
-        arrayImage.get("test").clearAnimation();
-        screen.getRelativeLayout().removeView(arrayImage.get("test"));
+        arrayImage.get(name).clearAnimation();
+        screen.getRelativeLayout().removeView(arrayImage.get(name));
 
     }
 
