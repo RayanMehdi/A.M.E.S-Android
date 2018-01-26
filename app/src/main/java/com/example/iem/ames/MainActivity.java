@@ -82,10 +82,10 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Test", "Ok");
 
 
-            test();
+            //test();
 
-            //loadSequenceFile();
-            //AMESApplication.application().getAMESManager().getCurrentGame().run();
+            loadSequenceFile();
+            AMESApplication.application().getAMESManager().getCurrentGame().run();
             //TODO Method currentGame.run();
         }
     }
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
 //        ArrayList<Button> buttons2 = new ArrayList<>();
 //        ArrayList<Button> buttons3 = new ArrayList<>();
 //
-       buttons.add(new Button("davidgoodenough.png", 3,0.5, 0.1));
+       buttons.add(new Button("davidgoodenough.png", 3,0.5, 0.1, 0.25, 0.25));
 //        buttons.add(new Button("oeil", 2,0.9, 0.9));
 //        buttons2.add(new Button("davidgoodenough", 2,0.1, 0.1));
 //        buttons3.add(new Button("oeil", 1,0.8, 0.1));
@@ -168,9 +168,9 @@ public class MainActivity extends AppCompatActivity {
         EventStop eventStop = new EventStop("test text", "animated text", 1);
         EventStop eventStop2 = new EventStop("test text", "animated text", 5);
         EventStop eventStop3 = new EventStop("test", "animation", 5);
-        ImageAnimation img = new ImageAnimation("bed", 10,10, true,5, 15, 2, 1, 0.5, 0.1, 2);
-        Image imgCamera = new Image("scanRetine.png", 0.5, 0.5, false);
-        Image imgCamera2 = new Image("interface_eyescan.png", 0.2, 0.2, false);
+        ImageAnimation img = new ImageAnimation("bed", 10,10, true,5, 15, 2, 1, 0.5, 0.1, 2, 0.25, 0.25);
+        Image imgCamera = new Image("scanRetine.png", 0.5, 0.5, false, 0.25, 0.25);
+        Image imgCamera2 = new Image("no.png", 0.2, 0.2, false, 0, 0);
         EventStop eventStop4 = new EventStop("camera", "camera", 3);
         EventImage eventImage = new EventImage("test", "test", 5, img);
         EventImage eventImage2 = new EventImage("test2", "test", 5, imgCamera2);
@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
         //amesSequence.addEvent(eventButton);
         //amesSequence.addEvent(eventStop);
         //amesSequence.addEvent(eventText2);
-        amesSequence.addEvent(eventImage);
+        amesSequence.addEvent(eventImage2);
         //amesSequence.addEvent(eventStop2);
         amesSequence.addEvent(eventStop3);
 

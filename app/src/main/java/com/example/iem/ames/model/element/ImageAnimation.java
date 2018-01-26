@@ -15,8 +15,8 @@ public class ImageAnimation extends Image{
     private int numberOfRepeat;
     private double translationX,translationY, translationZ, movementDuration;
 
-    public ImageAnimation(String filename, double x, double y, boolean isGIF, int duration, int numberOfFile, int numberOfRepeat, double translationX, double translationY, double translationZ, double movementDuration) {
-        super(filename, x, y, isGIF);
+    public ImageAnimation(String filename, double x, double y, boolean isGIF, int duration, int numberOfFile, int numberOfRepeat, double translationX, double translationY, double translationZ, double movementDuration, double scaleX, double scaleY) {
+        super(filename, x, y, isGIF, scaleX, scaleY);
         this.duration = duration;
         this.numberOfFile = numberOfFile;
         this.numberOfRepeat = numberOfRepeat;

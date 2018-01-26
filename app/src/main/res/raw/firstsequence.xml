@@ -19,6 +19,10 @@
 			<real>0.75</real>
 			<key>Y position for button 1</key>
 			<real>0.25</real>
+			<key>Scale X button 1</key>
+			<real>0.25</real>
+			<key>Scale Y button 1</key>
+			<real>0.25</real>
 		</dict>
 		<key>Duration</key>
 		<integer>0</integer>
@@ -49,6 +53,10 @@
 			<real>0.5</real>
 			<key>Position Y</key>
 			<real>0.5</real>
+			<key>Scale X</key>
+			<real>1</real>
+			<key>Scale Y</key>
+			<real>1</real>
 		</dict>
 		<key>Duration</key>
 		<integer>2</integer>
@@ -164,8 +172,16 @@ Tapez pour continuer.</string>
 			<integer>2</integer>
 			<key>Image filename for button 1</key>
 			<string>yes.png</string>
+			<key>Scale X button 1</key>
+			<real>0.25</real>
+			<key>Scale Y button 1</key>
+			<real>0.25</real>
 			<key>Image filename for button 2</key>
 			<string>no.png</string>
+			<key>Scale X button 2</key>
+			<real>0.25</real>
+			<key>Scale Y button 2</key>
+			<real>0.25</real>
 			<key>Next event index for button 1</key>
 			<integer>10</integer>
 			<key>Next event index for button 2</key>
@@ -208,6 +224,10 @@ Tapez pour continuer.</string>
 			<real>0.5</real>
 			<key>Position Y</key>
 			<real>0.5</real>
+			<key>Scale X</key>
+			<real>1</real>
+			<key>Scale Y</key>
+			<real>1</real>
 		</dict>
 		<key>Duration</key>
 		<integer>0</integer>
@@ -246,8 +266,16 @@ Tapez pour continuer.</string>
 			<integer>2</integer>
 			<key>Image filename for button 1</key>
 			<string>yes.png</string>
+			<key>Scale X button 1</key>
+			<real>0.25</real>
+			<key>Scale Y button 1</key>
+			<real>0.25</real>
 			<key>Image filename for button 2</key>
 			<string>no.png</string>
+			<key>Scale X button 2</key>
+			<real>0.25</real>
+			<key>Scale Y button 2</key>
+			<real>0.25</real>
 			<key>Next event index for button 1</key>
 			<integer>12</integer>
 			<key>Next event index for button 2</key>
@@ -298,6 +326,10 @@ Tapez pour continuer.</string>
 			<integer>1</integer>
 			<key>Image filename for button 1</key>
 			<string>scanButton.png</string>
+			<key>Scale X button 1</key>
+			<real>0.25</real>
+			<key>Scale Y button 1</key>
+			<real>0.25</real>
 			<key>Next event index for button 1</key>
 			<integer>14</integer>
 			<key>X position for button 1</key>
@@ -317,6 +349,10 @@ Tapez pour continuer.</string>
 		<dict>
 			<key>Image file</key>
 			<string>fingerPrint.png</string>
+			<key>Scale X</key>
+			<real>0.25</real>
+			<key>Scale Y</key>
+			<real>0.25</real>
 			<key>Position X</key>
 			<real>0.8</real>
 			<key>Position Y</key>
@@ -367,6 +403,10 @@ Tapez pour continuer.</string>
 			<real>-0.5</real>
 			<key>Translation Z</key>
 			<integer>0</integer>
+			<key>Scale X</key>
+			<real>0.25</real>
+			<key>Scale Y</key>
+			<real>0.25</real>
 		</dict>
 		<key>Duration</key>
 		<integer>2</integer>
@@ -482,6 +522,10 @@ Tapez quand vous êtes prêt.</string>
 			<real>0.5</real>
 			<key>Position Y</key>
 			<real>0.6</real>
+			<key>Scale X</key>
+			<real>0.25</real>
+			<key>Scale Y</key>
+			<real>0.25</real>
 		</dict>
 		<key>Duration</key>
 		<integer>3</integer>
@@ -497,6 +541,10 @@ Tapez quand vous êtes prêt.</string>
 			<integer>1</integer>
 			<key>Image filename for button 1</key>
 			<string>sync.png</string>
+			<key>Scale X button 1</key>
+			<real>0.25</real>
+			<key>Scale Y button 1</key>
+			<real>0.25</real>
 			<key>Next event index for button 1</key>
 			<integer>25</integer>
 			<key>X position for button 1</key>
@@ -547,6 +595,10 @@ Tapez quand vous êtes prêt.</string>
 			<integer>2</integer>
 			<key>Translation Y</key>
 			<integer>0</integer>
+			<key>Scale X</key>
+			<real>0</real>
+			<key>Scale Y</key>
+			<real>1</real>
 		</dict>
 		<key>Duration</key>
 		<integer>3</integer>

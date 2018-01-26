@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
@@ -54,16 +55,17 @@ public class ButtonManager {
             // Setting layout params to our RelativeLayout
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(width, height);
 
-            //System.out.println("H : " + this.screen.getWidth() * button.getX());
-            Double d = this.screen.getWidth() * button.getX() - width / 2;
-            //System.out.println("H : " + d.toString());
-            //System.out.println("W : " + width);
-
             // Setting position of our ImageView
-            Double x = this.screen.getWidth() * button.getX() - width / 2;
-            Double y = this.screen.getHeight() * button.getY() - height / 2;
+            Double x = (button.getScaleX() != 1) ? this.screen.getWidth()*button.getX() - width/2 : 0;
+            Double y = (button.getScaleY() != 1) ? this.screen.getHeight()*button.getY() - height/2 : 0;
+            Double scaleY = (button.getScaleX() != 0) ? this.screen.getHeight()*button.getScaleX() : height;
+            Double scaleX = (button.getScaleY() != 0) ? this.screen.getWidth()*button.getScaleY() : width;
             layoutParams.leftMargin = x.intValue();
-            layoutParams.topMargin = y.intValue();
+            layoutParams.topMargin = this.screen.getHeight() - y.intValue();
+            layoutParams.width = scaleX.intValue();
+            layoutParams.height = scaleY.intValue();
+            imageButton.setScaleType(ImageButton.ScaleType.FIT_START);
+            imageButton.setBackground(null);
 
             // Finally Adding the imageView to RelativeLayout and its position
             this.screen.getRelativeLayout().addView(imageButton, layoutParams);
@@ -84,7 +86,7 @@ public class ButtonManager {
                     AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).setCurrentIndex(nextEventIndex);
                     // Run the next event (with the new current index in sequence)
 
-                    if(eventButton.getName() != "Scan_button")
+                    if(!eventButton.getName().equals("Scan_button"))
                         removeAllButtons();
                     AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).run();
 

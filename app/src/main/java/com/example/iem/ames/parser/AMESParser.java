@@ -79,7 +79,11 @@ public class AMESParser {
             TRANSLATION_X = "Translation X",
             TRANSLATION_Y = "Translation Y",
             TRANSLATION_Z = "Translation Z",
-            MOVEMENT_DURATION = "Movement duration";
+            MOVEMENT_DURATION = "Movement duration",
+            SCALE_X = "Scale X",
+            SCALE_Y = "Scale Y",
+            SCALE_X_FOR_BUTTON = "Scale X button ",
+            SCALE_Y_FOR_BUTTON = "Scale Y button ";
 
 
     public void CreateSequenceFromFile(int idFile){
@@ -87,7 +91,7 @@ public class AMESParser {
         AMESSequence amesSequence = new AMESSequence();
         try{
 
-            InputStream inputStream = context.getResources().openRawResource(R.raw.firstsequence);
+            InputStream inputStream = context.getResources().openRawResource(idFile);
 
             PListArray listOfEvent = null;
 
@@ -152,7 +156,9 @@ public class AMESParser {
                                             (pListEventParameter.has(TRANSLATION_X)) ? Double.parseDouble(getValueInString(pListEventParameter, TRANSLATION_X)) : 0.0,
                                             (pListEventParameter.has(TRANSLATION_Y)) ? Double.parseDouble(getValueInString(pListEventParameter, TRANSLATION_Y)) : 0.0,
                                             (pListEventParameter.has(TRANSLATION_Z)) ? Double.parseDouble(getValueInString(pListEventParameter, TRANSLATION_Z)) : 0.0,
-                                            (pListEventParameter.has(MOVEMENT_DURATION)) ? Double.parseDouble(getValueInString(pListEventParameter, MOVEMENT_DURATION)) : 0.0);
+                                            (pListEventParameter.has(MOVEMENT_DURATION)) ? Double.parseDouble(getValueInString(pListEventParameter, MOVEMENT_DURATION)) : 0.0,
+                                            (pListEventParameter.has(SCALE_X)) ? Double.parseDouble(getValueInString(pListEventParameter, SCALE_X)) : 0.0,
+                                            (pListEventParameter.has(SCALE_Y)) ? Double.parseDouble(getValueInString(pListEventParameter, SCALE_Y)) : 0.0);
                             event = new EventImage(amesEventName, amesEventType, amesEventDelay, imgAnimation);
                         }
                        
@@ -165,7 +171,9 @@ public class AMESParser {
                         Image img = new Image(pListEventParameter.getString(IMAGE_FILE),
                                 Double.parseDouble(getValueInString(pListEventParameter, X_POSITION)),
                                 Double.parseDouble(getValueInString(pListEventParameter, Y_POSITION)),
-                                false);
+                                false,
+                                Double.parseDouble(getValueInString(pListEventParameter, SCALE_X)),
+                                Double.parseDouble(getValueInString(pListEventParameter, SCALE_Y)));
                         event = new EventImage(amesEventName, amesEventType, amesEventDelay, img);
                         }
                         break;
@@ -186,7 +194,9 @@ public class AMESParser {
                                     int buttonNextEvent = Integer.parseInt(getValueInString(pListEventParameter, NEXT_EVENT_INDEX_BUTTON + String.valueOf(i + 1)));
                                     double buttonX = Double.parseDouble(getValueInString(pListEventParameter, X_POSITION_FOR_BUTTON + String.valueOf(i + 1)));
                                     double buttonY = Double.parseDouble(getValueInString(pListEventParameter, Y_POSITION_FOR_BUTTON + String.valueOf(i + 1)));
-                                    Button button = new Button(buttonFilename, buttonNextEvent, buttonX, buttonY);
+                                    double buttonScaleX = Double.parseDouble(getValueInString(pListEventParameter, SCALE_X_FOR_BUTTON + String.valueOf(i + 1)));
+                                    double buttonScaleY = Double.parseDouble(getValueInString(pListEventParameter, SCALE_Y_FOR_BUTTON + String.valueOf(i + 1)));
+                                    Button button = new Button(buttonFilename, buttonNextEvent, buttonX, buttonY, buttonScaleX, buttonScaleY);
                                     buttons.add(button);
                                 }
                                 event = new EventButton(amesEventName, amesEventType, amesEventDelay, buttons);
@@ -202,7 +212,9 @@ public class AMESParser {
                         if(pListEventParameter.getBool(ON_OR_OFF)){
                             boolean rear_or_front = pListEventParameter.getBool(REAR_OR_FRONT);
                             String filename = pListEventParameter.getString(OVERLAY_IMAGE_FILE);
-                            Image image = new Image(filename, 0.5 , 0.5, false);
+                            Image image = new Image(filename, 0.5 , 0.5, false,
+                                    (pListEventParameter.has(SCALE_X)) ? Double.parseDouble(getValueInString(pListEventParameter, SCALE_X)) : 0.0,
+                                    (pListEventParameter.has(SCALE_Y)) ? Double.parseDouble(getValueInString(pListEventParameter, SCALE_Y)) : 0.0);
                             event = new EventCamera(amesEventName, amesEventType, amesEventDelay, rear_or_front, image);
                         }else{
                             event = new EventStop(amesEventName, amesEventType, amesEventDelay);

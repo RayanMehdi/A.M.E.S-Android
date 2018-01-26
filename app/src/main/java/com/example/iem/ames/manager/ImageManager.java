@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.ViewPropertyAnimator;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
@@ -44,7 +45,7 @@ public class ImageManager {
         try{
             arrayImage.put(AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getName(),imageView);
         }catch (Exception e){
-
+            Log.d("IMAGE ERROR", "" + e);
         }
 
         imageView.setImageResource(img.getID());
@@ -57,12 +58,16 @@ public class ImageManager {
 
         // Setting layout params to our RelativeLayout
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(width, height);
-        Double d = this.screen.getWidth()*img.getX() - width/2;
+
         // Setting position of our ImageView
-        Double x = this.screen.getWidth()*img.getX() - width/2;
-        Double y = this.screen.getHeight()*img.getY() - height/2;
+        Double x = (img.getScaleX() != 1) ? this.screen.getWidth()*img.getX() - width/2 : 0;
+        Double y = (img.getScaleY() != 1) ? this.screen.getHeight()*img.getY() - height/2 : 0;
+        Double scaleX = (img.getScaleX() != 0) ? this.screen.getHeight()*img.getScaleX() : height;
+        Double scaleY = (img.getScaleY() != 0) ? this.screen.getWidth()*img.getScaleY() : width;
         layoutParams.leftMargin = x.intValue();
-        layoutParams.topMargin = y.intValue();
+        layoutParams.topMargin = this.screen.getHeight() - y.intValue();
+        layoutParams.width = scaleX.intValue();
+        layoutParams.height = scaleY.intValue();
 
         // Finally Adding the imageView to RelativeLayout and its position
         this.screen.getRelativeLayout().addView(imageView, layoutParams);
