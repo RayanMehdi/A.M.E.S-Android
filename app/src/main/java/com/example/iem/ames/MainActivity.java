@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+Log.d("MainActivity","OnCreate");
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         View decorView = getWindow().getDecorView();
         // Hide the status bar.
@@ -84,15 +84,15 @@ public class MainActivity extends AppCompatActivity {
         amesManager.setContextView(this.getApplicationContext());
         amesManager.createManager(new Screen(this.rl, height, width), this);
 
-        if(isEligibleforAMES()){
-            Log.d("Test", "Ok");
 
 
-            //test();
+        //test();
 
-            loadSequenceFile();
+        loadSequenceFile();
+
+
+        if(isEligibleforAMES()) {
             AMESApplication.application().getAMESManager().getCurrentGame().run();
-            //TODO Method currentGame.run();
         }
     }
 
@@ -139,13 +139,16 @@ public class MainActivity extends AppCompatActivity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    private void loadSequenceFile(){
+    private void loadSequenceFile() {
+
         AMESParser parser = AMESApplication.application().getAMESManager().getParser();
+
         parser.CreateSequenceFromFile(R.raw.firstsequence);
         //parser.CreateSequenceFromFile(R.raw.secondsequence);
         //parser.CreateSequenceFromFile(R.raw.thirdsequence);
         //parser.CreateSequenceFromFile(R.raw.fourthsequence);
         //parser.CreateSequenceFromFile(R.raw.testsequence);
+
     }
 
     private void test(){
@@ -236,6 +239,10 @@ public class MainActivity extends AppCompatActivity {
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                     Toast.makeText(getApplicationContext(), "Permission denied", Toast.LENGTH_SHORT).show();
+                    int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
+                    int creditEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCreditsEventIndex();
+
+                    AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(creditEventIndex).run();
                 }
                 return;
             }

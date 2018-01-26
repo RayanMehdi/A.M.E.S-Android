@@ -18,6 +18,7 @@ public class AMESSequence {
     private ArrayList<AMESEvent> events;
     private EventBackgroundSound backgroundSound;
     private int currentIndex;
+    private  int creditsEventIndex;
 
     public AMESSequence() {
         this.events = new ArrayList<AMESEvent>();
@@ -63,6 +64,14 @@ public class AMESSequence {
 
     public void setCurrentIndex(int currentIndex) {
         this.currentIndex = currentIndex;
+    }
+
+    public int getCreditsEventIndex() {
+        return creditsEventIndex;
+    }
+
+    public void setCreditsEventIndex(int creditsEventIndex) {
+        this.creditsEventIndex = creditsEventIndex;
     }
 
     public void firstRun(){

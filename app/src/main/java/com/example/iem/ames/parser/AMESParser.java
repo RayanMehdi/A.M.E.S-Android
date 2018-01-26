@@ -39,6 +39,7 @@ import io.keiji.plistparser.PListParser;
 
 public class AMESParser {
     final private String
+            CREDITS = "Image fin",
             PARAMETERS = "Parameters",
             KEY = "key",
             STRING = "string",
@@ -137,7 +138,6 @@ public class AMESParser {
                         }
                         break;
                     case "animation":
-                        Log.d("FFFFFFFF", pListEvent.toString());
                         if(pListEventParameter.has(OFF)){
                             event = new EventStop(amesEventName, amesEventType, amesEventDelay);
                         }else {
@@ -158,6 +158,9 @@ public class AMESParser {
                        
                         break;
                     case "image":
+                        if(amesEventName.equals(CREDITS)){
+                            amesSequence.setCreditsEventIndex(j);
+                        }
                         if(pListEventParameter.has(OFF)){
                             event = new EventStop(amesEventName, amesEventType, amesEventDelay);
                         }
@@ -173,15 +176,14 @@ public class AMESParser {
                         break;
                     case "button":
                         if(pListEventParameter.has(OFF)){
-                            Log.d("itstimetostop",getValueInString(pListEventParameter, OFF));
                             event = new EventStop(amesEventName,amesEventType,amesEventDelay);
                         }else {
                             if (pListEventParameter.has(NUMBER_OF_BUTTONS)) {
                                 int numberButtons = Integer.parseInt(getValueInString(pListEventParameter, NUMBER_OF_BUTTONS));
                                 ArrayList<Button> buttons = new ArrayList<>();
-                                Log.d("TEST", String.valueOf(numberButtons));
+                                //Log.d("TEST", String.valueOf(numberButtons));
                                 for (int i = 0; i < numberButtons; i++) {
-                                    Log.d("TEST", getValueInString(pListEventParameter,IMAGE_FILENAME_FOR_BUTTON + String.valueOf(i + 1)));
+                                    //Log.d("TEST", getValueInString(pListEventParameter,IMAGE_FILENAME_FOR_BUTTON + String.valueOf(i + 1)));
                                     String buttonFilename = getValueInString(pListEventParameter,IMAGE_FILENAME_FOR_BUTTON + String.valueOf(i + 1));
                                     int buttonNextEvent = Integer.parseInt(getValueInString(pListEventParameter, NEXT_EVENT_INDEX_BUTTON + String.valueOf(i + 1)));
                                     double buttonX = Double.parseDouble(getValueInString(pListEventParameter, X_POSITION_FOR_BUTTON + String.valueOf(i + 1)));
@@ -221,7 +223,6 @@ public class AMESParser {
                         else{
                             if(pListEventParameter.has(INFINITE)){
                                 event = new EventSound(amesEventName, amesEventType, amesEventDelay, getValueInString(pListEventParameter, SOUND_FILE), true);
-                                Log.d("INFINITO", amesEventName + " is infinite");
                             }
                             else{
                                 event = new EventSound(amesEventName, amesEventType, amesEventDelay, getValueInString(pListEventParameter, SOUND_FILE), false);

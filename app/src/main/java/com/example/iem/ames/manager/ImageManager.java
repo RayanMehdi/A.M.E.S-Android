@@ -78,6 +78,9 @@ public class ImageManager {
                     runNextEvent(currentSequenceIndex, currentEventIndex);
                 }
             }.start();
+        }else{
+            // TODO VERIFY THIS BECAUSE COULD BE NOT WORKING : if other image than "Image fin" for credits has delay = 0 (it will not working)
+            android.os.Process.killProcess(android.os.Process.myPid());
         }
     }
 
