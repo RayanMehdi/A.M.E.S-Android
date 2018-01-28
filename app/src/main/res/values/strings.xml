@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">A.M.E.S</string>
     <string name="action_settings">Settings</string>
+    <string name="loadingTextLabel">Loading A.M.E.S.</string>
+    <string name="AMESready">"A.M.E.S is ready, press start !"</string>
+    <string name="torchError">Warning, no Torch. Experience will be less enjoying. Press Start</string>
+    <string name="cameraError">"Sorry, AMES needs a front camera to run, please restart the application with a good device"</string>
 </resources>

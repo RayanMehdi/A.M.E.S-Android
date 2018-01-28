@@ -8,3 +8,4 @@
 /build
 /captures
 .externalNativeBuild
+/plist-parser/build/libs/plist-parser-1.0.jar

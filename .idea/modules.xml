@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AMES.iml" filepath="$PROJECT_DIR$/AMES.iml" />
+      <module fileurl="file://$PROJECT_DIR$/A.M.E.S-Android.iml" filepath="$PROJECT_DIR$/A.M.E.S-Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plist-parser/plist-parser.iml" filepath="$PROJECT_DIR$/plist-parser/plist-parser.iml" />
     </modules>
   </component>
 </project>

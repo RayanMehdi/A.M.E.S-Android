@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>Name</key>
+		<string>Phone call sound</string>
+		<key>Type</key>
+		<string>son</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Infinite</key>
+			<true/>
+			<key>Sound file</key>
+			<string>Ames_sonnerie.mp3</string>
+		</dict>
+		<key>Duration</key>
+		<real>0.1</real>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Image appel</string>
+		<key>Type</key>
+		<string>image</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Image file</key>
+			<string>appel.png</string>
+			<key>Position X</key>
+			<real>0.5</real>
+			<key>Position Y</key>
+			<real>0.5</real>
+		</dict>
+		<key>Duration</key>
+		<real>0.1</real>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Answer button</string>
+		<key>Type</key>
+		<string>button</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Number of buttons</key>
+			<integer>2</integer>
+			<key>Image filename for button 1</key>
+			<string>answer.png</string>
+			<key>Image filename for button 2</key>
+			<string>refuse.png</string>
+			<key>Next event index for button 1</key>
+			<integer>3</integer>
+			<key>Next event index for button 2</key>
+			<integer>2</integer>
+			<key>X position for button 1</key>
+			<real>0.7</real>
+			<key>X position for button 2</key>
+			<real>0.3</real>
+			<key>Y position for button 1</key>
+			<real>0.2</real>
+			<key>Y position for button 2</key>
+			<real>0.2</real>
+		</dict>
+		<key>Duration</key>
+		<integer>0</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Image appel</string>
+		<key>Type</key>
+		<string>image</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Off</key>
+			<true/>
+		</dict>
+		<key>Duration</key>
+		<real>0.1</real>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Phone call sound</string>
+		<key>Type</key>
+		<string>son</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Stop</key>
+			<true/>
+		</dict>
+		<key>Duration</key>
+		<real>0.5</real>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Noise sound</string>
+		<key>Type</key>
+		<string>son</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Sound file</key>
+			<string>Ames_bruit.mp3</string>
+		</dict>
+		<key>Duration</key>
+		<real>0.1</real>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Bruit</string>
+		<key>Type</key>
+		<string>animation</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Screen fit</key>
+			<true/>
+			<key>Index for static image</key>
+			<integer>27</integer>
+			<key>Undisplayed</key>
+			<true/>
+			<key>Number of images</key>
+			<integer>28</integer>
+			<key>Filename for images</key>
+			<string>bruit</string>
+			<key>Animation location X</key>
+			<real>0.5</real>
+			<key>Animation location Y</key>
+			<real>0.5</real>
+			<key>Number of repeats</key>
+			<integer>1</integer>
+			<key>Animation duration</key>
+			<integer>2</integer>
+			<key>Scale X</key>
+			<integer>1</integer>
+			<key>Scale Y</key>
+			<integer>1</integer>
+		</dict>
+		<key>Duration</key>
+		<integer>2</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>camera on</string>
+		<key>Type</key>
+		<string>camera</string>
+		<key>Parameters</key>
+		<dict>
+			<key>On or off</key>
+			<true/>
+			<key>Overlay layer name</key>
+			<string>Bruit</string>
+			<key>Rear or front</key>
+			<true/>
+			<key>Scale factor X</key>
+			<integer>1</integer>
+			<key>Scale factor Y</key>
+			<integer>1</integer>
+		</dict>
+		<key>Duration</key>
+		<integer>5</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>AMES sound</string>
+		<key>Type</key>
+		<string>son</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Sound file</key>
+			<string>Ames_Bruit_de_fonctionnement.mp3</string>
+			<key>Infinite</key>
+			<true/>
+		</dict>
+		<key>Duration</key>
+		<integer>2</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Bruit</string>
+		<key>Type</key>
+		<string>animation</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Off</key>
+			<true/>
+		</dict>
+		<key>Duration</key>
+		<real>0.1</real>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Son grille</string>
+		<key>Type</key>
+		<string>son</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Sound file</key>
+			<string>Ames_affichage_grille.mp3</string>
+		</dict>
+		<key>Duration</key>
+		<real>0.1</real>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Grille</string>
+		<key>Type</key>
+		<string>animation</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Screen fit</key>
+			<true/>
+			<key>Index for static image</key>
+			<integer>25</integer>
+			<key>Number of images</key>
+			<integer>26</integer>
+			<key>Filename for images</key>
+			<string>grille</string>
+			<key>Animation location X</key>
+			<real>0.5</real>
+			<key>Animation location Y</key>
+			<real>0.5</real>
+			<key>Number of repeats</key>
+			<integer>1</integer>
+			<key>Animation duration</key>
+			<real>0.5</real>
+			<key>Scale X</key>
+			<integer>1</integer>
+			<key>Scale Y</key>
+			<integer>1</integer>
+		</dict>
+		<key>Duration</key>
+		<integer>1</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Background animation</string>
+		<key>Type</key>
+		<string>animation</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Number of images</key>
+			<integer>1</integer>
+			<key>Movement ?</key>
+			<true/>
+			<key>Movement duration</key>
+			<integer>5</integer>
+			<key>Filename for images</key>
+			<string>faisceau</string>
+			<key>Animation location X</key>
+			<real>0</real>
+			<key>Animation location Y</key>
+			<real>0.5</real>
+			<key>Number of repeats</key>
+			<integer>0</integer>
+			<key>Animation duration</key>
+			<integer>1</integer>
+			<key>Translation X</key>
+			<integer>2</integer>
+			<key>Translation Y</key>
+			<integer>0</integer>
+		</dict>
+		<key>Duration</key>
+		<integer>1</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>battery test</string>
+		<key>Type</key>
+		<string>battery level</string>
+		<key>Parameters</key>
+		<dict>
+			<key>null</key>
+			<integer>3</integer>
+		</dict>
+		<key>Duration</key>
+		<integer>1</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>hour display</string>
+		<key>Type</key>
+		<string>text</string>
+		<key>Parameters</key>
+		<dict>
+			<key>x location</key>
+			<real>0.7</real>
+			<key>y location</key>
+			<real>0.9</real>
+			<key>width</key>
+			<real>0.3</real>
+			<key>height</key>
+			<real>0.1</real>
+		</dict>
+		<key>Duration</key>
+		<integer>1</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>stress display</string>
+		<key>Type</key>
+		<string>text</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Displayed text</key>
+			<string>Stress Status : 25/100</string>
+			<key>x location</key>
+			<real>0.31</real>
+			<key>y location</key>
+			<real>0.9</real>
+			<key>width</key>
+			<real>0.4</real>
+			<key>height</key>
+			<real>0.1</real>
+		</dict>
+		<key>Duration</key>
+		<integer>1</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Retina</string>
+		<key>Type</key>
+		<string>animation</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Number of images</key>
+			<integer>11</integer>
+			<key>Filename for images</key>
+			<string>oeil</string>
+			<key>Animation location X</key>
+			<real>0.05</real>
+			<key>Animation location Y</key>
+			<real>0.9</real>
+			<key>Number of repeats</key>
+			<integer>0</integer>
+			<key>Animation duration</key>
+			<integer>1</integer>
+			<key>Scale X</key>
+			<integer>1</integer>
+			<key>Scale Y</key>
+			<integer>1</integer>
+		</dict>
+		<key>Duration</key>
+		<real>0.5</real>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Heartbeat sound</string>
+		<key>Type</key>
+		<string>son</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Infinite</key>
+			<true/>
+			<key>Sound file</key>
+			<string>Ames_coeur_01.mp3</string>
+		</dict>
+		<key>Duration</key>
+		<integer>2</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>EKG</string>
+		<key>Type</key>
+		<string>animation</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Number of images</key>
+			<integer>30</integer>
+			<key>Filename for images</key>
+			<string>ekg</string>
+			<key>Animation location X</key>
+			<real>0.5</real>
+			<key>Animation location Y</key>
+			<real>0.1</real>
+			<key>Number of repeats</key>
+			<integer>0</integer>
+			<key>Animation duration</key>
+			<integer>1</integer>
+			<key>Scale X</key>
+			<integer>1</integer>
+			<key>Scale Y</key>
+			<integer>1</integer>
+			<key>Width fit</key>
+			<true/>
+		</dict>
+		<key>Duration</key>
+		<real>0.1</real>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Diane Bonjour</string>
+		<key>Type</key>
+		<string>son</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Sound file</key>
+			<string>Diane_Bonjour.mp3</string>
+		</dict>
+		<key>Duration</key>
+		<integer>5</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Reponse diane</string>
+		<key>Type</key>
+		<string>micro</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Expected volume</key>
+			<real>0.4</real>
+		</dict>
+		<key>Duration</key>
+		<integer>0</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Diane Noir total</string>
+		<key>Type</key>
+		<string>son</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Sound file</key>
+			<string>Diane_Noir_total.mp3</string>
+		</dict>
+		<key>Duration</key>
+		<integer>19</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Reponse noir total</string>
+		<key>Type</key>
+		<string>micro</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Expected volume</key>
+			<real>0.4</real>
+		</dict>
+		<key>Duration</key>
+		<integer>0</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Diane salon scan</string>
+		<key>Type</key>
+		<string>son</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Sound file</key>
+			<string>Diane_Message_scan.mp3</string>
+		</dict>
+		<key>Duration</key>
+		<integer>45</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Flash coming</string>
+		<key>Type</key>
+		<string>flash</string>
+		<key>Parameters</key>
+		<dict>
+			<key>On or off</key>
+			<true/>
+		</dict>
+		<key>Duration</key>
+		<integer>10</integer>
+	</dict>
+</array>
+</plist>
