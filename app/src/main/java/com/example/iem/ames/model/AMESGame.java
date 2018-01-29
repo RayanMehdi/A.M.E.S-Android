@@ -26,9 +26,7 @@ public class AMESGame {
     }
 
     public void setSequences(ArrayList<AMESSequence> sequences) {
-        for (AMESSequence amesEvent: sequences) {
-            this.sequences.add(amesEvent);
-        }
+        this.sequences = sequences;
     }
 
     public void addSequence(AMESSequence sequence) {

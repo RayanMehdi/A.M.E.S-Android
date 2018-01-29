@@ -126,8 +126,8 @@ public class ImageManager {
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(this.screen.getWidth(), this.screen.getHeight());
 
         // Setting position of our ImageView
-        Double scaleY = this.screen.getHeight()*image.getScaleY();
-        Double scaleX = this.screen.getWidth()*image.getScaleX();
+        Double scaleY =(image.getScaleY() > 1) ? this.screen.getHeight()*image.getScaleY() : this.screen.getHeight();
+        Double scaleX =(image.getScaleX() > 1) ? this.screen.getWidth()*image.getScaleX() : this.screen.getWidth();
 
         final Double x = (image.getX() != 0) ? this.screen.getWidth()*image.getX() - scaleX/2 : 0;
         final Double y = (image.getY() != 0) ? this.screen.getHeight()*image.getY() + scaleY- scaleY/2 : 0 +scaleY;
@@ -148,13 +148,16 @@ public class ImageManager {
 
 
         for(int i = 0; i < image.getNumberOfFile(); i++){
-            animation.addFrame(this.context.getResources().getDrawable(context.getResources().getIdentifier(image.getFilename() + "_" + i, "drawable", this.context.getPackageName())), (int)(image.getDuration()* 1000/image.getNumberOfFile()));
+            animation.addFrame(this.context.getResources().getDrawable(context.getResources().getIdentifier(image.getFilename() + "_" + i, "drawable", this.context.getPackageName())),(int)(image.getDuration()* 1000/image.getNumberOfFile()));
         }
 
         imageAnim.setImageDrawable(animation);
 
         // FOR DEBUG
-//        imageAnim.setBackgroundColor(Color.BLUE);
+        if(image.getFilename().equals("ekg"))
+            imageAnim.setBackgroundColor(Color.BLUE);
+        if(image.getFilename().equals("faisceau"))
+            imageAnim.setBackgroundColor(Color.CYAN);
         //
 
         imageAnim.post(new Runnable(){
@@ -209,6 +212,7 @@ public class ImageManager {
 
     public void destroyImageView(String name, String type){
         if(type.equals("animation")) {
+            //arrayImage.get(name).clearAnimation();
             screen.getRelativeLayout().removeView(arrayImage.get(name));
             arrayImage.remove(name);
         }else if(type.equals("image")) {

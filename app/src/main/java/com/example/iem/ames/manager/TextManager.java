@@ -18,6 +18,9 @@ import com.example.iem.ames.R;
 import com.example.iem.ames.model.element.Screen;
 import com.example.iem.ames.model.element.Text;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 /**
  * Created by iem on 18/01/2018.
  */
@@ -169,5 +172,36 @@ public class TextManager {
     public void stop(int currentSequenceIndex, int currentEventIndex){
         try{destroy();}catch (Exception e){}
         runNextEvent(currentSequenceIndex, currentEventIndex);
+    }
+
+    public void displayHour(Text text){
+        TextView hour = new TextView(context);
+        hour.setTextColor(context.getResources().getColor(R.color.white));
+        hour.setTextSize(12);
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyy HH:mm");
+        String formattedDate = df.format(c.getTime());
+        hour.setText(formattedDate);
+
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(screen.getWidth(),screen.getHeight());
+        layoutParams.leftMargin = (int) (screen.getWidth()*text.getX());
+        layoutParams.rightMargin = 50;
+        layoutParams.topMargin = (int) (screen.getHeight()-screen.getHeight()*text.getY());
+        layoutParams.width = (int) (screen.getWidth()-screen.getWidth()*text.getWidth());
+        layoutParams.height = (int) (screen.getHeight()-screen.getHeight()*text.getHeight());
+
+        screen.getRelativeLayout().addView(hour, layoutParams);
+        final int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
+        final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
+
+        new CountDownTimer((AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getDelayInMillisecond()), 1000) {
+
+            public void onTick(long millisUntilFinished) {
+
+            }
+            public void onFinish() {
+                runNextEvent(currentSequenceIndex, currentEventIndex);
+            }
+        }.start();
     }
 }

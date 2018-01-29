@@ -268,9 +268,9 @@
 			<key>Translation Y</key>
 			<integer>0</integer>
 			<key>Scale X</key>
-			<real>1</real>
+			<real>0.1</real>
 			<key>Scale Y</key>
-			<real>0.2</real>
+			<real>1</real>
 		</dict>
 		<key>Duration</key>
 		<integer>1</integer>
@@ -392,7 +392,7 @@
 			<key>Scale X</key>
 			<integer>2</integer>
 			<key>Scale Y</key>
-			<real>0.3</real>
+			<real>0.1</real>
 			<key>Width fit</key>
 			<true/>
 		</dict>

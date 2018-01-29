@@ -27,7 +27,7 @@ public class AMESManager {
     private StopManager stopManager;
     private CameraManager cameraManager;
     private MicroManager microManager;
-
+    private boolean start;
     public AMESManager(AMESGame currentGame) {
         this.currentGame = currentGame;
     }
@@ -36,6 +36,7 @@ public class AMESManager {
         currentGame = new AMESGame();
         contextView = null;
         parser = new AMESParser();
+        start = false;
     }
 
     public StopManager getStopManager() {
@@ -114,5 +115,13 @@ public class AMESManager {
 
     public MicroManager getMicroManager() {
         return microManager;
+    }
+
+    public boolean isStart() {
+        return start;
+    }
+
+    public void setStart(boolean start) {
+        this.start = start;
     }
 }

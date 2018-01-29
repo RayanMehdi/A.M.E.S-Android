@@ -83,14 +83,14 @@ Log.d("MainActivity","OnCreate");
         amesManager.setContextView(this.getApplicationContext());
         amesManager.createManager(new Screen(this.rl, height, width), this);
 
+if(!amesManager.isStart()) {
+    amesManager.setStart(true);
+    //       test();
 
-
-//       test();
-
-        loadSequenceFile();
-        if(isEligibleforAMES()) {
-            AMESApplication.application().getAMESManager().getCurrentGame().run();
-        }
+    loadSequenceFile();
+    isEligibleforAMES();
+    AMESApplication.application().getAMESManager().getCurrentGame().run();
+}
     }
 
     private boolean areCamAvailable(){
@@ -108,25 +108,38 @@ Log.d("MainActivity","OnCreate");
         return true;
     }
 
-    private boolean isEligibleforAMES(){
+    private void isEligibleforAMES(){
         boolean response = true;
         String displayMessage="";
         if(areCamAvailable()){
             if(this.getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)){
                 displayMessage = getResources().getString(R.string.AMESready);
-            }else
+            }else{
                 displayMessage = getResources().getString(R.string.torchError);
-
-            if(isNetworkAvailable()){
-
             }
+            if(isNetworkAvailable()){
+            }
+
+            Text initText = new Text(displayMessage,0,0,0.4,0.9, true, 0.025);
+            EventText initEvent = new EventText("init", "text", 5, initText);
+            AMESSequence sequence = new AMESSequence();
+            sequence.addEvent(initEvent);
+            ArrayList<AMESSequence> test = AMESApplication.application().getAMESManager().getCurrentGame().getSequences();
+            test.add(0, sequence);
+            AMESApplication.application().getAMESManager().getCurrentGame().setSequences(test);
         }else {
             displayMessage = getResources().getString(R.string.cameraError);
-            //response = false;
+            AMESApplication.application().getAMESManager().getCurrentGame().getSequences().clear();
+            AMESApplication.application().getAMESManager().getCurrentGame().addSequence(new AMESSequence());
+            Text initText = new Text(displayMessage,0,0,0.4,0.9, false, 0);
+            EventText initEvent = new EventText("init", "text", 0, initText);
+            AMESSequence sequence = new AMESSequence();
+            sequence.addEvent(initEvent);
+            AMESApplication.application().getAMESManager().getCurrentGame().getSequences().add(0, sequence);
         }
+        // AMESApplication.application().getAMESManager().getCurrentGame().getSequence(0).getEvents().add(0,initEvent);
 
-        //AMESApplication.application().getAMESManager().getTextManager().textNotInSequence(displayMessage);
-        return response;
+
     }
 
     private boolean isNetworkAvailable() {
@@ -140,7 +153,7 @@ Log.d("MainActivity","OnCreate");
 
         AMESParser parser = AMESApplication.application().getAMESManager().getParser();
 
-       // parser.CreateSequenceFromFile(R.raw.firstsequence);
+     //   parser.CreateSequenceFromFile(R.raw.firstsequence);
         parser.CreateSequenceFromFile(R.raw.secondsequence);
 //        parser.CreateSequenceFromFile(R.raw.thirdsequence);
 //        parser.CreateSequenceFromFile(R.raw.fourthsequence);
@@ -149,80 +162,23 @@ Log.d("MainActivity","OnCreate");
     }
 
     private void test(){
-        //amesManager.getImageManager().displayNewImage(new Image("oeil", 0.1, 0.1, true, 3));
-        //amesManager.getImageManager().displayNewImage(new Image("davidgoodenough", 0.5, 0.5, true, 5));
+
         AMESGame currentGame=AMESApplication.application().getAMESManager().getCurrentGame();
-       EventButton eventButton = new EventButton("Zamasalerace","button", 0);
-//
-//        EventButton eventButton2 = new EventButton("david","button", 0);
-//        EventButton eventButton3 = new EventButton("oeil","button", 0);
-       ArrayList<Button> buttons = new ArrayList<>();
-//        ArrayList<Button> buttons2 = new ArrayList<>();
-//        ArrayList<Button> buttons3 = new ArrayList<>();
-//
-       buttons.add(new Button("answer.png", 1,0.5, 0.1, 0.25, 0.25));
-//        buttons.add(new Button("oeil", 2,0.9, 0.9));
-//        buttons2.add(new Button("davidgoodenough", 2,0.1, 0.1));
-//        buttons3.add(new Button("oeil", 1,0.8, 0.1));
-//
-        eventButton.setButtons(buttons);
-//        eventButton2.setButtons(buttons2);
-//        eventButton3.setButtons(buttons3);
 
-        Text text = new Text("Le saviez vous...", 150.0, 150.0, 500, 500, false, 1.25);
-        Text text3 = new Text("Bravo, ça marche bien !", 150.0, 150.0, 500, 500, true, 0.05);
-        Text text2 = new Text("Si vous avez trois chocapics et qu'un cerf venue d'Irlande chevauchant un lièvre vous demande un selfis, alors Zinedine Zidane vous OS avec un solide druide lvl 2 forme phoque", 150.0, 150.0, 500, 500, true, 0.025);
-        EventText eventText = new EventText("test text", "animated text", 2, text);
-        EventText eventText2 = new EventText("test text2", "animated text", 5, text2);
-        EventText eventText3 = new EventText("test text3", "animated text", 0, text3);
-        EventStop eventStop = new EventStop("test text", "animated text", 1);
-        EventStop eventStop2 = new EventStop("test text", "animated text", 5);
-        EventStop eventStop3 = new EventStop("test", "animation", 5);
-        ImageAnimation img = new ImageAnimation("bed", 10,10, true,5, 15, 2, 1, 0.5, 0.1, 2, 0.25, 0.25);
-        Image imgCamera = new Image("scanRetine.png", 0.5, 0.5, false, 0.25, 0.25);
-        Image imgCamera2 = new Image("no.png", 0.2, 0.2, false, 0.3, 0.3);
-        EventStop eventStop4 = new EventStop("camera", "camera", 3);
-        EventImage eventImage = new EventImage("test", "test", 5, img);
-        EventImage eventImage2 = new EventImage("test2", "test", 5, imgCamera2);
-        EventCamera eventCamera = new EventCamera("camera", "camera", 6,false, imgCamera);
         AMESSequence amesSequence = new AMESSequence();
-        //amesSequence.addEvent(eventButton);
-        //amesSequence.addEvent(eventButton2);
-        //amesSequence.addEvent(eventButton3);
-        //amesSequence.addEvent(eventText);
-        //amesSequence.addEvent(eventButton);
-        //amesSequence.addEvent(eventStop);
-        //amesSequence.addEvent(eventText2);
-//        amesSequence.addEvent(eventImage2);
-        //amesSequence.addEvent(eventStop2);
-//        amesSequence.addEvent(eventStop3);
 
-        //amesSequence.addEvent(eventText3);
-        //amesSequence.addEvent(eventStop4);
-
-        Image img3 = new Image("imageboot.png", 0.5, 0.5, false, 0.25, 0.25);
-        EventImage eventImage3 = new EventImage("test", "image", 5, img3);
-
-        amesSequence.addEvent(eventImage3);
-
-amesSequence.addEvent(eventCamera);
-amesSequence.addEvent(eventImage2);
+        Button button = new Button("scan.png",1, 0.2, 0.2, 0.2, 0.2);
+        ArrayList arrayList = new ArrayList();
+        arrayList.add(button);
+        EventButton eventButton = new EventButton("ekg.png", "animation", 5, arrayList);
         amesSequence.addEvent(eventButton);
+
+        Image img = new Image("ekg.png",0.5, 0.5, false,1,1);
+        EventImage eventImage = new EventImage("ekg.png", "animation", 5, img);
+        amesSequence.addEvent(eventImage);
+
         currentGame.addSequence(amesSequence);
-
         currentGame.run();
-
-//            Image testimg = new Image("davidgoodenough.png", 0.5, 0.5, false, 1);
-//            Image testimgGIF = new Image("oeil", 0.1, 0.1, true, 8);
-//            EventImage test2 = new EventImage("imagetest","image", 0.5, testimg );
-//            EventImage test3 = new EventImage("imagetest2", "animation", 0.5, testimgGIF);
-//            EventSound test = new EventSound("test", "son", 0.1, "davidgoodenough_sound.mp3", true);
-//            Text text = new Text("", 150.0, 150.0, 500, 500, true, 0.25);
-//            EventText eventText = new EventText("test text", "", 15.0, text);
-//            test.run();
-//            //test2.run();
-//            test3.run();
-//            //eventText.run();
     }
 
     @Override
