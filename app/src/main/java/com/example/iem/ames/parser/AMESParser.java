@@ -155,7 +155,7 @@ public class AMESParser {
                                             Integer.parseInt(getValueInString(pListEventParameter, REPEAT_NUMBER)),
                                             (pListEventParameter.has(TRANSLATION_X)) ? Double.parseDouble(getValueInString(pListEventParameter, TRANSLATION_X)) : 0.0,
                                             (pListEventParameter.has(TRANSLATION_Y)) ? Double.parseDouble(getValueInString(pListEventParameter, TRANSLATION_Y)) : 0.0,
-                                            (pListEventParameter.has(TRANSLATION_Z)) ? Double.parseDouble(getValueInString(pListEventParameter, TRANSLATION_Z)) : 1,
+                                            (pListEventParameter.has(TRANSLATION_Z)) ? Double.parseDouble(getValueInString(pListEventParameter, TRANSLATION_Z)) : 0,
                                             (pListEventParameter.has(MOVEMENT_DURATION)) ? Double.parseDouble(getValueInString(pListEventParameter, MOVEMENT_DURATION)) : 0.0,
                                             (pListEventParameter.has(SCALE_X)) ? Double.parseDouble(getValueInString(pListEventParameter, SCALE_X)) : 0.0,
                                             (pListEventParameter.has(SCALE_Y)) ? Double.parseDouble(getValueInString(pListEventParameter, SCALE_Y)) : 0.0);

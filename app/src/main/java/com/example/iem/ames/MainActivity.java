@@ -80,7 +80,6 @@ Log.d("MainActivity","OnCreate");
         setContentView(R.layout.activity_main);
         rl = findViewById(R.id.layout);
         amesManager = AMESApplication.application().getAMESManager();
-        AMESGame currentGame = AMESApplication.application().getAMESManager().getCurrentGame();
         amesManager.setContextView(this.getApplicationContext());
         amesManager.createManager(new Screen(this.rl, height, width), this);
 
@@ -142,9 +141,9 @@ Log.d("MainActivity","OnCreate");
         AMESParser parser = AMESApplication.application().getAMESManager().getParser();
 
         parser.CreateSequenceFromFile(R.raw.firstsequence);
-        parser.CreateSequenceFromFile(R.raw.secondsequence);
-        parser.CreateSequenceFromFile(R.raw.thirdsequence);
-        parser.CreateSequenceFromFile(R.raw.fourthsequence);
+//        parser.CreateSequenceFromFile(R.raw.secondsequence);
+//        parser.CreateSequenceFromFile(R.raw.thirdsequence);
+//        parser.CreateSequenceFromFile(R.raw.fourthsequence);
 //        parser.CreateSequenceFromFile(R.raw.testsequence);
 
     }

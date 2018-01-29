@@ -329,7 +329,7 @@ Tapez pour continuer.</string>
 			<key>Scale X button 1</key>
 			<real>0.25</real>
 			<key>Scale Y button 1</key>
-			<real>0.25</real>
+			<real>0.5</real>
 			<key>Next event index for button 1</key>
 			<integer>14</integer>
 			<key>X position for button 1</key>
@@ -352,7 +352,7 @@ Tapez pour continuer.</string>
 			<key>Scale X</key>
 			<real>0.25</real>
 			<key>Scale Y</key>
-			<real>0.25</real>
+			<real>0.5</real>
 			<key>Position X</key>
 			<real>0.8</real>
 			<key>Position Y</key>
@@ -406,7 +406,7 @@ Tapez pour continuer.</string>
 			<key>Scale X</key>
 			<real>0.25</real>
 			<key>Scale Y</key>
-			<real>0.25</real>
+			<real>0.5</real>
 		</dict>
 		<key>Duration</key>
 		<integer>2</integer>

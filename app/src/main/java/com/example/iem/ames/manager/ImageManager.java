@@ -78,7 +78,7 @@ public class ImageManager {
         layoutParams.height = scaleY.intValue();
 
         // FOR DEBUG
-        //imageView.setBackgroundColor(Color.GREEN);
+//        imageView.setBackgroundColor(Color.GREEN);
         //
 
         // Finally Adding the imageView to RelativeLayout and its position
@@ -129,11 +129,9 @@ public class ImageManager {
         Double scaleY = this.screen.getHeight()*image.getScaleY();
         Double scaleX = this.screen.getWidth()*image.getScaleX();
 
-        Double x = (image.getX() != 0) ? this.screen.getWidth()*image.getX() - scaleX/2 : 0;
-        Double y = (image.getY() != 0) ? this.screen.getHeight()*image.getY() - scaleY/2 : 0;
+        final Double x = (image.getX() != 0) ? this.screen.getWidth()*image.getX() - scaleX/2 : 0;
+        final Double y = (image.getY() != 0) ? this.screen.getHeight()*image.getY() + scaleY- scaleY/2 : 0 +scaleY;
 
-        // Add height of the image because the display in the bottom left corner of the ImageView
-        y+=scaleY;
 
         layoutParams.leftMargin = x.intValue();
         layoutParams.topMargin = this.screen.getHeight() - y.intValue();
@@ -156,18 +154,19 @@ public class ImageManager {
         imageAnim.setImageDrawable(animation);
 
         // FOR DEBUG
-        //imageAnim.setBackgroundColor(Color.BLUE);
+//        imageAnim.setBackgroundColor(Color.BLUE);
         //
 
         imageAnim.post(new Runnable(){
             @Override
             public void run() {
-                Double translationx = image.getTranslationX()*screen.getWidth();
-                Double translationy = image.getTranslationY()*(-screen.getHeight());
-                Double translationz = image.getTranslationZ();
+
+                Double translationx = (image.getTranslationX() != 0) ? x + image.getTranslationX()*screen.getWidth() : x;
+                Double translationy = (image.getTranslationY() != 0) ? y + image.getTranslationY()*(y) : screen.getHeight() -y;
+                Double translationz = (image.getTranslationZ() != 0) ? image.getTranslationZ() : 1;
 
                 imageAnim.animate().x(translationx.floatValue()).y(translationy.floatValue()).scaleX(translationz.floatValue()).scaleY(translationz.floatValue());
-                imageAnim.animate().setDuration((long) image.getMovementDuration()*1);
+                imageAnim.animate().setDuration((long) (image.getMovementDuration()*1000));
                 animation.start();
             }
         });
