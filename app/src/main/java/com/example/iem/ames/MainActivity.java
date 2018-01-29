@@ -29,6 +29,7 @@ import com.example.iem.ames.model.event.EventButton;
 import com.example.iem.ames.model.element.Text;
 import com.example.iem.ames.model.event.EventCamera;
 import com.example.iem.ames.model.event.EventCheckLight;
+import com.example.iem.ames.model.event.EventDavidGoodEnough;
 import com.example.iem.ames.model.event.EventImage;
 import com.example.iem.ames.model.event.EventSound;
 import com.example.iem.ames.model.event.EventStop;
@@ -83,11 +84,9 @@ Log.d("MainActivity","OnCreate");
         amesManager.setContextView(this.getApplicationContext());
         amesManager.createManager(new Screen(this.rl, height, width), this);
 
+        test();
 
-
-//       test();
-
-        loadSequenceFile();
+        //loadSequenceFile();
         if(isEligibleforAMES()) {
             AMESApplication.application().getAMESManager().getCurrentGame().run();
         }
@@ -141,7 +140,7 @@ Log.d("MainActivity","OnCreate");
         AMESParser parser = AMESApplication.application().getAMESManager().getParser();
 
        // parser.CreateSequenceFromFile(R.raw.firstsequence);
-        parser.CreateSequenceFromFile(R.raw.secondsequence);
+       // parser.CreateSequenceFromFile(R.raw.secondsequence);
 //        parser.CreateSequenceFromFile(R.raw.thirdsequence);
 //        parser.CreateSequenceFromFile(R.raw.fourthsequence);
 //        parser.CreateSequenceFromFile(R.raw.testsequence);
@@ -179,12 +178,26 @@ Log.d("MainActivity","OnCreate");
         EventStop eventStop2 = new EventStop("test text", "animated text", 5);
         EventStop eventStop3 = new EventStop("test", "animation", 5);
         ImageAnimation img = new ImageAnimation("bed", 10,10, true,5, 15, 2, 1, 0.5, 0.1, 2, 0.25, 0.25);
-        Image imgCamera = new Image("scanRetine.png", 0.5, 0.5, false, 0.25, 0.25);
+        Image imgCamera = new Image("davidgoodenough.png", 0.5, 0.5, false, 0.25, 0.25);
         Image imgCamera2 = new Image("no.png", 0.2, 0.2, false, 0.3, 0.3);
         EventStop eventStop4 = new EventStop("camera", "camera", 3);
         EventImage eventImage = new EventImage("test", "test", 5, img);
         EventImage eventImage2 = new EventImage("test2", "test", 5, imgCamera2);
         EventCamera eventCamera = new EventCamera("camera", "camera", 6,false, imgCamera);
+        Image img3 = new Image("imageboot.png", 0.5, 0.5, false, 0.25, 0.25);
+        EventImage eventImage3 = new EventImage("test", "image", 5, img3);
+
+        EventSound eventSoundDavid = new EventSound("davidgoodenough", "test david", 0.1, "davidgoodenough_sound.mp3", false);
+        ImageAnimation imgDavid = new ImageAnimation("davidgoodenough.png", 0.55,0.6, false, 1, 1, 1, 0.0, 0.0, 1.4, 3, 0.4, 0.4);
+        EventDavidGoodEnough eventImageDavid = new EventDavidGoodEnough("test", "image", 0.1, imgDavid);
+        ImageAnimation imgPP = new ImageAnimation("paypal.png", 0.2,0.2, false, 1, 1, 1, 0.0, 0.0, 1.4, 3, 0.2, 0.2);
+        EventDavidGoodEnough eventImagePP = new EventDavidGoodEnough("test", "image", 3, imgPP);
+        ImageAnimation imgTP = new ImageAnimation("tipeee.png", 0.9,0.2, false, 1, 1, 1, 0.0, 0.0, 1.4, 3, 0.2, 0.2);
+        EventDavidGoodEnough eventimageTP = new EventDavidGoodEnough("test", "image", 0.1, imgTP);
+        Text textDavid = new Text("Cette fonctionnalité sera disponible dans un prochain DLC...", 10.0, 10.0, 500, 500, false, 1.25);
+        EventText eventTextDavid = new EventText("text david", "text david", 5, textDavid);
+        EventStop eventStopDavid = new EventStop("david", "david", 10);
+
         AMESSequence amesSequence = new AMESSequence();
         //amesSequence.addEvent(eventButton);
         //amesSequence.addEvent(eventButton2);
@@ -193,36 +206,34 @@ Log.d("MainActivity","OnCreate");
         //amesSequence.addEvent(eventButton);
         //amesSequence.addEvent(eventStop);
         //amesSequence.addEvent(eventText2);
-//        amesSequence.addEvent(eventImage2);
+        //amesSequence.addEvent(eventImage2);
         //amesSequence.addEvent(eventStop2);
-//        amesSequence.addEvent(eventStop3);
-
+        //amesSequence.addEvent(eventStop3);
         //amesSequence.addEvent(eventText3);
         //amesSequence.addEvent(eventStop4);
+        //amesSequence.addEvent(eventImage3);
 
-        Image img3 = new Image("imageboot.png", 0.5, 0.5, false, 0.25, 0.25);
-        EventImage eventImage3 = new EventImage("test", "image", 5, img3);
-
-        amesSequence.addEvent(eventImage3);
-
-amesSequence.addEvent(eventCamera);
-amesSequence.addEvent(eventImage2);
-        amesSequence.addEvent(eventButton);
+        amesSequence.addEvent(eventSoundDavid);
+        amesSequence.addEvent(eventImageDavid);
+        amesSequence.addEvent(eventTextDavid);
+        amesSequence.addEvent(eventImagePP);
+        amesSequence.addEvent(eventimageTP);
+        amesSequence.addEvent(eventStopDavid);
         currentGame.addSequence(amesSequence);
 
         currentGame.run();
 
-//            Image testimg = new Image("davidgoodenough.png", 0.5, 0.5, false, 1);
-//            Image testimgGIF = new Image("oeil", 0.1, 0.1, true, 8);
-//            EventImage test2 = new EventImage("imagetest","image", 0.5, testimg );
-//            EventImage test3 = new EventImage("imagetest2", "animation", 0.5, testimgGIF);
-//            EventSound test = new EventSound("test", "son", 0.1, "davidgoodenough_sound.mp3", true);
-//            Text text = new Text("", 150.0, 150.0, 500, 500, true, 0.25);
-//            EventText eventText = new EventText("test text", "", 15.0, text);
-//            test.run();
-//            //test2.run();
-//            test3.run();
-//            //eventText.run();
+        //Image testimg = new Image("davidgoodenough.png", 0.5, 0.5, false, 1);
+        //Image testimgGIF = new Image("oeil", 0.1, 0.1, true, 8);
+        //EventImage test2 = new EventImage("imagetest","image", 0.5, testimg );
+        //EventImage test3 = new EventImage("imagetest2", "animation", 0.5, testimgGIF);
+        //EventSound test = new EventSound("test", "son", 0.1, "davidgoodenough_sound.mp3", true);
+        //Text text = new Text("", 150.0, 150.0, 500, 500, true, 0.25);
+        //EventText eventText = new EventText("test text", "", 15.0, text);
+        //test.run();
+        //test2.run();
+        //test3.run();
+        //eventText.run();
     }
 
     @Override

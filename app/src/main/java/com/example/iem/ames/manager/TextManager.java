@@ -105,6 +105,19 @@ public class TextManager {
         animateText(text.getDisplayedText());
     }
 
+    public void displayTextCustom(Text text){
+        TextView infoDLC = new TextView(context);
+        infoDLC.setText(text.getDisplayedText());
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(screen.getWidth(),screen.getHeight());
+        layoutParams.leftMargin = (int) (screen.getWidth() * text.getX());
+        layoutParams.rightMargin = 50;
+        layoutParams.topMargin = (int) (screen.getHeight()-screen.getHeight() * text.getY());
+        layoutParams.width = (int) (screen.getWidth()-screen.getHeight() * text.getWidth());
+        layoutParams.height = (int) (screen.getHeight()-screen.getHeight() * text.getHeight());
+
+        screen.getRelativeLayout().addView(infoDLC, layoutParams);
+    }
+
     private void setPosition(Text text){
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(screen.getWidth(),screen.getHeight());
         layoutParams.leftMargin = (int) text.getX()+50;
