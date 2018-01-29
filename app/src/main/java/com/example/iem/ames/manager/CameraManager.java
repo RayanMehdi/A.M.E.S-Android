@@ -108,16 +108,10 @@ public class CameraManager implements SurfaceHolder.Callback {
 
     public void destroy(){
 
-
         AMESApplication.application().getAMESManager().getImageManager().destroyImageView(eventCamera.getName(), "image");
         ViewGroup vg = (ViewGroup)(screen.getRelativeLayout());
         vg.removeView(this.surfaceView);
-//        vg.removeView(screen.getRelativeLayout());
-//        screen.getRelativeLayout().setBackgroundColor(AMESApplication.application().getAMESManager().getContextView().getResources().getColor(R.color.black));
-
         activity.setContentView(screen.getRelativeLayout());
-
-
     }
 
     public void zoom()
@@ -171,10 +165,14 @@ public class CameraManager implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-        mCamera.stopPreview();
-        mCamera.release();
-        mCamera=null;
-        this.screen.getRelativeLayout().bringToFront();
+        try {
+            mCamera.stopPreview();
+            mCamera.release();
+            mCamera = null;
+            this.screen.getRelativeLayout().bringToFront();
+        }catch (Exception e){
+
+        }
     }
 }
 

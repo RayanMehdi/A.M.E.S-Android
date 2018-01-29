@@ -118,7 +118,7 @@ public class ImageManager {
 
         // SET SIZE AND POSITION
         // TODO verify aspect ratio :/ because this will deform
-        if(image.getScaleX() == 1 && image.getScaleY() == 1)
+        if(image.getScaleX() == 1 || image.getScaleY() == 1)
             imageAnim.setScaleType(ImageView.ScaleType.FIT_XY);
         else
             imageAnim.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
@@ -148,7 +148,7 @@ public class ImageManager {
 
 
         for(int i = 0; i < image.getNumberOfFile(); i++){
-            animation.addFrame(this.context.getResources().getDrawable(context.getResources().getIdentifier(image.getFilename() + "_" + i, "drawable", this.context.getPackageName())), image.getDuration()* 1000/image.getNumberOfFile());
+            animation.addFrame(this.context.getResources().getDrawable(context.getResources().getIdentifier(image.getFilename() + "_" + i, "drawable", this.context.getPackageName())), (int)(image.getDuration()* 1000/image.getNumberOfFile()));
         }
 
         imageAnim.setImageDrawable(animation);
@@ -189,7 +189,7 @@ public class ImageManager {
             }.start();
         }
 
-        new CountDownTimer(image.getDuration() * image.getNumberOfRepeat() * 1000, 1000) {
+        new CountDownTimer((int)(image.getDuration() * image.getNumberOfRepeat() * 1000), 1000) {
 
             public void onTick(long millisUntilFinished) {
             }
@@ -209,7 +209,6 @@ public class ImageManager {
 
     public void destroyImageView(String name, String type){
         if(type.equals("animation")) {
-            arrayImage.get(name).clearAnimation();
             screen.getRelativeLayout().removeView(arrayImage.get(name));
             arrayImage.remove(name);
         }else if(type.equals("image")) {

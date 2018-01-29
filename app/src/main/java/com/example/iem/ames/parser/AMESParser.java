@@ -152,7 +152,7 @@ public class AMESParser {
                                             Double.parseDouble(getValueInString(pListEventParameter, ANIMATION_POSITION_X)),
                                             Double.parseDouble(getValueInString(pListEventParameter, ANIMATION_POSITION_Y)),
                                             true,
-                                            Integer.parseInt(getValueInString(pListEventParameter, ANIMATION_DURATION)),
+                                            Double.parseDouble(getValueInString(pListEventParameter, ANIMATION_DURATION)),
                                             Integer.parseInt(getValueInString(pListEventParameter, NUMBER_OF_FILE)),
                                             Integer.parseInt(getValueInString(pListEventParameter, REPEAT_NUMBER)),
                                             (pListEventParameter.has(TRANSLATION_X)) ? Double.parseDouble(getValueInString(pListEventParameter, TRANSLATION_X)) : 0.0,
@@ -235,7 +235,7 @@ public class AMESParser {
                         break;
                     case "son":
                         if(pListEventParameter.has(STOP)){
-
+                            event = new EventStop(amesEventName,amesEventType,amesEventDelay);
                         }
                         else{
                             if(pListEventParameter.has(INFINITE)){
