@@ -84,7 +84,9 @@ public class AMESParser {
             SCALE_X = "Scale X",
             SCALE_Y = "Scale Y",
             SCALE_X_FOR_BUTTON = "Scale X button ",
-            SCALE_Y_FOR_BUTTON = "Scale Y button ";
+            SCALE_Y_FOR_BUTTON = "Scale Y button ",
+            OVERLAY_LAYER_NAME = "Overlay layer name";
+
 
 
     public void CreateSequenceFromFile(int idFile){
@@ -171,7 +173,7 @@ public class AMESParser {
                             event = new EventStop(amesEventName, amesEventType, amesEventDelay);
                         }
                         else{
-                        Image img = new Image(pListEventParameter.getString(IMAGE_FILE),
+                        Image img = new Image(getValueInString(pListEventParameter, IMAGE_FILE),
                                 Double.parseDouble(getValueInString(pListEventParameter, X_POSITION)),
                                 Double.parseDouble(getValueInString(pListEventParameter, Y_POSITION)),
                                 false,
@@ -213,7 +215,12 @@ public class AMESParser {
                     case "camera":
                         if(pListEventParameter.getBool(ON_OR_OFF)){
                             boolean rear_or_front = pListEventParameter.getBool(REAR_OR_FRONT);
-                            String filename = pListEventParameter.getString(OVERLAY_IMAGE_FILE);
+                            String filename = "";
+                            if(pListEventParameter.has(OVERLAY_IMAGE_FILE)) {
+                                filename = pListEventParameter.getString(OVERLAY_IMAGE_FILE);
+                            }else if(pListEventParameter.has(OVERLAY_LAYER_NAME)){
+                                filename = pListEventParameter.getString(OVERLAY_LAYER_NAME);
+                            }
                             Image image = new Image(filename, 0.5 , 0.5, false,1,1);
                             event = new EventCamera(amesEventName, amesEventType, amesEventDelay, rear_or_front, image);
                         }else{
@@ -275,17 +282,17 @@ public class AMESParser {
         }catch (Exception e){
         }
         try{
+            val = String.valueOf(pListDict.getReal(key));
+            return val;
+        }catch (Exception e){
+        }
+        try{
             val = String.valueOf(pListDict.getBool(key));
             return val;
         }catch (Exception e){
         }
         try{
             val = String.valueOf(pListDict.getInt(key));
-            return val;
-        }catch (Exception e){
-        }
-        try{
-            val = String.valueOf(pListDict.getReal(key));
             return val;
         }catch (Exception e){
         }

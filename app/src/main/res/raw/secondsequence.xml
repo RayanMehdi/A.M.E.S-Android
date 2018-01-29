@@ -31,9 +31,9 @@
 			<key>Position Y</key>
 			<real>0.5</real>
 			<key>Scale X</key>
-			<rea>1</rea>
+			<real>1</real>
 			<key>Scale Y</key>
-			<rea>1</rea>
+			<real>1</real>
 		</dict>
 		<key>Duration</key>
 		<real>0.1</real>
@@ -58,9 +58,9 @@
 			<key>X position for button 1</key>
 			<real>0.7</real>
 			<key>Scale X button 1</key>
-			<rea>0.3</rea>
+			<real>0.3</real>
 			<key>Scale Y button 1</key>
-			<rea>0.3</rea>
+			<real>0.3</real>
 			<key>X position for button 2</key>
 			<real>0.3</real>
 			<key>Y position for button 1</key>
@@ -68,9 +68,9 @@
 			<key>Y position for button 2</key>
 			<real>0.2</real>
 			<key>Scale X button 2</key>
-			<rea>0.3</rea>
+			<real>0.3</real>
 			<key>Scale Y button 2</key>
-			<rea>0.3</rea>
+			<real>0.3</real>
 		</dict>
 		<key>Duration</key>
 		<integer>0</integer>
@@ -268,9 +268,9 @@
 			<key>Translation Y</key>
 			<integer>0</integer>
 			<key>Scale X</key>
-			<rea>1</rea>
+			<real>1</real>
 			<key>Scale Y</key>
-			<rea>0.2</rea>
+			<real>0.2</real>
 		</dict>
 		<key>Duration</key>
 		<integer>1</integer>

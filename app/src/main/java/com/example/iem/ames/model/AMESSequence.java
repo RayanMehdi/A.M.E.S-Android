@@ -1,12 +1,10 @@
 package com.example.iem.ames.model;
 
-import android.os.CountDownTimer;
 import android.util.Log;
 
 import com.example.iem.ames.AMESApplication;
 import com.example.iem.ames.model.event.AMESEvent;
 import com.example.iem.ames.model.event.EventBackgroundSound;
-import com.example.iem.ames.model.event.EventButton;
 
 import java.util.ArrayList;
 
@@ -87,7 +85,7 @@ public class AMESSequence {
             Log.d("SEQ", String.valueOf(this.currentIndex));
             events.get(currentIndex).run();
         }
-        else AMESApplication.application().getAMESManager().getCurrentGame().preparNextSequence();
+        else AMESApplication.application().getAMESManager().getCurrentGame().prepareNextSequence();
 
     }
 }

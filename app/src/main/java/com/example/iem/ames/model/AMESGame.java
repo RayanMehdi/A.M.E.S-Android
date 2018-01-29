@@ -48,15 +48,17 @@ public class AMESGame {
         this.currentSequenceIndex = currentSequenceIndex;
     }
 
-    public void preparNextSequence(){
+    public void prepareNextSequence(){
         Screen screen = AMESApplication.application().getAMESManager().getScreen();
         screen.getRelativeLayout().removeAllViews();
-        screen.getRelativeLayout().setBackgroundColor(AMESApplication.application().getAMESManager().getContextView().getResources().getColor(R.color.black));
+        this.currentSequenceIndex++;
+        this.run();
     }
     public void run(){
         if (currentSequenceIndex < this.sequences.size())
         {
             sequences.get(currentSequenceIndex).run();
         }
+        // TODO QUIT
     }
 }
