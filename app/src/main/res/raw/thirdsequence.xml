@@ -239,6 +239,10 @@
 			<integer>0</integer>
 			<key>Translation Z</key>
 			<integer>0</integer>
+			<key>Scale X</key>
+			<real>0.3</real>
+			<key>Scale X</key>
+			<real>0.3</real>
 			<key>Ghost sound</key>
 			<string>Ames_apparition_03.mp3</string>
 		</dict>

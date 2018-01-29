@@ -39,6 +39,10 @@
 			<real>0.05</real>
 			<key>Update rate</key>
 			<real>1</real>
+			<key>Scale X</key>
+			<real>0.4</real>
+			<key>Scale Y</key>
+			<real>0.4</real>
 		</dict>
 		<key>Duration</key>
 		<integer>0</integer>
@@ -74,6 +78,10 @@
 			<real>0.05</real>
 			<key>Update rate</key>
 			<real>1</real>
+			<key>Scale X</key>
+			<rea>0.5</rea>
+			<key>Scale Y</key>
+			<rea>0.5</rea>
 		</dict>
 		<key>Duration</key>
 		<integer>0</integer>
@@ -109,6 +117,10 @@
 			<real>0.05</real>
 			<key>Update rate</key>
 			<real>1</real>
+			<key>Scale X</key>
+			<real>0.6</real>
+			<key>Scale Y</key>
+			<real>0.6</real>
 		</dict>
 		<key>Duration</key>
 		<integer>0</integer>
@@ -144,6 +156,10 @@
 			<real>0.05</real>
 			<key>Update rate</key>
 			<real>1</real>
+			<key>Scale X</key>
+			<real>0.4</real>
+			<key>Scale Y</key>
+			<real>0.4</real>
 		</dict>
 		<key>Duration</key>
 		<integer>0</integer>
@@ -179,6 +195,10 @@
 			<real>0.05</real>
 			<key>Update rate</key>
 			<real>1</real>
+			<key>Scale X</key>
+			<real>0.6</real>
+			<key>Scale Y</key>
+			<real>0.6</real>
 		</dict>
 		<key>Duration</key>
 		<integer>0</integer>
@@ -569,6 +589,10 @@
 			<real>0.05</real>
 			<key>Update rate</key>
 			<real>1</real>
+			<key>Scale X</key>
+			<real>0.8</real>
+			<key>Scale Y</key>
+			<real>0.8</real>
 		</dict>
 		<key>Duration</key>
 		<integer>0</integer>
@@ -742,6 +766,10 @@
 			<real>0.5</real>
 			<key>Position Y</key>
 			<real>0.5</real>
+			<key>Scale X</key>
+			<real>0.8</real>
+			<key>Scale Y</key>
+			<real>0.2</real>
 		</dict>
 		<key>Duration</key>
 		<integer>1</integer>
@@ -772,6 +800,10 @@
 			<real>0.5</real>
 			<key>Position Y</key>
 			<real>0.5</real>
+			<key>Scale X</key>
+			<real>1</real>
+			<key>Scale Y</key>
+			<real>1</real>
 		</dict>
 		<key>Duration</key>
 		<integer>0</integer>
