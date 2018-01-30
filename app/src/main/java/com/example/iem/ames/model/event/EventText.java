@@ -17,7 +17,14 @@ public class EventText extends AMESEvent{
 
     @Override
     public void run() {
-        AMESApplication.application().getAMESManager().getTextManager().displayText(text);
+        if(this.getName().equals("hour display")){
+            AMESApplication.application().getAMESManager().getTextManager().displayHour(text);
+        }else if(this.getName().equals("text david")){
+            AMESApplication.application().getAMESManager().getTextManager().displayTextCustom(text);
+        }
+        else{
+            AMESApplication.application().getAMESManager().getTextManager().displayText(text);
+        }
     }
 
 
@@ -27,7 +34,5 @@ public class EventText extends AMESEvent{
         final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
         AMESApplication.application().getAMESManager().getTextManager().stop(currentSequenceIndex, currentEventIndex);*/
         try{AMESApplication.application().getAMESManager().getTextManager().destroy();}catch (Exception e){}
-
-
     }
 }

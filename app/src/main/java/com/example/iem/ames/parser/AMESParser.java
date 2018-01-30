@@ -17,6 +17,7 @@ import com.example.iem.ames.model.event.EventCamera;
 import com.example.iem.ames.model.event.EventCheckHeadphones;
 import com.example.iem.ames.model.event.EventCheckLight;
 import com.example.iem.ames.model.event.EventImage;
+import com.example.iem.ames.model.event.EventMicro;
 import com.example.iem.ames.model.event.EventSound;
 import com.example.iem.ames.model.event.EventStop;
 import com.example.iem.ames.model.event.EventText;
@@ -152,7 +153,7 @@ public class AMESParser {
                                             Double.parseDouble(getValueInString(pListEventParameter, ANIMATION_POSITION_X)),
                                             Double.parseDouble(getValueInString(pListEventParameter, ANIMATION_POSITION_Y)),
                                             true,
-                                            Integer.parseInt(getValueInString(pListEventParameter, ANIMATION_DURATION)),
+                                            Double.parseDouble(getValueInString(pListEventParameter, ANIMATION_DURATION)),
                                             Integer.parseInt(getValueInString(pListEventParameter, NUMBER_OF_FILE)),
                                             Integer.parseInt(getValueInString(pListEventParameter, REPEAT_NUMBER)),
                                             (pListEventParameter.has(TRANSLATION_X)) ? Double.parseDouble(getValueInString(pListEventParameter, TRANSLATION_X)) : 0.0,
@@ -183,6 +184,15 @@ public class AMESParser {
                         }
                         break;
                     case "battery level":
+                        /*
+                        Image img = new Image("battery_middle.png",
+                                0.9,
+                                0.9,
+                                false,
+                                0.1,
+                                0.1);
+                        event = new EventImage(amesEventName, amesEventType, amesEventDelay, img);
+                        */
                         break;
                     case "button":
                         if(pListEventParameter.has(OFF)){
@@ -232,10 +242,11 @@ public class AMESParser {
                     case "flash":
                         break;
                     case "micro":
+                        event = new EventMicro(amesEventName, amesEventType, amesEventDelay);
                         break;
                     case "son":
                         if(pListEventParameter.has(STOP)){
-
+                            event = new EventStop(amesEventName,amesEventType,amesEventDelay);
                         }
                         else{
                             if(pListEventParameter.has(INFINITE)){
@@ -250,7 +261,16 @@ public class AMESParser {
                     case "text":
                         if(pListEventParameter.has(DISPLAY_OFF)){
 
-                        }else{}
+                        }else{
+                            Text text = new Text((pListEventParameter.has(DISPLAYED_TEXT)) ? getValueInString(pListEventParameter,DISPLAYED_TEXT) : "",
+                                    Double.parseDouble(getValueInString(pListEventParameter, X_LOCATION)),
+                                    Double.parseDouble(getValueInString(pListEventParameter, Y_LOCATION)),
+                                    Double.parseDouble(getValueInString(pListEventParameter, WIDTH)),
+                                    Double.parseDouble(getValueInString(pListEventParameter, HEIGHT)),
+                                    false,
+                                    0);
+                            event = new EventText(amesEventName,amesEventType,amesEventDelay, text);
+                        }
                         break;
                     case  "check headphones":
                         event = new EventCheckHeadphones(amesEventName, amesEventType, amesEventDelay);

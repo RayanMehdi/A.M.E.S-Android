@@ -10,12 +10,12 @@ import com.example.iem.ames.AMESApplication;
 
 public class ImageAnimation extends Image{
 
-    private int duration;
+    private double duration;
     private int numberOfFile;
     private int numberOfRepeat;
     private double translationX,translationY, translationZ, movementDuration;
 
-    public ImageAnimation(String filename, double x, double y, boolean isGIF, int duration, int numberOfFile, int numberOfRepeat, double translationX, double translationY, double translationZ, double movementDuration, double scaleX, double scaleY) {
+    public ImageAnimation(String filename, double x, double y, boolean isGIF, double duration, int numberOfFile, int numberOfRepeat, double translationX, double translationY, double translationZ, double movementDuration, double scaleX, double scaleY) {
         super(filename, x, y, isGIF, scaleX, scaleY);
         this.duration = duration;
         this.numberOfFile = numberOfFile;
@@ -32,7 +32,7 @@ public class ImageAnimation extends Image{
         return context.getResources().getIdentifier(filename, "drawable", context.getPackageName());
     }
 
-    public int getDuration() {
+    public double getDuration() {
         return duration;
     }
 

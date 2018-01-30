@@ -7,6 +7,8 @@ import android.os.CountDownTimer;
 import com.example.iem.ames.AMESApplication;
 import com.example.iem.ames.R;
 
+import java.util.HashMap;
+
 /**
  * Created by iem on 18/01/2018.
  */
@@ -15,17 +17,22 @@ public class SoundManager {
 
     private Context context;
     private MediaPlayer mediaPlayer;
-
+    private HashMap<Integer, MediaPlayer> arrayMediaPlayer;
     public SoundManager(Context context) {
         this.context = context;
+        this.arrayMediaPlayer = new HashMap<>();
     }
 
     public void playSound(int soundID, boolean isInfinite){
-        mediaPlayer = MediaPlayer.create(context, soundID);
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer = mediaPlayer.create(context, soundID);
         mediaPlayer.setLooping(isInfinite);
         mediaPlayer.start();
-       final int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
-       final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
+
+        arrayMediaPlayer.put(soundID, mediaPlayer);
+
+        final int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
+        final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
 
         new CountDownTimer(AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getDelayInMillisecond(), 1000) {
 
@@ -42,9 +49,11 @@ public class SoundManager {
 
     }
 
-    public void stopSounds(double delay){
-        this.mediaPlayer.stop();
+    public void stopSounds(int soundID,double delay){
+        this.arrayMediaPlayer.get(soundID).stop();
+        this.arrayMediaPlayer.get(soundID).release();
 
+        arrayMediaPlayer.remove(arrayMediaPlayer.get(soundID));
 
         int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
         int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
