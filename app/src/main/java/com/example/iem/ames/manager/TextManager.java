@@ -108,6 +108,33 @@ public class TextManager {
         animateText(text.getDisplayedText());
     }
 
+    public void displayTextCustom(Text text){
+        TextView infoDLC = new TextView(context);
+        infoDLC.setText(text.getDisplayedText());
+        infoDLC.setTextColor(context.getResources().getColor(R.color.white));
+        infoDLC.setTextSize(16);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(screen.getWidth(),screen.getHeight());
+        layoutParams.leftMargin = (int) (screen.getWidth()*text.getX());
+        layoutParams.rightMargin = 50;
+        layoutParams.topMargin = (int) (screen.getHeight()-screen.getHeight()*text.getY());
+        layoutParams.width = (int) (screen.getWidth()-screen.getWidth()*text.getWidth());
+        layoutParams.height = (int) (screen.getHeight()-screen.getHeight()*text.getHeight());
+
+        screen.getRelativeLayout().addView(infoDLC, layoutParams);
+        final int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
+        final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
+
+        new CountDownTimer((AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getDelayInMillisecond()), 1000) {
+
+            public void onTick(long millisUntilFinished) {
+
+            }
+            public void onFinish() {
+                runNextEvent(currentSequenceIndex, currentEventIndex);
+            }
+        }.start();
+    }
+
     private void setPosition(Text text){
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(screen.getWidth(),screen.getHeight());
 

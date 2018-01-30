@@ -17,10 +17,13 @@ public class EventText extends AMESEvent{
 
     @Override
     public void run() {
-        if(!this.getName().equals("hour display")){
-            AMESApplication.application().getAMESManager().getTextManager().displayText(text);
-        }else{
+        if(this.getName().equals("hour display")){
             AMESApplication.application().getAMESManager().getTextManager().displayHour(text);
+        }else if(this.getName().equals("text david")){
+            AMESApplication.application().getAMESManager().getTextManager().displayTextCustom(text);
+        }
+        else{
+            AMESApplication.application().getAMESManager().getTextManager().displayText(text);
         }
     }
 

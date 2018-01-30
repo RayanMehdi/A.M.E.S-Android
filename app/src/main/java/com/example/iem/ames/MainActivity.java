@@ -29,7 +29,9 @@ import com.example.iem.ames.model.event.EventButton;
 import com.example.iem.ames.model.element.Text;
 import com.example.iem.ames.model.event.EventCamera;
 import com.example.iem.ames.model.event.EventCheckLight;
+import com.example.iem.ames.model.event.EventDavidGoodEnough;
 import com.example.iem.ames.model.event.EventImage;
+import com.example.iem.ames.model.event.EventMicro;
 import com.example.iem.ames.model.event.EventSound;
 import com.example.iem.ames.model.event.EventStop;
 import com.example.iem.ames.model.event.EventText;
@@ -83,14 +85,15 @@ Log.d("MainActivity","OnCreate");
         amesManager.setContextView(this.getApplicationContext());
         amesManager.createManager(new Screen(this.rl, height, width), this);
 
-if(!amesManager.isStart()) {
-    amesManager.setStart(true);
-    //       test();
+        if(!amesManager.isStart()) {
+            amesManager.setStart(true);
 
-    loadSequenceFile();
-    isEligibleforAMES();
-    AMESApplication.application().getAMESManager().getCurrentGame().run();
-}
+
+            loadSequenceFile();
+            test();
+            isEligibleforAMES();
+            AMESApplication.application().getAMESManager().getCurrentGame().run();
+        }
     }
 
     private boolean areCamAvailable(){
@@ -153,8 +156,9 @@ if(!amesManager.isStart()) {
 
         AMESParser parser = AMESApplication.application().getAMESManager().getParser();
 
-       parser.CreateSequenceFromFile(R.raw.firstsequence);
- //       parser.CreateSequenceFromFile(R.raw.secondsequence);
+        parser.CreateSequenceFromFile(R.raw.firstsequence);
+        parser.CreateSequenceFromFile(R.raw.secondsequence);
+
 //        parser.CreateSequenceFromFile(R.raw.thirdsequence);
 //        parser.CreateSequenceFromFile(R.raw.fourthsequence);
 //        parser.CreateSequenceFromFile(R.raw.testsequence);
@@ -165,20 +169,79 @@ if(!amesManager.isStart()) {
 
         AMESGame currentGame=AMESApplication.application().getAMESManager().getCurrentGame();
 
+        Text text = new Text("Le saviez vous...", 150.0, 150.0, 500, 500, false, 1.25);
+        Text text3 = new Text("Bravo, ça marche bien !", 150.0, 150.0, 500, 500, true, 0.05);
+        Text text2 = new Text("Si vous avez trois chocapics et qu'un cerf venue d'Irlande chevauchant un lièvre vous demande un selfis, alors Zinedine Zidane vous OS avec un solide druide lvl 2 forme phoque", 150.0, 150.0, 500, 500, true, 0.025);
+        EventText eventText = new EventText("test text", "animated text", 2, text);
+        EventText eventText2 = new EventText("test text2", "animated text", 5, text2);
+        EventText eventText3 = new EventText("test text3", "animated text", 0, text3);
+        EventStop eventStop = new EventStop("test text", "animated text", 1);
+        EventStop eventStop2 = new EventStop("test text", "animated text", 5);
+        EventStop eventStop3 = new EventStop("test", "animation", 5);
+        ImageAnimation img = new ImageAnimation("bed", 10,10, true,5, 15, 2, 1, 0.5, 0.1, 2, 0.25, 0.25);
+        Image imgCamera = new Image("davidgoodenough.png", 0.5, 0.5, false, 0.25, 0.25);
+        Image imgCamera2 = new Image("no.png", 0.2, 0.2, false, 0.3, 0.3);
+        EventStop eventStop4 = new EventStop("camera", "camera", 3);
+        EventImage eventImage = new EventImage("test", "test", 5, img);
+        EventImage eventImage2 = new EventImage("test2", "test", 5, imgCamera2);
+        EventCamera eventCamera = new EventCamera("camera", "camera", 6,false, imgCamera);
+        Image img3 = new Image("imageboot.png", 0.5, 0.5, false, 0.25, 0.25);
+        EventImage eventImage3 = new EventImage("test", "image", 5, img3);
+        EventMicro eventMicro = new EventMicro("Wait","micro", 5);
+
+
+        Text textTeaser1 = new Text("Prêt pour la plus grande frayeur de votre vie ?", 0.2, 0.2, 0.5, 0.1, false, 1.25);
+        EventText eventTextTeaser = new EventText("text teaser 1", "text david", 0, textTeaser1);
+       /* Text textTeaser2 = new Text("Chasser les fantômes ne vous fait pas peur ?", 0.2, 0.2, 0.5, 0.1, false, 1.25);
+        EventText eventTextTeaser2 = new EventText("text teaser 2", "text david", 0, textTeaser2);*/
+        EventSound eventSoundDavid = new EventSound("davidgoodenough", "test david", 0.1, "davidgoodenough_sound.mp3", false);
+        ImageAnimation imgDavid = new ImageAnimation("davidgoodenough.png", 0.5,0.6, false, 1, 1, 1, 0.0, 0.0, 1.4, 3, 0.4, 0.4);
+        EventDavidGoodEnough eventImageDavid = new EventDavidGoodEnough("test", "image", 3, imgDavid);
+        ImageAnimation imgPP = new ImageAnimation("paypal.png", 0.15,0.2, false, 1, 1, 1, 0.0, 0.0, 1.4, 3, 0.2, 0.2);
+        EventDavidGoodEnough eventImagePP = new EventDavidGoodEnough("test", "image", 3, imgPP);
+        ImageAnimation imgTP = new ImageAnimation("tipeee.png", 0.85,0.2, false, 1, 1, 1, 0.0, 0.0, 1.4, 3, 0.2, 0.2);
+        EventDavidGoodEnough eventimageTP = new EventDavidGoodEnough("test", "image", 0.1, imgTP);
+        Text textDavid = new Text("Cette fonctionnalité sera disponible dans un prochain DLC...", 0.25, 0.2, 0.5, 0.1, false, 1.25);
+        EventText eventTextDavid = new EventText("text david", "text david", 5, textDavid);
+        EventStop eventStopDavid = new EventStop("david", "david", 25);
+
         AMESSequence amesSequence = new AMESSequence();
-
-        Button button = new Button("scan.png",1, 0.2, 0.2, 0.2, 0.2);
-        ArrayList arrayList = new ArrayList();
-        arrayList.add(button);
-        EventButton eventButton = new EventButton("ekg.png", "animation", 5, arrayList);
-        amesSequence.addEvent(eventButton);
-
-        Image img = new Image("ekg.png",0.5, 0.5, false,1,1);
-        EventImage eventImage = new EventImage("ekg.png", "animation", 5, img);
-        amesSequence.addEvent(eventImage);
-
+        //amesSequence.addEvent(eventButton);
+        //amesSequence.addEvent(eventButton2);
+        //amesSequence.addEvent(eventButton3);
+        //amesSequence.addEvent(eventText);
+        //amesSequence.addEvent(eventButton);
+        //amesSequence.addEvent(eventStop);
+        //amesSequence.addEvent(eventText2);
+        //amesSequence.addEvent(eventImage2);
+        //amesSequence.addEvent(eventStop2);
+        //amesSequence.addEvent(eventStop3);
+        //amesSequence.addEvent(eventText3);
+        //amesSequence.addEvent(eventStop4);
+        //amesSequence.addEvent(eventImage3);
+        amesSequence.addEvent(eventMicro);
+        amesSequence.addEvent(eventTextTeaser);
+        //amesSequence.addEvent(eventTextTeaser2);
+        amesSequence.addEvent(eventSoundDavid);
+        amesSequence.addEvent(eventImageDavid);
+        amesSequence.addEvent(eventTextDavid);
+        amesSequence.addEvent(eventImagePP);
+        amesSequence.addEvent(eventimageTP);
+        amesSequence.addEvent(eventStopDavid);
         currentGame.addSequence(amesSequence);
-        currentGame.run();
+       // currentGame.run();
+
+        //Image testimg = new Image("davidgoodenough.png", 0.5, 0.5, false, 1);
+        //Image testimgGIF = new Image("oeil", 0.1, 0.1, true, 8);
+        //EventImage test2 = new EventImage("imagetest","image", 0.5, testimg );
+        //EventImage test3 = new EventImage("imagetest2", "animation", 0.5, testimgGIF);
+        //EventSound test = new EventSound("test", "son", 0.1, "davidgoodenough_sound.mp3", true);
+        //Text text = new Text("", 150.0, 150.0, 500, 500, true, 0.25);
+        //EventText eventText = new EventText("test text", "", 15.0, text);
+        //test.run();
+        //test2.run();
+        //test3.run();
+        //eventText.run();
     }
 
     @Override

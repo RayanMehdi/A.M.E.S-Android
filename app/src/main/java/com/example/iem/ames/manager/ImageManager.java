@@ -18,6 +18,7 @@ import com.example.iem.ames.model.element.Image;
 import com.example.iem.ames.model.element.ImageAnimation;
 import com.example.iem.ames.model.element.Screen;
 import com.example.iem.ames.model.event.EventCamera;
+import com.example.iem.ames.model.event.EventDavidGoodEnough;
 import com.example.iem.ames.model.event.EventImage;
 
 import java.io.InputStream;
@@ -100,10 +101,19 @@ public class ImageManager {
                 }
             }.start();
         }
-//        else{
+        else {
 //            // TODO VERIFY THIS BECAUSE COULD BE NOT WORKING : if other image than "Image fin" for credits has delay = 0 (it will not working)
-//            android.os.Process.killProcess(android.os.Process.myPid());
-//        }
+
+            new CountDownTimer(10, 1000) {
+
+                public void onTick(long millisUntilFinished) {
+                }
+
+                public void onFinish() {
+                    System.exit(0);
+                }
+            }.start();
+        }
     }
 
     public void displayAnimation(final ImageAnimation image){
@@ -223,6 +233,88 @@ public class ImageManager {
             arrayImage.remove(name);
         }
 
+    }
+
+    public void displayFadeInImageAnimation(final ImageAnimation image){
+        final int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
+        final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
+        final ImageView imageAnim = new ImageView(this.context);
+        final AnimationDrawable animation = new AnimationDrawable();
+
+        arrayImage.put(AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getName(),imageAnim);
+
+
+
+        // SET SIZE AND POSITION
+        // TODO verify aspect ratio :/ because this will deform
+        if(image.getScaleX() == 1 && image.getScaleY() == 1)
+            imageAnim.setScaleType(ImageView.ScaleType.FIT_XY);
+        else
+            imageAnim.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        // Setting layout params to our RelativeLayout
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(this.screen.getWidth(), this.screen.getHeight());
+
+        // Setting position of our ImageView
+        Double scaleY = this.screen.getHeight()*image.getScaleY();
+        Double scaleX = this.screen.getWidth()*image.getScaleX();
+        final Double x = (image.getX() != 0) ? this.screen.getWidth()*image.getX() - scaleX/2 : 0;
+        final Double y = (image.getY() != 0) ? this.screen.getHeight()*image.getY() + scaleY- scaleY/2 : 0 +scaleY;
+
+
+        layoutParams.leftMargin = x.intValue();
+        layoutParams.topMargin = this.screen.getHeight() - y.intValue();
+        layoutParams.width = scaleX.intValue();
+        layoutParams.height = scaleY.intValue();
+
+        // END SCALE AND POSITION
+
+
+        this.screen.getRelativeLayout().addView(imageAnim, layoutParams);
+
+        animation.addFrame(this.context.getResources().getDrawable(context.getResources().getIdentifier(image.getFilename(), "drawable", this.context.getPackageName())), (int) image.getDuration()* 1000/image.getNumberOfFile());
+        animation.setOneShot(true);
+
+        imageAnim.setAlpha(0.f);
+        imageAnim.setImageDrawable(animation);
+
+        imageAnim.post(new Runnable(){
+            @Override
+            public void run() {
+
+                Double translationz = (image.getTranslationZ() != 0) ? image.getTranslationZ() : 1;
+
+                imageAnim.animate().scaleX(translationz.floatValue()).scaleY(translationz.floatValue()).alpha(1.f);
+                imageAnim.animate().setDuration((long) (image.getMovementDuration()*1000));
+                animation.start();
+            }
+        });
+
+        long delay = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getDelayInMillisecond();
+        EventDavidGoodEnough temp = (EventDavidGoodEnough) AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex);
+
+        temp.setImageView(imageAnim);
+        if(delay>0.0){
+            new CountDownTimer(delay, 1000) {
+
+                public void onTick(long millisUntilFinished) {
+                }
+
+                public void onFinish() {
+                    runNextEvent(currentSequenceIndex, currentEventIndex);
+                }
+            }.start();
+        }
+
+        new CountDownTimer((int) image.getDuration() * image.getNumberOfRepeat() * 1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+            }
+
+            public void onFinish() {
+                animation.stop();
+
+            }
+        }.start();
     }
 
 }
