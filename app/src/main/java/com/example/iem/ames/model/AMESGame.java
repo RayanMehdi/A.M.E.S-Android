@@ -56,6 +56,8 @@ public class AMESGame {
         if (currentSequenceIndex < this.sequences.size())
         {
             sequences.get(currentSequenceIndex).run();
+        }else{
+            System.exit(0);
         }
         // TODO QUIT
     }

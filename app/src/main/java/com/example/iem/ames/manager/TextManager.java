@@ -110,13 +110,25 @@ public class TextManager {
 
     private void setPosition(Text text){
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(screen.getWidth(),screen.getHeight());
-        layoutParams.leftMargin = (int) text.getX()+50;
-        layoutParams.rightMargin = 50;
-        layoutParams.topMargin = (int) text.getY();
+
+
+        // Setting position of our ImageView
+        Double scaleY = this.screen.getHeight()*text.getHeight();
+        Double scaleX = this.screen.getWidth()*text.getWidth();
+
+        Double x = (text.getX() <= 0 ) ? 0 : this.screen.getWidth()*text.getX() ;
+        Double y = (text.getY() != 0) ? this.screen.getHeight()*text.getY() : 0;
+
+        // Add height of the image because the display in the bottom left corner of the ImageView
+        y+=scaleY;
+
+        layoutParams.leftMargin = x.intValue() + 50;
+        layoutParams.topMargin = this.screen.getHeight()/2 - y.intValue()/2;
+        layoutParams.width = scaleX.intValue();
+        layoutParams.height = scaleY.intValue();
         centerTextVertical();
 
         screen.getRelativeLayout().addView(textView, layoutParams);
-//        screen.getRelativeLayout().bringChildToFront(textView);
     }
 
     public void centerTextVertical
@@ -177,7 +189,7 @@ public class TextManager {
     public void displayHour(Text text){
         TextView hour = new TextView(context);
         hour.setTextColor(context.getResources().getColor(R.color.white));
-        hour.setTextSize(12);
+        hour.setTextSize(14);
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyy HH:mm");
         String formattedDate = df.format(c.getTime());
@@ -185,7 +197,7 @@ public class TextManager {
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(screen.getWidth(),screen.getHeight());
         layoutParams.leftMargin = (int) (screen.getWidth()*text.getX());
-        layoutParams.rightMargin = 50;
+        layoutParams.rightMargin = 250;
         layoutParams.topMargin = (int) (screen.getHeight()-screen.getHeight()*text.getY());
         layoutParams.width = (int) (screen.getWidth()-screen.getWidth()*text.getWidth());
         layoutParams.height = (int) (screen.getHeight()-screen.getHeight()*text.getHeight());

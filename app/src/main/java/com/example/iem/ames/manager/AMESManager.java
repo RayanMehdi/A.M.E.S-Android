@@ -27,6 +27,7 @@ public class AMESManager {
     private StopManager stopManager;
     private CameraManager cameraManager;
     private MicroManager microManager;
+    private FlashManager flashManager;
     private boolean start;
     public AMESManager(AMESGame currentGame) {
         this.currentGame = currentGame;
@@ -77,7 +78,7 @@ public class AMESManager {
         this.checkLightManager = new CheckLightManager(this.contextView);
         this.cameraManager = new CameraManager(activity, this.screen);
         this.microManager = new MicroManager();
-
+        this.flashManager = new FlashManager();
         this.stopManager = new StopManager();
     }
 
@@ -115,6 +116,10 @@ public class AMESManager {
 
     public MicroManager getMicroManager() {
         return microManager;
+    }
+
+    public FlashManager getFlashManager() {
+        return flashManager;
     }
 
     public boolean isStart() {

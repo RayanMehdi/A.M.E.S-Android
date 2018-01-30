@@ -46,6 +46,10 @@ public class CameraManager implements SurfaceHolder.Callback {
 
     }
 
+    public Camera getmCamera() {
+        return mCamera;
+    }
+
     public void displayCamera(EventCamera eventCamera, double delay) {
         this.eventCamera = eventCamera;
         surfaceView = new SurfaceView(activity);
@@ -70,7 +74,6 @@ public class CameraManager implements SurfaceHolder.Callback {
         final int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
         final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
         final int nextEvent = currentEventIndex+1;
-        Log.d("ZAMASEUM", ""+delay);
             // wait the delay of the current event
             new CountDownTimer((long)delay, 1000) {
 

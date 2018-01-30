@@ -523,9 +523,9 @@ Tapez quand vous êtes prêt.</string>
 			<key>Position Y</key>
 			<real>0.6</real>
 			<key>Scale X</key>
-			<real>0.35</real>
+			<real>0.4</real>
 			<key>Scale Y</key>
-			<real>0.35</real>
+			<real>0.45</real>
 		</dict>
 		<key>Duration</key>
 		<integer>3</integer>

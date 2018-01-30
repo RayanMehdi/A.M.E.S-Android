@@ -153,8 +153,8 @@ if(!amesManager.isStart()) {
 
         AMESParser parser = AMESApplication.application().getAMESManager().getParser();
 
-     //   parser.CreateSequenceFromFile(R.raw.firstsequence);
-        parser.CreateSequenceFromFile(R.raw.secondsequence);
+       parser.CreateSequenceFromFile(R.raw.firstsequence);
+ //       parser.CreateSequenceFromFile(R.raw.secondsequence);
 //        parser.CreateSequenceFromFile(R.raw.thirdsequence);
 //        parser.CreateSequenceFromFile(R.raw.fourthsequence);
 //        parser.CreateSequenceFromFile(R.raw.testsequence);

@@ -24,29 +24,31 @@ public class SoundManager {
     }
 
     public void playSound(int soundID, boolean isInfinite){
-        mediaPlayer = new MediaPlayer();
-        mediaPlayer = mediaPlayer.create(context, soundID);
-        mediaPlayer.setLooping(isInfinite);
-        mediaPlayer.start();
+        if(!arrayMediaPlayer.containsKey(soundID)) {
+            mediaPlayer = mediaPlayer.create(context, soundID);
+            mediaPlayer.setLooping(isInfinite);
+            mediaPlayer.start();
 
-        arrayMediaPlayer.put(soundID, mediaPlayer);
+            arrayMediaPlayer.put(soundID, mediaPlayer);
 
-        final int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
-        final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
+            final int currentSequenceIndex = AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
+            final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
 
-        new CountDownTimer(AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getDelayInMillisecond(), 1000) {
 
-            public void onTick(long millisUntilFinished) {
+            new CountDownTimer(AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getDelayInMillisecond(), 1000) {
 
-            }
-            public void onFinish() {
-                int nextEvent = currentEventIndex+1;
-                AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).setCurrentIndex(nextEvent);
-                AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).run();
+                public void onTick(long millisUntilFinished) {
 
-            }
-        }.start();
+                }
 
+                public void onFinish() {
+                    int nextEvent = currentEventIndex + 1;
+                    AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).setCurrentIndex(nextEvent);
+                    AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).run();
+
+                }
+            }.start();
+        }
     }
 
     public void stopSounds(int soundID,double delay){

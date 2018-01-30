@@ -115,25 +115,24 @@ public class ImageManager {
         arrayImage.put(AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getName(),imageAnim);
 
 
-
         // SET SIZE AND POSITION
         // TODO verify aspect ratio :/ because this will deform
-        if(image.getScaleX() == 1 || image.getScaleY() == 1)
+        if(image.getScaleX() >= 1.0 || image.getScaleY() >= 1.0)
             imageAnim.setScaleType(ImageView.ScaleType.FIT_XY);
         else
             imageAnim.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         // Setting layout params to our RelativeLayout
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(this.screen.getWidth(), this.screen.getHeight());
 
+
         // Setting position of our ImageView
-        Double scaleY =(image.getScaleY() > 1) ? this.screen.getHeight()*image.getScaleY() : this.screen.getHeight();
-        Double scaleX =(image.getScaleX() > 1) ? this.screen.getWidth()*image.getScaleX() : this.screen.getWidth();
+        Double scaleY =(image.getScaleY() < 1) ? this.screen.getHeight()*image.getScaleY() : this.screen.getHeight();
+        Double scaleX =(image.getScaleX() < 1) ? this.screen.getWidth()*image.getScaleX() : this.screen.getWidth();
 
-        final Double x = (image.getX() != 0) ? this.screen.getWidth()*image.getX() - scaleX/2 : 0;
-        final Double y = (image.getY() != 0) ? this.screen.getHeight()*image.getY() + scaleY- scaleY/2 : 0 +scaleY;
+        final Double x = (image.getX() != 0 || (this.screen.getWidth() * image.getX() - scaleX / 2 > 0)) ? this.screen.getWidth() * image.getX() - scaleX / 2 : 0;
+        final Double y = (image.getY() != 0) ? this.screen.getHeight() * image.getY() + scaleY - scaleY / 2 : 0 + scaleY;
 
-
-        layoutParams.leftMargin = x.intValue();
+        layoutParams.leftMargin =(image.getFilename().equals("scan_piece"))? 0 : x.intValue();
         layoutParams.topMargin = this.screen.getHeight() - y.intValue();
         layoutParams.width = scaleX.intValue();
         layoutParams.height = scaleY.intValue();
@@ -154,10 +153,12 @@ public class ImageManager {
         imageAnim.setImageDrawable(animation);
 
         // FOR DEBUG
-        if(image.getFilename().equals("ekg"))
-            imageAnim.setBackgroundColor(Color.BLUE);
-        if(image.getFilename().equals("faisceau"))
-            imageAnim.setBackgroundColor(Color.CYAN);
+//        if(image.getFilename().equals("ekg"))
+//            imageAnim.setBackgroundColor(Color.BLUE);
+//        if(image.getFilename().equals("faisceau"))
+//            imageAnim.setBackgroundColor(Color.CYAN);
+        //if(image.getFilename().equals("scan_piece"))
+          //  imageAnim.setBackgroundColor(Color.YELLOW);
         //
 
         imageAnim.post(new Runnable(){
@@ -211,11 +212,13 @@ public class ImageManager {
     }
 
     public void destroyImageView(String name, String type){
-        if(type.equals("animation")) {
-            //arrayImage.get(name).clearAnimation();
+        if(type.equals("animation") && arrayImage.containsKey(name)) {
+            arrayImage.get(name).clearAnimation();
+            arrayImage.get(name).setImageResource(0);
             screen.getRelativeLayout().removeView(arrayImage.get(name));
             arrayImage.remove(name);
-        }else if(type.equals("image")) {
+        }else if(type.equals("image") && arrayImage.containsKey(name)) {
+            arrayImage.get(name).setImageResource(0);
             screen.getRelativeLayout().removeView(arrayImage.get(name));
             arrayImage.remove(name);
         }

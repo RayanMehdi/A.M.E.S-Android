@@ -392,7 +392,7 @@
 			<key>Scale X</key>
 			<integer>2</integer>
 			<key>Scale Y</key>
-			<real>0.1</real>
+			<real>0.2</real>
 			<key>Width fit</key>
 			<true/>
 		</dict>

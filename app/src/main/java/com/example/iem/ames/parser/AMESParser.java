@@ -16,6 +16,7 @@ import com.example.iem.ames.model.event.EventButton;
 import com.example.iem.ames.model.event.EventCamera;
 import com.example.iem.ames.model.event.EventCheckHeadphones;
 import com.example.iem.ames.model.event.EventCheckLight;
+import com.example.iem.ames.model.event.EventFlash;
 import com.example.iem.ames.model.event.EventImage;
 import com.example.iem.ames.model.event.EventMicro;
 import com.example.iem.ames.model.event.EventSound;
@@ -158,7 +159,7 @@ public class AMESParser {
                                             Integer.parseInt(getValueInString(pListEventParameter, REPEAT_NUMBER)),
                                             (pListEventParameter.has(TRANSLATION_X)) ? Double.parseDouble(getValueInString(pListEventParameter, TRANSLATION_X)) : 0.0,
                                             (pListEventParameter.has(TRANSLATION_Y)) ? Double.parseDouble(getValueInString(pListEventParameter, TRANSLATION_Y)) : 0.0,
-                                            (pListEventParameter.has(TRANSLATION_Z)) ? Double.parseDouble(getValueInString(pListEventParameter, TRANSLATION_Z)) : 0,
+                                            (pListEventParameter.has(TRANSLATION_Z)) ? Double.parseDouble(getValueInString(pListEventParameter, TRANSLATION_Z)) : 0.0,
                                             (pListEventParameter.has(MOVEMENT_DURATION)) ? Double.parseDouble(getValueInString(pListEventParameter, MOVEMENT_DURATION)) : 0.0,
                                             (pListEventParameter.has(SCALE_X)) ? Double.parseDouble(getValueInString(pListEventParameter, SCALE_X)) : 0.0,
                                             (pListEventParameter.has(SCALE_Y)) ? Double.parseDouble(getValueInString(pListEventParameter, SCALE_Y)) : 0.0);
@@ -184,15 +185,13 @@ public class AMESParser {
                         }
                         break;
                     case "battery level":
-                        /*
                         Image img = new Image("battery_middle.png",
                                 0.9,
                                 0.9,
                                 false,
                                 0.1,
                                 0.1);
-                        event = new EventImage(amesEventName, amesEventType, amesEventDelay, img);
-                        */
+                        event = new EventImage(amesEventName, "image", amesEventDelay, img);
                         break;
                     case "button":
                         if(pListEventParameter.has(OFF)){
@@ -218,9 +217,6 @@ public class AMESParser {
                                 event = new EventButton(amesEventName, amesEventType, amesEventDelay);
                             }
                         }
-
-
-                        //event = new AMESEvent(amesEventName, amesEventType, amesEventDelay);
                         break;
                     case "camera":
                         if(pListEventParameter.getBool(ON_OR_OFF)){
@@ -240,6 +236,13 @@ public class AMESParser {
                     case "ghost":
                         break;
                     case "flash":
+                        if(pListEventParameter.has(ON_OR_OFF)) {
+                            if(pListEventParameter.getBool(ON_OR_OFF)) {
+                                event = new EventFlash(amesEventName, amesEventType, amesEventDelay);
+                            }else{
+                                event = new EventStop(amesEventName,amesEventType,amesEventDelay);
+                            }
+                        }
                         break;
                     case "micro":
                         event = new EventMicro(amesEventName, amesEventType, amesEventDelay);
