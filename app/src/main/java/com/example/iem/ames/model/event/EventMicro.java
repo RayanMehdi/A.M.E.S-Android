@@ -15,7 +15,7 @@ public class EventMicro extends AMESEvent{
 
     @Override
     public void run() {
-        AMESApplication.application().getAMESManager().getMicroManager().zouloutageDeMicro();
+        AMESApplication.application().getAMESManager().getMicroManager().runFakeMicro();
     }
 
     @Override

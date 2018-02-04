@@ -12,7 +12,7 @@ public class MicroManager {
 
 
 
-    public void zouloutageDeMicro(){
+    public void runFakeMicro(){
         final int currentSequenceIndex= AMESApplication.application().getAMESManager().getCurrentGame().getCurrentSequenceIndex();
         final int currentEventIndex = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getCurrentIndex();
         long delay = AMESApplication.application().getAMESManager().getCurrentGame().getSequence(currentSequenceIndex).getEvents().get(currentEventIndex).getDelayInMillisecond();
