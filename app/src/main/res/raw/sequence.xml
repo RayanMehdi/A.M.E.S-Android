@@ -1,0 +1,717 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>Name</key>
+		<string>startButton</string>
+		<key>Type</key>
+		<string>button</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Number of buttons</key>
+			<integer>1</integer>
+			<key>Image filename for button 1</key>
+			<string>start.png</string>
+			<key>Next event index for button 1</key>
+			<integer>1</integer>
+			<key>X position for button 1</key>
+			<real>0.75</real>
+			<key>Y position for button 1</key>
+			<real>0.25</real>
+		</dict>
+		<key>Duration</key>
+		<integer>0</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Son intro</string>
+		<key>Type</key>
+		<string>son</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Sound file</key>
+			<string>Ames_musique_intro.mp3</string>
+		</dict>
+		<key>Duration</key>
+		<real>0.1</real>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Image boot</string>
+		<key>Type</key>
+		<string>image</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Image file</key>
+			<string>imageBoot.png</string>
+			<key>Position X</key>
+			<real>0.5</real>
+			<key>Position Y</key>
+			<real>0.5</real>
+		</dict>
+		<key>Duration</key>
+		<integer>2</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Animation fond</string>
+		<key>Type</key>
+		<string>animation</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Number of images</key>
+			<integer>47</integer>
+			<key>Filename for images</key>
+			<string>fond</string>
+			<key>Animation location X</key>
+			<real>0.5</real>
+			<key>Animation location Y</key>
+			<real>0.5</real>
+			<key>Number of repeats</key>
+			<integer>0</integer>
+			<key>Animation duration</key>
+			<integer>16</integer>
+			<key>Scale X</key>
+			<integer>1</integer>
+			<key>Scale Y</key>
+			<integer>1</integer>
+		</dict>
+		<key>Duration</key>
+		<integer>5</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Intro text 1</string>
+		<key>Type</key>
+		<string>animated text</string>
+		<key>Parameters</key>
+		<dict>
+			<key>x location</key>
+			<integer>0</integer>
+			<key>y location</key>
+			<integer>0</integer>
+			<key>height</key>
+			<real>0.4</real>
+			<key>width</key>
+			<real>0.9</real>
+			<key>displayed text</key>
+			<string>Bonjour chers utilisateurs de l’A M E S (Amplificateur Mediumnique Extrasensoriel) Version deux point zéro. Vous avez été sélectionné par l’Agence  pour notre programme de recherche sur le potentiel médiumnique de la population.
+
+Tapez pour continuer.</string>
+			<key>text speed</key>
+			<real>0.025</real>
+		</dict>
+		<key>Duration</key>
+		<integer>0</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Intro text 2</string>
+		<key>Type</key>
+		<string>animated text</string>
+		<key>Parameters</key>
+		<dict>
+			<key>x location</key>
+			<integer>0</integer>
+			<key>y location</key>
+			<integer>0</integer>
+			<key>height</key>
+			<real>0.4</real>
+			<key>width</key>
+			<real>0.9</real>
+			<key>displayed text</key>
+			<string>Le programme A M E S que vous venez d’installer transforme votre téléphone en véritable antenne à auras. Si votre sensibilité médiumnique est assez élevée, l’Agence vous recontactera pour de plus amples informations et de nouvelles consignes.
+
+Tapez pour continuer.</string>
+			<key>text speed</key>
+			<real>0.025</real>
+		</dict>
+		<key>Duration</key>
+		<integer>0</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Intro text 3</string>
+		<key>Type</key>
+		<string>animated text</string>
+		<key>Parameters</key>
+		<dict>
+			<key>x location</key>
+			<integer>0</integer>
+			<key>y location</key>
+			<integer>0</integer>
+			<key>height</key>
+			<real>0.4</real>
+			<key>width</key>
+			<real>0.9</real>
+			<key>displayed text</key>
+			<string>Nous allons maintenant procéder à quelques étapes préparatoires pour le test. Veuillez répondre aux questions suivantes. Confirmez vous que vous êtes bien à votre domicile ?</string>
+			<key>text speed</key>
+			<real>0.025</real>
+		</dict>
+		<key>Duration</key>
+		<integer>5</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>OuiNon</string>
+		<key>Type</key>
+		<string>button</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Number of buttons</key>
+			<integer>2</integer>
+			<key>Image filename for button 1</key>
+			<string>yes.png</string>
+			<key>Image filename for button 2</key>
+			<string>no.png</string>
+			<key>Next event index for button 1</key>
+			<integer>10</integer>
+			<key>Next event index for button 2</key>
+			<integer>8</integer>
+			<key>X position for button 1</key>
+			<real>0.25</real>
+			<key>Y position for button 1</key>
+			<real>0.2</real>
+			<key>X position for button 2</key>
+			<real>0.75</real>
+			<key>Y position for button 2</key>
+			<real>0.2</real>
+		</dict>
+		<key>Duration</key>
+		<integer>0</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Intro text delete</string>
+		<key>Type</key>
+		<string>animated text</string>
+		<key>Parameters</key>
+		<dict>
+			<key>display Off</key>
+			<true/>
+		</dict>
+		<key>Duration</key>
+		<integer>1</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Image fin</string>
+		<key>Type</key>
+		<string>image</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Image file</key>
+			<string>gameOver.png</string>
+			<key>Position X</key>
+			<real>0.5</real>
+			<key>Position Y</key>
+			<real>0.5</real>
+		</dict>
+		<key>Duration</key>
+		<integer>0</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Intro text 4</string>
+		<key>Type</key>
+		<string>animated text</string>
+		<key>Parameters</key>
+		<dict>
+			<key>x location</key>
+			<integer>0</integer>
+			<key>y location</key>
+			<integer>0</integer>
+			<key>height</key>
+			<real>0.4</real>
+			<key>width</key>
+			<real>0.9</real>
+			<key>displayed text</key>
+			<string>Merci. Le test que vous allez subir ne doit pas être interrompu. Pouvez vous également confirmer que vous avez une dizaine de minutes devant vous ?</string>
+			<key>text speed</key>
+			<real>0.025</real>
+		</dict>
+		<key>Duration</key>
+		<integer>5</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>10 minutes ?</string>
+		<key>Type</key>
+		<string>button</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Number of buttons</key>
+			<integer>2</integer>
+			<key>Image filename for button 1</key>
+			<string>yes.png</string>
+			<key>Image filename for button 2</key>
+			<string>no.png</string>
+			<key>Next event index for button 1</key>
+			<integer>12</integer>
+			<key>Next event index for button 2</key>
+			<integer>8</integer>
+			<key>X position for button 1</key>
+			<real>0.25</real>
+			<key>Y position for button 1</key>
+			<real>0.2</real>
+			<key>X position for button 2</key>
+			<real>0.75</real>
+			<key>Y position for button 2</key>
+			<real>0.2</real>
+		</dict>
+		<key>Duration</key>
+		<integer>0</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Intro text 5</string>
+		<key>Type</key>
+		<string>animated text</string>
+		<key>Parameters</key>
+		<dict>
+			<key>x location</key>
+			<real>-0.1</real>
+			<key>y location</key>
+			<integer>0</integer>
+			<key>height</key>
+			<real>0.4</real>
+			<key>width</key>
+			<real>0.7</real>
+			<key>displayed text</key>
+			<string>Merci. Si vous acceptez de participer à ce test et acceptez les conditions précédemment définies, veuillez appliquer votre pouce sur le lecteur qui apparait à l’écran. Votre empreinte digitale fera office de signature.</string>
+			<key>text speed</key>
+			<real>0.025</real>
+		</dict>
+		<key>Duration</key>
+		<integer>7</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Scan_button</string>
+		<key>Type</key>
+		<string>button</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Number of buttons</key>
+			<integer>1</integer>
+			<key>Image filename for button 1</key>
+			<string>scanButton.png</string>
+			<key>Next event index for button 1</key>
+			<integer>14</integer>
+			<key>X position for button 1</key>
+			<real>0.8</real>
+			<key>Y position for button 1</key>
+			<real>0.4</real>
+		</dict>
+		<key>Duration</key>
+		<integer>0</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Image fingerprint</string>
+		<key>Type</key>
+		<string>image</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Image file</key>
+			<string>fingerPrint.png</string>
+			<key>Position X</key>
+			<real>0.8</real>
+			<key>Position Y</key>
+			<real>0.4</real>
+		</dict>
+		<key>Duration</key>
+		<real>0.1</real>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>son scan</string>
+		<key>Type</key>
+		<string>son</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Sound file</key>
+			<string>Ames_scan_empreinte.mp3</string>
+		</dict>
+		<key>Duration</key>
+		<real>0.1</real>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Scan animation</string>
+		<key>Type</key>
+		<string>animation</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Number of images</key>
+			<integer>1</integer>
+			<key>Filename for images</key>
+			<string>scanEmpreinte</string>
+			<key>Animation location X</key>
+			<real>0.8</real>
+			<key>Animation location Y</key>
+			<real>0.8</real>
+			<key>Number of repeats</key>
+			<integer>1</integer>
+			<key>Movement ?</key>
+			<true/>
+			<key>Movement duration</key>
+			<real>1.5</real>
+			<key>Animation duration</key>
+			<integer>1</integer>
+			<key>Translation X</key>
+			<integer>0</integer>
+			<key>Translation Y</key>
+			<real>-0.5</real>
+			<key>Translation Z</key>
+			<integer>0</integer>
+		</dict>
+		<key>Duration</key>
+		<integer>2</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Scan animation</string>
+		<key>Type</key>
+		<string>animation</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Off</key>
+			<true/>
+		</dict>
+		<key>Duration</key>
+		<integer>2</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Scan_button</string>
+		<key>Type</key>
+		<string>button</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Off</key>
+			<true/>
+		</dict>
+		<key>Duration</key>
+		<real>0.2</real>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Image fingerprint</string>
+		<key>Type</key>
+		<string>image</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Off</key>
+			<true/>
+		</dict>
+		<key>Duration</key>
+		<real>0.1</real>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Intro text 6</string>
+		<key>Type</key>
+		<string>animated text</string>
+		<key>Parameters</key>
+		<dict>
+			<key>x location</key>
+			<integer>0</integer>
+			<key>y location</key>
+			<integer>0</integer>
+			<key>height</key>
+			<real>0.4</real>
+			<key>width</key>
+			<real>0.9</real>
+			<key>displayed text</key>
+			<string>Merci. A présent, nous allons procéder à une synchronisation rétinienne. Merci de cadrer votre oeil et d’appuyer sur le bouton SYNC.
+
+Tapez quand vous êtes prêt.</string>
+			<key>text speed</key>
+			<real>0.025</real>
+		</dict>
+		<key>Duration</key>
+		<integer>0</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Intro text delete</string>
+		<key>Type</key>
+		<string>animated text</string>
+		<key>Parameters</key>
+		<dict>
+			<key>display Off</key>
+			<true/>
+		</dict>
+		<key>Duration</key>
+		<integer>1</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>camera on</string>
+		<key>Type</key>
+		<string>camera</string>
+		<key>Parameters</key>
+		<dict>
+			<key>On or off</key>
+			<true/>
+			<key>Rear or front</key>
+			<false/>
+			<key>Scale factor X</key>
+			<integer>4</integer>
+			<key>Scale factor Y</key>
+			<real>4</real>
+			<key>Overlay image file</key>
+			<string>scanRetine.png</string>
+		</dict>
+		<key>Duration</key>
+		<integer>1</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Image retina visor</string>
+		<key>Type</key>
+		<string>image</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Image file</key>
+			<string>interface_eyescan.png</string>
+			<key>Position X</key>
+			<real>0.5</real>
+			<key>Position Y</key>
+			<real>0.6</real>
+		</dict>
+		<key>Duration</key>
+		<integer>3</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Scan retine</string>
+		<key>Type</key>
+		<string>button</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Number of buttons</key>
+			<integer>1</integer>
+			<key>Image filename for button 1</key>
+			<string>sync.png</string>
+			<key>Next event index for button 1</key>
+			<integer>25</integer>
+			<key>X position for button 1</key>
+			<real>0.25</real>
+			<key>Y position for button 1</key>
+			<real>0.2</real>
+		</dict>
+		<key>Duration</key>
+		<integer>0</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>scan sound</string>
+		<key>Type</key>
+		<string>son</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Sound file</key>
+			<string>Ames_scan_retine.mp3</string>
+		</dict>
+		<key>Duration</key>
+		<real>0.1</real>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Animation scan retine</string>
+		<key>Type</key>
+		<string>animation</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Number of images</key>
+			<integer>1</integer>
+			<key>Movement ?</key>
+			<true/>
+			<key>Movement duration</key>
+			<integer>3</integer>
+			<key>Filename for images</key>
+			<string>scan_piece</string>
+			<key>Animation location X</key>
+			<real>0.1</real>
+			<key>Animation location Y</key>
+			<real>0.5</real>
+			<key>Number of repeats</key>
+			<integer>1</integer>
+			<key>Animation duration</key>
+			<integer>1</integer>
+			<key>Translation X</key>
+			<integer>2</integer>
+			<key>Translation Y</key>
+			<integer>0</integer>
+		</dict>
+		<key>Duration</key>
+		<integer>3</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Animation scan retine</string>
+		<key>Type</key>
+		<string>animation</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Off</key>
+			<true/>
+		</dict>
+		<key>Duration</key>
+		<integer>3</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Image retina visor</string>
+		<key>Type</key>
+		<string>image</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Off</key>
+			<true/>
+		</dict>
+		<key>Duration</key>
+		<integer>1</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>camera on</string>
+		<key>Type</key>
+		<string>camera</string>
+		<key>Parameters</key>
+		<dict>
+			<key>On or off</key>
+			<false/>
+		</dict>
+		<key>Duration</key>
+		<integer>2</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Intro text 6</string>
+		<key>Type</key>
+		<string>animated text</string>
+		<key>Parameters</key>
+		<dict>
+			<key>x location</key>
+			<integer>0</integer>
+			<key>y location</key>
+			<real>-0.1</real>
+			<key>height</key>
+			<real>0.45</real>
+			<key>width</key>
+			<real>0.9</real>
+			<key>displayed text</key>
+			<string>Merci. La caméra 2 de l’A M E S sera à présent en suivi de point permanent sur votre rétine afin de permettre à l’Agence de suivre votre état psychologique lors de l’expérience. L’A M E S va aussi retransmettre votre rythme cardiaque à l’Agence pour que nous puissions veiller sur votre sécurité et votre santé à tout instant.
+
+Tapez pour continuer.</string>
+			<key>text speed</key>
+			<real>0.025</real>
+		</dict>
+		<key>Duration</key>
+		<integer>0</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Intro text 7</string>
+		<key>Type</key>
+		<string>animated text</string>
+		<key>Parameters</key>
+		<dict>
+			<key>x location</key>
+			<integer>0</integer>
+			<key>y location</key>
+			<integer>0</integer>
+			<key>height</key>
+			<real>0.4</real>
+			<key>width</key>
+			<real>0.9</real>
+			<key>displayed text</key>
+			<string>Dernière précision, pour être totalement efficace, l&apos;A M E S doit être utilisé de nuit et toutes lumières éteintes. Veuillez s&apos;il vous plait éteindre la lumière ou faire le noir chez vous.</string>
+			<key>text speed</key>
+			<real>0.025</real>
+		</dict>
+		<key>Duration</key>
+		<integer>7</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Checking light</string>
+		<key>Type</key>
+		<string>check light</string>
+		<key>Parameters</key>
+		<dict>
+			<key>false parameter</key>
+			<true/>
+		</dict>
+		<key>Duration</key>
+		<integer>0</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Intro text 8</string>
+		<key>Type</key>
+		<string>animated text</string>
+		<key>Parameters</key>
+		<dict>
+			<key>x location</key>
+			<integer>0</integer>
+			<key>y location</key>
+			<integer>0</integer>
+			<key>height</key>
+			<real>0.4</real>
+			<key>width</key>
+			<real>0.9</real>
+			<key>displayed text</key>
+			<string>Merci. Nous allons maintenant vous mettre en relation avec une de nos opératrices pour vous assister dans le programme de test. Veuillez mettre à présent votre casque-micro.</string>
+			<key>text speed</key>
+			<real>0.025</real>
+		</dict>
+		<key>Duration</key>
+		<integer>5</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Waiting headphones</string>
+		<key>Type</key>
+		<string>check headphones</string>
+		<key>Parameters</key>
+		<dict>
+			<key>false parameter</key>
+			<true/>
+		</dict>
+		<key>Duration</key>
+		<integer>0</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Intro text delete</string>
+		<key>Type</key>
+		<string>animated text</string>
+		<key>Parameters</key>
+		<dict>
+			<key>display Off</key>
+			<true/>
+		</dict>
+		<key>Duration</key>
+		<integer>5</integer>
+	</dict>
+	<dict>
+		<key>Name</key>
+		<string>Animation fond</string>
+		<key>Type</key>
+		<string>animation</string>
+		<key>Parameters</key>
+		<dict>
+			<key>Off</key>
+			<true/>
+		</dict>
+		<key>Duration</key>
+		<real>0.1</real>
+	</dict>
+</array>
+</plist>
